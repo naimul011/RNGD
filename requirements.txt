@@ -1,0 +1,13 @@
+python-dotenv
+groq
+anthropic
+numpy
+pandas
+scipy
+matplotlib
+pillow
+scikit-image
+scikit-learn
+sentence-transformers
+streamlit
+pydantic

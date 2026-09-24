@@ -1,0 +1,22 @@
+{
+  "_note": "Sidecar georeference for site_sketch.png, analogous to a real-world .pgw/.wld file shipped with a scanned survey.",
+  "px_per_ft": 3.0,
+  "origin_px": [
+    100,
+    100
+  ],
+  "x_axis_ft_direction": "+x_ft = east = +x_px",
+  "y_axis_ft_direction": "+y_ft = south/depth = +y_px",
+  "easement_color_rgb": [
+    255,
+    191,
+    0
+  ],
+  "easement_color_tolerance": 25,
+  "lot_boundary_color_rgb": [
+    0,
+    0,
+    0
+  ],
+  "lot_boundary_color_tolerance": 60
+}

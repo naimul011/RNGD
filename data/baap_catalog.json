@@ -1,0 +1,37 @@
+{
+  "_note": "SAMPLE/SYNTHETIC BaaP catalog. Structured twin of data/knowledge_base/baap_catalog.md — the simulation engine and agents read exact numbers from here.",
+  "structural": {
+    "bay_ft": 30,
+    "floor_to_floor_ft_typical": 10.5,
+    "floor_to_floor_ft_ground": 14.0
+  },
+  "grossing_factor": 0.85,
+  "unit_modules": {
+    "STUDIO_A": {"type": "Studio", "width_ft": 26, "depth_ft": 32, "gsf": 550, "nsf": 480},
+    "ONEBR_A": {"type": "1-Bedroom", "width_ft": 30, "depth_ft": 34, "gsf": 725, "nsf": 640},
+    "TWOBR_A": {"type": "2-Bedroom", "width_ft": 34, "depth_ft": 36, "gsf": 1020, "nsf": 900},
+    "ACCESSIBLE_1BR": {"type": "1-Bedroom (ADA)", "width_ft": 32, "depth_ft": 34, "gsf": 760, "nsf": 665}
+  },
+  "building_modules": {
+    "CORE_STD": {"description": "Egress core: 2 stairs + elevator + trash chute", "width_ft": 34, "depth_ft": 24, "max_exit_travel_ft": 200, "max_dead_end_ft": 50},
+    "CORRIDOR_STD": {"description": "Double-loaded corridor segment", "clear_width_ft": 6},
+    "MEP_RISER": {"description": "MEP shaft", "width_ft": 6, "depth_ft": 6, "units_per_riser": 40},
+    "AMENITY_LOBBY": {"description": "Lobby + leasing", "gsf": 1200, "floor_restriction": "ground_only"},
+    "AMENITY_FIT": {"description": "Fitness / amenity room", "gsf": 900, "floor_restriction": "ground_preferred"},
+    "BOH_LOADING": {"description": "Loading / trash / mail", "gsf": 600, "floor_restriction": "ground_only"}
+  },
+  "parking_modules": {
+    "STALL_STD": {"width_ft": 9, "depth_ft": 18},
+    "STALL_COMPACT": {"width_ft": 8.5, "depth_ft": 16},
+    "STALL_ADA": {"width_ft": 11, "depth_ft": 18, "aisle_ft": 5},
+    "STALL_ADA_VAN": {"width_ft": 12, "depth_ft": 18, "aisle_ft": 8},
+    "DRIVE_AISLE": {"clear_width_ft": 24}
+  },
+  "stacking_rules": {
+    "core_alignment": "hard",
+    "mep_alignment": "hard",
+    "unit_stacking_offset_max_ft": 2,
+    "double_loaded_corridor_preferred": true,
+    "accessible_unit_min_pct_of_total": 0.02
+  }
+}

@@ -1,0 +1,21 @@
+# secrets
+.env
+.env.*
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# generated / large / third-party
+outputs/
+streamlit_log.txt
+Testt/extracted/
+Testt/*.zip
+Testt/tools/
+Testt/previews/
+Testt/report/*.aux
+Testt/report/*.log
+
+# client document (RNGD NDA) - keep local
+RNGDTeamPreparationQuestions.pdf

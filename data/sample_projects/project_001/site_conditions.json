@@ -1,0 +1,38 @@
+{
+  "_note": "SAMPLE/SYNTHETIC site conditions for the semester proof-of-concept (RNGD kickoff questions 14-22). Simplified rectangular lot.",
+  "project_id": "project_001",
+  "project_name": "Elm Street Multifamily",
+  "jurisdiction": "City of Rivermont",
+  "zoning_district": "R-4",
+  "lot": {
+    "shape": "rectangle",
+    "frontage_ft": 200,
+    "depth_ft": 300,
+    "frontage_street": "Elm Street",
+    "frontage_side": "north",
+    "area_sf": 60000
+  },
+  "easements": [
+    {
+      "name": "Utility easement",
+      "side": "east",
+      "width_ft": 20,
+      "runs_full_depth": true,
+      "buildable": false
+    }
+  ],
+  "adjacent_context": {
+    "north": "Elm Street (public right-of-way)",
+    "south": "Existing single-family residential",
+    "west": "Existing single-family residential",
+    "east": "Commercial, across utility easement"
+  },
+  "site_flags": {
+    "floodplain": false,
+    "topography": "flat, no significant grade",
+    "existing_structures": "none (vacant lot)"
+  },
+  "fire_access": {
+    "existing_hydrant_at_frontage": true
+  }
+}
