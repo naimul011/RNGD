@@ -11,3 +11,6 @@ scikit-learn
 sentence-transformers
 streamlit
 pydantic
+ifcopenshell
+plotly
+pytest

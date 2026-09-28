@@ -84,3 +84,14 @@ def call_text(model: str, system: str, user: str, temperature: float = 0.3) -> t
     )
     latency_ms = (time.perf_counter() - start) * 1000
     return resp.choices[0].message.content, round(latency_ms, 1)
+
+
+def call_chat(model: str, messages: list[dict[str, str]], temperature: float = 0.4) -> tuple[str, float]:
+    """Multi-turn variant of call_text: `messages` is a full system+history
+    list, used by the chat assistant (rngd/chat.py) to keep conversational
+    context across turns instead of one-shot system+user."""
+    client = _get_client()
+    start = time.perf_counter()
+    resp = client.chat.completions.create(model=model, messages=messages, temperature=temperature)
+    latency_ms = (time.perf_counter() - start) * 1000
+    return resp.choices[0].message.content, round(latency_ms, 1)

@@ -13,13 +13,15 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from design import SCENARIOS, ZONING, generate, module_counts
-from ifc_writer import read_meshes, write_ifc
-from viewer3d import COLORS, _key
+from rngd import config
+from rngd.ifc.design import SCENARIOS, ZONING, generate, module_counts
+from rngd.ifc.ifc_writer import read_meshes, write_ifc
+from rngd.ifc.viewer3d import COLORS, _key
 
-OUT = HERE / "report"
-OUT.mkdir(exist_ok=True)
-TECTONIC = HERE.parent / "tools" / "tectonic.exe"
+ROOT = HERE.parent
+OUT = ROOT / "reports" / "ifc_design"
+OUT.mkdir(parents=True, exist_ok=True)
+TECTONIC = ROOT / "Testt" / "tools" / "tectonic.exe"
 
 
 def esc(s):
@@ -110,7 +112,7 @@ subs = {
     "@@COV@@": str(base.metrics["coverage_pct"]), "@@FAR@@": str(base.metrics["far"]),
     "@@STALLS@@": str(base.metrics["parking_provided"]),
 }
-tex = (HERE / "report_template.tex").read_text(encoding="utf-8")
+tex = (ROOT / "reports" / "ifc_design" / "report_template.tex").read_text(encoding="utf-8")
 for k, v in subs.items():
     tex = tex.replace(k, v)
 (OUT / "ifc_design_report.tex").write_text(tex, encoding="utf-8")

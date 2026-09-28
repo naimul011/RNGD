@@ -1,16 +1,18 @@
-"""CLI: python generate.py [scenario index]  -> out/<scenario>.ifc + .html (open the HTML in Chrome)."""
+"""CLI: python generate_ifc.py [scenario index] -> outputs/ifc_design/<scenario>.ifc + .html
+(double-click the .html in Chrome)."""
 import re
 import sys
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from design import SCENARIOS, generate
-from ifc_writer import read_meshes, write_ifc
-from viewer3d import build_figure
+from rngd import config
+from rngd.ifc.design import SCENARIOS, generate
+from rngd.ifc.ifc_writer import read_meshes, write_ifc
+from rngd.ifc.viewer3d import build_figure
 
-OUT = Path(__file__).parent / "out"
+OUT = config.OUTPUTS_DIR / "ifc_design"
 
 
 def run(name, params):

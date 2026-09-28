@@ -48,50 +48,72 @@ def run_vision_input_check(project_id: str, state: ProjectState) -> dict:
     return {"measured": measured, "cross_check": cross_check}
 
 
-def run_pipeline(project_id: str = "project_001", max_iterations: int | None = None) -> ProjectState:
+def run_pipeline(
+    project_id: str = "project_001",
+    max_iterations: int | None = None,
+    on_step=None,
+) -> ProjectState:
+    """`on_step`, if given, is called with the latest AgentTraceEntry right
+    after each stage completes — the hook the UI uses to show live progress
+    (st.status updates) during a run instead of only a trace table at the end.
+    """
     reset_step_counter()
     max_iterations = max_iterations or config.MAX_SIMULATION_ITERATIONS
     vs = get_vectorstore()
     rfp_text, site_conditions = load_raw_inputs(project_id)
     state = ProjectState(project_id=project_id, raw_rfp_text=rfp_text, raw_site_conditions=site_conditions)
 
+    def _fire():
+        if on_step:
+            on_step(state.trace[-1])
+
     vision_input = run_vision_input_check(project_id, state)
+    _fire()
 
     with traced_call(state, "intake", "parse_customer_program", config.MODEL_ROUTE["intake"]) as t:
         state.program, latency = intake_agent.run(rfp_text)
         t.summary = f"{state.program.unit_count_total} units, {state.program.floor_count} floors"
         t.details = {"latency_ms": latency}
+    _fire()
 
     with traced_call(state, "zoning", "analyze_site_and_code", config.MODEL_ROUTE["zoning"]) as t:
         state.site, latency = zoning_agent.run(site_conditions, vs, cv_cross_check=vision_input["cross_check"])
         env = state.site.buildable_envelope
         t.summary = f"buildable envelope {env.width_ft:.0f} x {env.depth_ft:.0f} ft ({env.area_sf:.0f} sf)"
         t.details = {"latency_ms": latency}
+    _fire()
 
     with traced_call(state, "baap_matching", "match_program_to_baap", config.MODEL_ROUTE["baap_matching"]) as t:
         state.baap, latency = baap_matching_agent.run(state.program, vs)
         t.summary = f"{sum(state.baap.module_counts.values())} unit modules, {state.baap.estimated_building_gsf:.0f} GSF"
         t.details = {"latency_ms": latency}
+    _fire()
 
     with traced_call(state, "conflict", "check_program_site_baap_conflicts", config.MODEL_ROUTE["conflict"]) as t:
         state.conflicts, numbers, latency = conflict_agent.run(state.program, state.site, state.baap, vs)
         t.summary = f"{len(state.conflicts.conflicts)} conflict(s), feasible_as_requested={state.conflicts.feasible_as_requested}"
         t.details = {"latency_ms": latency, "numbers": numbers}
+    _fire()
 
-    _run_simulation_loop(state, numbers, max_iterations)
-    _generate_floor_plates(state)
+    _run_simulation_loop(state, numbers, max_iterations, on_step=on_step)
+    _generate_floor_plates(state, on_step=on_step)
 
     with traced_call(state, "arbiter", "final_decision", config.ANTHROPIC_MODEL) as t:
         state.final_decision, latency = arbiter_agent.run(state)
         t.summary = f"{state.final_decision.decision} (confidence {state.final_decision.confidence:.2f})"
         t.details = {"latency_ms": latency}
+    _fire()
 
     out_dir = _outputs_dir(project_id)
     (out_dir / "project_state.json").write_text(state.model_dump_json(indent=2), encoding="utf-8")
     return state
 
 
-def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int) -> None:
+def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int, on_step=None) -> None:
+    def _fire():
+        if on_step:
+            on_step(state.trace[-1])
+
     site = state.site
     baap = state.baap
     env = site.buildable_envelope
@@ -122,6 +144,7 @@ def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int
             )
             state.simulation_history.append(stats)
             t.summary = f"{run_result['steps_run']} steps, penalty={run_result['max_overlap_penalty']}, converged={run_result['converged']}"
+        _fire()
 
         site_plan_path = out_dir / f"site_plan_iter{iteration}.png"
         renderer.render_site_plan(
@@ -148,6 +171,7 @@ def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int
                 f"{cv.parking_stalls_required} (shortfall {cv.parking_shortfall}), coverage {cv.lot_coverage_pct}%"
             )
             t.details = cv_dict
+        _fire()
 
         # A clean geometry pass with zero parking shortfall needs no critic
         # opinion — the design is complete. Everything else (a geometry
@@ -163,6 +187,7 @@ def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int
             state.critic_history.append(critique)
             t.summary = f"continue={critique.continue_iterating}: {critique.rationale[:120]}"
             t.details = {"latency_ms": latency, "adjustments": critique.adjustments}
+        _fire()
 
         if not critique.continue_iterating:
             break
@@ -177,7 +202,11 @@ def _run_simulation_loop(state: ProjectState, numbers: dict, max_iterations: int
         state.convergence_chart_path = str(chart_path)
 
 
-def _generate_floor_plates(state: ProjectState) -> None:
+def _generate_floor_plates(state: ProjectState, on_step=None) -> None:
+    def _fire():
+        if on_step:
+            on_step(state.trace[-1])
+
     catalog = json.loads(config.BAAP_CATALOG_JSON.read_text())
     unit_specs = catalog["unit_modules"]
     core_spec = catalog["building_modules"]["CORE_STD"]
@@ -206,6 +235,7 @@ def _generate_floor_plates(state: ProjectState) -> None:
         state.floor_plate_image_path = str(path)
         t.summary = f"{typical['units_placed']} units placed, {typical['units_unplaced']} deferred"
         t.details = typical
+    _fire()
 
     amenity_depth = core_spec["depth_ft"]
     building_modules = catalog["building_modules"]
@@ -224,6 +254,7 @@ def _generate_floor_plates(state: ProjectState) -> None:
         renderer.render_floor_plate(path, ground, "Ground Floor (generated)")
         t.summary = f"{ground['units_placed']} units placed, {ground['units_unplaced']} deferred (amenities + BOH reserved)"
         t.details = ground
+    _fire()
 
 
 def ask_agent(state: ProjectState, agent_name: str, question: str) -> str:

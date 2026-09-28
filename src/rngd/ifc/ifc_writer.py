@@ -14,7 +14,7 @@ import ifcopenshell.api.spatial
 import ifcopenshell.api.unit
 import ifcopenshell.geom
 
-from design import Layout
+from .design import Layout
 
 FT = 0.3048
 WALL_T = 0.15

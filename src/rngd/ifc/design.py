@@ -5,9 +5,10 @@ from __future__ import annotations
 import json
 import math
 from dataclasses import dataclass, field, replace
-from pathlib import Path
 
-CATALOG = json.loads((Path(__file__).resolve().parents[2] / "data" / "baap_catalog.json").read_text())
+from .. import config
+
+CATALOG = json.loads(config.BAAP_CATALOG_JSON.read_text())
 
 # Sample zoning presets (synthetic; swap with real jurisdiction data).
 ZONING = {
