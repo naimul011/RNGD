@@ -19,3 +19,6 @@ Testt/report/*.log
 
 # client document (RNGD NDA) - keep local
 RNGDTeamPreparationQuestions.pdf
+
+# real/client IFC files are large and may be confidential - keep local only
+data/ifc_samples/*.ifc

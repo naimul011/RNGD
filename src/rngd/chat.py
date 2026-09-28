@@ -51,6 +51,13 @@ setbacks/easement, fire lane, accessible units, exit travel distance). It does n
 by default (it's deterministic), except the optional "extract requirements from text" button \
 which reuses the Intake Agent.
 
+**3. Open IFC File** (`src/rngd/ifc/explorer.py`) — opens a REAL, arbitrary `.ifc` file (not one \
+this app generated), triangulates its geometry for the 3D viewer, and summarizes what's in it \
+(schema, storeys, element counts by IFC class, notable named items) by reading the IFC file's own \
+data — this is a real building's actual model, not synthetic sample data. It does not run the \
+BaaP/zoning pipeline (a real file has whatever building type it has); it's for viewing and asking \
+questions about a specific real model.
+
 ## Ground rules
 - All zoning rules and the BaaP catalog are SYNTHETIC SAMPLE DATA (a fictional "Rivermont" \
 jurisdiction etc.), standing in for RNGD's real data. Say so if it's relevant to the question.
@@ -100,6 +107,22 @@ def summarize_pipeline_state(state: ProjectState | None) -> str:
     return "\n".join(parts)
 
 
+def summarize_explorer_state(summary: dict | None, file_label: str | None) -> str:
+    if summary is None:
+        return "No real IFC file opened in the Explorer yet."
+    parts = [f"Open IFC File: '{file_label}' — REAL model data (not synthetic), schema {summary['schema']}."]
+    if summary.get("project_name"):
+        parts.append(f"- Project: {summary['project_name']}")
+    parts.append(f"- Storeys: {[s['name'] for s in summary['storeys']]}")
+    parts.append(f"- Element categories: {summary['categories']}")
+    parts.append(f"- Total elements: {summary['total_elements']} ({summary.get('meshes_triangulated', '?')} rendered"
+                 f"{'; curtain-wall framing (Members/Plates) hidden for speed' if summary.get('framing_skipped') else ''})")
+    if summary.get("notable_named_elements"):
+        top = ", ".join(f"{name} x{n}" for name, n in summary["notable_named_elements"][:10])
+        parts.append(f"- Notable named items: {top}")
+    return "\n".join(parts)
+
+
 def summarize_ifc_state(params, layout) -> str:
     if layout is None:
         return "No IFC design generated yet in this session."
@@ -120,6 +143,8 @@ def reply(
     pipeline_state: ProjectState | None,
     ifc_params=None,
     ifc_layout=None,
+    explorer_summary: dict | None = None,
+    explorer_file_label: str | None = None,
 ) -> tuple[str, float]:
     last_user = next((m["content"] for m in reversed(history) if m["role"] == "user"), "")
     kb_context = vs.retrieve_as_context(last_user, k=3) if last_user else ""
@@ -127,6 +152,7 @@ def reply(
         f"{zoning_reference()}\n\n"
         f"{summarize_pipeline_state(pipeline_state)}\n\n"
         f"{summarize_ifc_state(ifc_params, ifc_layout) if ifc_params else 'IFC Design Studio not opened yet.'}\n\n"
+        f"{summarize_explorer_state(explorer_summary, explorer_file_label)}\n\n"
         f"Retrieved knowledge-base context for the latest question:\n{kb_context}"
     )
     messages = [
@@ -144,6 +170,15 @@ def suggest_after_pipeline(state: ProjectState, vs: VectorStore) -> tuple[str, f
         "Do not repeat the full narrative verbatim, add insight."
     )
     return reply([{"role": "user", "content": prompt}], vs, state)
+
+
+def suggest_after_explorer(summary: dict, file_label: str, vs: VectorStore) -> tuple[str, float]:
+    prompt = (
+        "You just finished loading a REAL IFC file (not synthetic). Write a short (3-5 sentence) "
+        "orientation note: what kind of building this looks like, what's notable about it, and one "
+        "specific question the user might want to ask next about this model."
+    )
+    return reply([{"role": "user", "content": prompt}], vs, None, explorer_summary=summary, explorer_file_label=file_label)
 
 
 def suggest_after_ifc(params, layout, vs: VectorStore) -> tuple[str, float]:

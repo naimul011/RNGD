@@ -42,6 +42,22 @@ def test_chat_panel_replies():
     assert len(at.session_state["chat_history"][-1]["content"]) > 0
 
 
+def test_open_ifc_file_explorer():
+    from rngd.ifc import explorer
+
+    if not explorer.list_available_files():
+        pytest.skip("no .ifc files available under data/ifc_samples/ or outputs/ifc_design/")
+    at = _at().run()
+    at.sidebar.radio[0].set_value("Open IFC File").run()
+    assert not at.exception
+    btn = next(b for b in at.sidebar.button if "Load" in b.label)
+    btn.click().run()
+    assert not at.exception
+    ss_ready = at.session_state["explorer_summary"]
+    assert ss_ready and ss_ready["total_elements"] > 0
+    assert at.session_state["explorer_meshes"]
+
+
 @pytest.mark.slow
 def test_full_pipeline_run_via_ui():
     at = _at().run()

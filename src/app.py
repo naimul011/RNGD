@@ -1,8 +1,9 @@
 """RNGD AI Studio — unified app.
 
-Two modes sharing one window: the concept-to-schematic multi-agent pipeline,
-and the IFC parametric Design Studio, both able to run side by side with a
-persistent chat assistant that knows about every component in the project.
+Three modes sharing one window: the concept-to-schematic multi-agent
+pipeline, the parametric IFC Design Studio, and an IFC file explorer for
+opening a REAL, arbitrary .ifc file — all with a persistent chat assistant
+that knows about every component in the project.
 
 Run: streamlit run src/app.py
 """
@@ -22,9 +23,10 @@ import streamlit as st
 from matplotlib.patches import Rectangle
 
 from rngd import chat, config
+from rngd.ifc import explorer
 from rngd.ifc.design import SCENARIOS, ZONING, Params, generate, module_counts
 from rngd.ifc.ifc_writer import read_meshes, write_ifc
-from rngd.ifc.viewer3d import build_figure
+from rngd.ifc.viewer3d import build_figure, build_figure_generic
 from rngd.orchestrator import ask_agent, run_pipeline
 from rngd.vectorstore import get_vectorstore
 
@@ -88,6 +90,10 @@ ss.setdefault("chat_history", [])
 ss.setdefault("ifc_layout", None)
 ss.setdefault("ifc_params", None)
 ss.setdefault("pipeline_suggested_for", None)
+ss.setdefault("explorer_summary", None)
+ss.setdefault("explorer_meshes", None)
+ss.setdefault("explorer_file", None)
+ss.setdefault("explorer_suggested_for", None)
 for k, v in dict(units=120, floors=4, zoning=list(ZONING)[0], parking="surface", wings=0, studio=20, onebr=45).items():
     ss.setdefault(k, v)
 
@@ -100,11 +106,13 @@ st.markdown(
     f"""<div class="rngd-header">
   <div class="eyebrow">RNGD &middot; Concept-to-Schematic AI &middot; Semester Proof of Concept</div>
   <h1>RNGD AI Studio</h1>
-  <div class="sub">Multi-agent schematic pipeline (Groq + Claude, physics simulation, classical CV) and a parametric
-  IFC Design Studio, side by side with a chat assistant that knows every component. All zoning/BaaP data is synthetic.</div>
+  <div class="sub">Multi-agent schematic pipeline (Groq + Claude, physics simulation, classical CV), a parametric
+  IFC Design Studio, and a real-IFC file explorer — side by side with a chat assistant that knows every component.
+  Pipeline/IFC-studio zoning and BaaP data is synthetic; the file explorer opens real models.</div>
   <div style="margin-top:12px">
     <span class="rngd-pill ok">10 pipeline agents</span>
     <span class="rngd-pill ok">{n_scenarios} IFC scenarios</span>
+    <span class="rngd-pill ok">{len(explorer.list_available_files())} openable IFC files</span>
     <span class="rngd-pill ok">{len(vs.chunks)} KB chunks ({vs.backend_name})</span>
     {f'<span class="rngd-pill ok">last decision: {decision}</span>' if decision else ""}
   </div>
@@ -114,7 +122,7 @@ st.markdown(
 
 # ============================================================= sidebar ===
 with st.sidebar:
-    mode = st.radio("Mode", ["Multi-Agent Pipeline", "IFC Design Studio"], key="mode")
+    mode = st.radio("Mode", ["Multi-Agent Pipeline", "IFC Design Studio", "Open IFC File"], key="mode")
     st.divider()
 
     if mode == "Multi-Agent Pipeline":
@@ -122,6 +130,24 @@ with st.sidebar:
         project_id = st.selectbox("Sample project", options=["project_001"])
         max_iter = st.slider("Max simulation iterations", 1, 5, config.MAX_SIMULATION_ITERATIONS)
         run_clicked = st.button("Run full pipeline", type="primary", use_container_width=True)
+
+    elif mode == "Open IFC File":
+        st.subheader("Open a real IFC file")
+        available = explorer.list_available_files()
+        if not available:
+            st.warning("No .ifc files found. Drop one into `data/ifc_samples/` and reload the page.")
+            explorer_path = None
+        else:
+            explorer_path = st.selectbox("File", available, format_func=lambda p: f"{p.name}  ({p.stat().st_size / 1e6:.0f} MB)")
+        skip_framing = st.checkbox("Skip fine curtain-wall framing (faster)", value=True,
+                                    help="Hides individual mullions/panels (IfcMember/IfcPlate) — much faster to triangulate, walls/doors/windows/slabs still show.")
+        explorer_load_clicked = st.button("Load / open file", type="primary", use_container_width=True, disabled=available == [])
+        st.caption("First open of a large file can take 1-3 minutes (one-time — cached to `outputs/ifc_cache/` after that).")
+        if ss.explorer_summary is not None:
+            st.divider()
+            classes = list(ss.explorer_summary["categories"])
+            explorer_class_filter = st.multiselect("Show categories", classes, default=[c for c in classes if c not in ("IfcFurnishingElement", "IfcFlowTerminal", "IfcCovering", "IfcMember", "IfcPlate")], key="explorer_classes")
+
     else:
         st.subheader("Scenarios")
 
@@ -298,7 +324,7 @@ with main_col:
                         st.write(ask_agent(state, agent_choice, question))
 
     # ---------------------------------------------------------- IFC mode -
-    else:
+    elif mode == "IFC Design Studio":
         studio, onebr = ss.studio / 100, ss.onebr / 100
         params = Params(units=ss.units, floors=ss.floors, zoning=ss.zoning, parking=ss.parking, wings=ss.wings,
                         mix=(studio, onebr, max(0.0, 1 - studio - onebr)))
@@ -391,6 +417,62 @@ with main_col:
             st.download_button("Download 3D viewer (.html, opens in Chrome)", html, "rngd_design_3d.html", "text/html")
             st.caption("The .ifc opens in any BIM tool (BIMvision, Blender-BIM, FreeCAD, Autodesk Viewer).")
 
+    # ------------------------------------------------------ explorer mode -
+    else:
+        if explorer_load_clicked and explorer_path is not None:
+            with st.spinner(f"Opening {explorer_path.name} — triangulating geometry (first time only, can take a while)..."):
+                summary, meshes = explorer.load(explorer_path, skip_framing=skip_framing)
+            ss.explorer_summary, ss.explorer_meshes, ss.explorer_file = summary, meshes, explorer_path.name
+
+        if ss.explorer_summary is None:
+            st.info("Pick a file in the sidebar and click **Load / open file**.")
+            if available:
+                st.caption(f"Available: {', '.join(p.name for p in available)}")
+        else:
+            summary = ss.explorer_summary
+            fingerprint = ss.explorer_file
+            if ss.explorer_suggested_for != fingerprint:
+                with st.spinner("Assistant reviewing the model..."):
+                    note, _ = chat.suggest_after_explorer(summary, ss.explorer_file, vs)
+                ss.chat_history.append({"role": "assistant", "content": f"**Opened `{ss.explorer_file}`.**\n\n{note}"})
+                ss.explorer_suggested_for = fingerprint
+
+            c = st.columns(5)
+            c[0].metric("Schema", summary["schema"])
+            c[1].metric("Storeys", len(summary["storeys"]))
+            c[2].metric("Elements", summary["total_elements"])
+            c[3].metric("Rendered", summary.get("meshes_triangulated", len(ss.explorer_meshes)))
+            c[4].metric("Project", summary.get("project_name") or "—")
+
+            etab3d, etabsum, etabbrowse = st.tabs(["3D model", "Summary", "Element browser"])
+
+            with etab3d:
+                fig = build_figure_generic(ss.explorer_meshes, classes=ss.get("explorer_classes") or None)
+                st.plotly_chart(fig, use_container_width=True)
+                st.caption("This is a REAL model's actual geometry, re-read from the .ifc file. Drag to rotate, "
+                           "scroll to zoom, click legend entries to hide/show a category. Adjust which categories "
+                           "show in the sidebar.")
+
+            with etabsum:
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.subheader("Storeys")
+                    st.dataframe(pd.DataFrame(summary["storeys"]), hide_index=True, use_container_width=True)
+                    st.subheader("Element categories")
+                    st.dataframe(pd.DataFrame(sorted(summary["categories"].items(), key=lambda x: -x[1]), columns=["IFC class", "count"]),
+                                 hide_index=True, use_container_width=True)
+                with col2:
+                    st.subheader("Notable named items")
+                    st.dataframe(pd.DataFrame(summary["notable_named_elements"], columns=["name", "count"]),
+                                 hide_index=True, use_container_width=True)
+                    st.caption("Grouped by base name (before any ':' suffix) across furnishing, proxy and flow-terminal elements.")
+
+            with etabbrowse:
+                q = st.text_input("Search element names", "")
+                rows = [{"name": m["name"], "class": m["cls"]} for m in ss.explorer_meshes if not q or q.lower() in m["name"].lower()]
+                st.dataframe(pd.DataFrame(rows[:500]), hide_index=True, use_container_width=True)
+                st.caption(f"{len(rows)} matching elements (showing up to 500).")
+
 # ================================================================ chat ===
 with chat_col:
     st.markdown('<div class="rngd-chat-title">Assistant — online</div>', unsafe_allow_html=True)
@@ -409,6 +491,7 @@ with chat_col:
     if prompt:
         ss.chat_history.append({"role": "user", "content": prompt})
         with st.spinner("Thinking..."):
-            reply_text, _ = chat.reply(ss.chat_history, vs, ss.pipeline_state, ss.ifc_params, ss.ifc_layout)
+            reply_text, _ = chat.reply(ss.chat_history, vs, ss.pipeline_state, ss.ifc_params, ss.ifc_layout,
+                                       ss.explorer_summary, ss.explorer_file)
         ss.chat_history.append({"role": "assistant", "content": reply_text})
         st.rerun()
