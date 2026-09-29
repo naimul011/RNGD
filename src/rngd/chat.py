@@ -120,6 +120,9 @@ def summarize_explorer_state(summary: dict | None, file_label: str | None) -> st
     if summary.get("notable_named_elements"):
         top = ", ".join(f"{name} x{n}" for name, n in summary["notable_named_elements"][:10])
         parts.append(f"- Notable named items: {top}")
+    if summary.get("excluded_outliers"):
+        parts.append(f"- Note: {len(summary['excluded_outliers'])} element(s) were excluded from the 3D view as far-off "
+                     f"outliers (e.g. a misplaced asset in the source file), so the view frames the actual building tightly.")
     return "\n".join(parts)
 
 

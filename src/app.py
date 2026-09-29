@@ -94,6 +94,7 @@ ss.setdefault("explorer_summary", None)
 ss.setdefault("explorer_meshes", None)
 ss.setdefault("explorer_file", None)
 ss.setdefault("explorer_suggested_for", None)
+ss.setdefault("wide_view", False)
 for k, v in dict(units=120, floors=4, zoning=list(ZONING)[0], parking="surface", wings=0, studio=20, onebr=45).items():
     ss.setdefault(k, v)
 
@@ -123,6 +124,8 @@ st.markdown(
 # ============================================================= sidebar ===
 with st.sidebar:
     mode = st.radio("Mode", ["Multi-Agent Pipeline", "IFC Design Studio", "Open IFC File"], key="mode")
+    st.checkbox("Wide 3D view (collapses the chat panel)", key="wide_view",
+                help="Gives the model viewer most of the window. Chat stays usable, just narrower.")
     st.divider()
 
     if mode == "Multi-Agent Pipeline":
@@ -183,6 +186,8 @@ with st.sidebar:
         st.radio("Parking", ["surface", "podium"], key="parking", horizontal=True)
         st.select_slider("Wings (0 = auto)", [0, 1, 2, 3], key="wings")
         level_view = st.select_slider("View floors up to", ["all"] + list(range(1, 10)), value="all", key="level_view")
+        st.checkbox("Show site context (ground/easement/driveway/parking) in 3D view", value=False, key="show_site",
+                    help="Off by default: the full lot is usually much bigger than the building, which made the building look tiny.")
 
     st.divider()
     st.caption(f"Knowledge base: {vs.backend_name}, {len(vs.chunks)} chunks from data/knowledge_base/*.md")
@@ -197,7 +202,7 @@ def _render_step(container, entry):
 
 
 # =========================================================== columns =====
-main_col, chat_col = st.columns([2.5, 1], gap="large")
+main_col, chat_col = st.columns([5.5, 1] if ss.wide_view else [2.5, 1], gap="large")
 
 # ------------------------------------------------------- pipeline mode ---
 with main_col:
@@ -359,8 +364,10 @@ with main_col:
 
         with tab3d:
             lv = None if ss.level_view == "all" else int(ss.level_view)
-            st.plotly_chart(build_figure(meshes, lv), use_container_width=True)
-            st.caption("Drag to rotate, scroll to zoom, click legend entries to hide/show unit types.")
+            st.plotly_chart(build_figure(meshes, lv, show_site=ss.show_site), use_container_width=True)
+            st.info(":material/3d_rotation: **Drag** to rotate · **scroll / pinch** to zoom · **right-click drag** to pan · "
+                    "**double-click** to reset the view · click a legend entry to hide/show that unit type. "
+                    "Turn on \"Wide 3D view\" or \"Show site context\" in the sidebar if you need more room or the full lot.", icon=":material/info:")
 
         with tabplan:
             fig, ax = plt.subplots(figsize=(6, 8))
@@ -449,9 +456,10 @@ with main_col:
             with etab3d:
                 fig = build_figure_generic(ss.explorer_meshes, classes=ss.get("explorer_classes") or None)
                 st.plotly_chart(fig, use_container_width=True)
-                st.caption("This is a REAL model's actual geometry, re-read from the .ifc file. Drag to rotate, "
-                           "scroll to zoom, click legend entries to hide/show a category. Adjust which categories "
-                           "show in the sidebar.")
+                st.info(":material/3d_rotation: **Drag** to rotate · **scroll / pinch** to zoom · **right-click drag** to pan · "
+                        "**double-click** to reset the view · click a legend entry to hide/show a category. This is the REAL "
+                        "model's actual geometry, re-read from the .ifc file. Turn on \"Wide 3D view\" in the sidebar for more room, "
+                        "or narrow \"Show categories\" in the sidebar if it looks cluttered.", icon=":material/info:")
 
             with etabsum:
                 col1, col2 = st.columns(2)
@@ -466,6 +474,13 @@ with main_col:
                     st.dataframe(pd.DataFrame(summary["notable_named_elements"], columns=["name", "count"]),
                                  hide_index=True, use_container_width=True)
                     st.caption("Grouped by base name (before any ':' suffix) across furnishing, proxy and flow-terminal elements.")
+                if summary.get("excluded_outliers"):
+                    st.subheader("Excluded far-off outliers")
+                    st.dataframe(pd.DataFrame(summary["excluded_outliers"]), hide_index=True, use_container_width=True)
+                    st.caption(f"The model was recentered on its structural elements (walls/slabs/roof/doors/windows/columns) so the "
+                               f"building fills the 3D view; the {len(summary['excluded_outliers'])} item(s) above sit implausibly far from "
+                               f"everything else (e.g. a misplaced asset in the source file) and were left out of the 3D view. Nothing was "
+                               f"changed in the original .ifc file on disk.")
 
             with etabbrowse:
                 q = st.text_input("Search element names", "")
