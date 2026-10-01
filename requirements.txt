@@ -14,3 +14,5 @@ pydantic
 ifcopenshell
 plotly
 pytest
+openpyxl
+pymupdf

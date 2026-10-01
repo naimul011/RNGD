@@ -26,6 +26,7 @@ class Chunk:
     text: str
     source: str
     heading: str
+    source_kind: str = "synthetic"  # "synthetic" (data/knowledge_base/*.md) or "real" (docs/* — RNGD's own data)
 
 
 def _load_chunks(kb_dir: Path) -> list[Chunk]:
@@ -69,6 +70,7 @@ class _EmbeddingBackend:
                 "text": self.chunks[i].text,
                 "source": self.chunks[i].source,
                 "heading": self.chunks[i].heading,
+                "source_kind": self.chunks[i].source_kind,
                 "score": float(scores[i]),
             }
             for i in top
@@ -94,16 +96,24 @@ class _TfidfBackend:
                 "text": self.chunks[i].text,
                 "source": self.chunks[i].source,
                 "heading": self.chunks[i].heading,
+                "source_kind": self.chunks[i].source_kind,
                 "score": float(scores[i]),
             }
             for i in top
         ]
 
 
+def _load_real_doc_chunks() -> list[Chunk]:
+    from . import real_docs
+
+    return [Chunk(text=c.text, source=c.source, heading=c.heading, source_kind="real") for c in real_docs.load_all_chunks()]
+
+
 class VectorStore:
     def __init__(self, kb_dir: Path | None = None):
         self.kb_dir = kb_dir or config.KB_DIR
-        self.chunks = _load_chunks(self.kb_dir)
+        self.chunks = _load_chunks(self.kb_dir) + _load_real_doc_chunks()
+        self.real_chunk_count = sum(1 for c in self.chunks if c.source_kind == "real")
         self.backend_name = "tfidf"
         if config.USE_TFIDF:
             self._backend = _TfidfBackend(self.chunks)

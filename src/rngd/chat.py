@@ -58,9 +58,19 @@ data — this is a real building's actual model, not synthetic sample data. It d
 BaaP/zoning pipeline (a real file has whatever building type it has); it's for viewing and asking \
 questions about a specific real model.
 
+**4. Real RNGD documents** (`docs/`, indexed into the same knowledge base, tagged `source_kind: "real"`) \
+— RNGD's own structured 2021 IBC rule database for their five-story R-1 hotel prototype (42 \
+machine-testable rules with operator/value/units, occupant-load factors, hotel space mapping, \
+reference projects) plus the official DOJ ADA 2010 Standards PDF. `src/rngd/ifc/code_check.py` \
+cross-checks a generated IFC Design Studio layout against ~8 of those real rules it can actually \
+compute from the layout (height, stories, exit travel distance, dead-end corridor length, exits \
+per story via an occupant-load estimate) — shown in the Design Studio's "Real IBC check" tab and \
+in the chat panel's summary card, clearly separate from the synthetic zoning preset's own ten \
+checks. The other ~34 real rules need space-level occupancy modeling not yet built.
+
 ## Ground rules
-- All zoning rules and the BaaP catalog are SYNTHETIC SAMPLE DATA (a fictional "Rivermont" \
-jurisdiction etc.), standing in for RNGD's real data. Say so if it's relevant to the question.
+- The zoning PRESETS (Rivermont etc.) and the BaaP catalog are SYNTHETIC SAMPLE DATA. The IBC \
+rules and ADA standards from `docs/` are REAL — RNGD's own data. Always be clear which is which.
 - Every output here is planning-level, not code-approved; a licensed professional must review \
 any real design.
 - If asked about a specific run's results, use the CURRENT STATE context given below. If no run \
@@ -131,13 +141,24 @@ def summarize_ifc_state(params, layout) -> str:
         return "No IFC design generated yet in this session."
     m = layout.metrics
     fails = [c["check"] for c in layout.checks if c["status"] != "PASS"]
-    return (
+    parts = [
         f"IFC Design Studio, current design: {params.units} units requested, {params.floors} floors, "
-        f"zoning preset '{params.zoning}', parking={params.parking}, wings={m['wings']}.\n"
+        f"zoning preset '{params.zoning}' (SYNTHETIC), parking={params.parking}, wings={m['wings']}.",
         f"Metrics: units placed {m['units_placed']}, stories {m['stories']}, FAR {m['far']}, "
-        f"lot coverage {m['coverage_pct']}%, parking {m['parking_provided']}/{m['parking_required']}.\n"
-        f"Failed checks: {fails or 'none — this design passes all checks'}."
-    )
+        f"lot coverage {m['coverage_pct']}%, parking {m['parking_provided']}/{m['parking_required']}.",
+        f"Sample-zoning failed checks: {fails or 'none — this design passes all ten sample checks'}.",
+    ]
+    try:
+        from .ifc import code_check
+        ibc = code_check.evaluate(params, layout)
+        ibc_fails = [f"{r['rule_id']} ({r['rule_name']}): required {r['required']}, measured {r['measured']}"
+                     for r in ibc if r["status"] == "FAIL"]
+        parts.append(f"Real IBC cross-check (RNGD's own rule data, {len(ibc)} rules checked, "
+                     f"{code_check.not_yet_checked_count()} not yet checked): " +
+                     (f"FAILED: {ibc_fails}" if ibc_fails else "all checked rules pass."))
+    except Exception:
+        pass
+    return "\n".join(parts)
 
 
 def reply(

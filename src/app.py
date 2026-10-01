@@ -22,8 +22,8 @@ import pandas as pd
 import streamlit as st
 from matplotlib.patches import Rectangle
 
-from rngd import chat, config
-from rngd.ifc import explorer
+from rngd import chat, config, real_docs, summary_card
+from rngd.ifc import code_check, explorer
 from rngd.ifc.design import SCENARIOS, ZONING, Params, generate, module_counts
 from rngd.ifc.ifc_writer import read_meshes, write_ifc
 from rngd.ifc.viewer3d import build_figure, build_figure_generic
@@ -78,6 +78,36 @@ code, .stCode, [data-testid="stMetricValue"] { font-family: "IBM Plex Mono", mon
 .status-chip.PASS{ background:var(--ok-wash); color:var(--ok); }
 .status-chip.FAIL{ background:rgba(163,42,33,.10); color:var(--critical); }
 .status-chip.WARN{ background:rgba(176,89,11,.10); color:var(--high); }
+
+/* ---- chat panel: summary card ---- */
+.rngd-card{ background:var(--blueprint-wash); border:1px solid rgba(30,90,168,.18); border-radius:10px;
+  padding:14px 16px; margin-bottom:12px; }
+.rngd-card .card-top{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.rngd-card .card-title{ font-weight:700; font-size:14px; }
+.rngd-card .card-badge{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); }
+.rngd-card .card-headline{ font-size:13px; margin:6px 0 8px; color:var(--ink); }
+.rngd-match{ margin:8px 0; }
+.rngd-match .bar{ height:8px; border-radius:100px; background:rgba(24,34,40,.10); overflow:hidden; }
+.rngd-match .fill{ height:100%; border-radius:100px; }
+.rngd-match .label{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--muted); margin-top:3px; display:flex; justify-content:space-between; }
+.rngd-kv{ display:grid; grid-template-columns:1fr 1fr; gap:4px 10px; font-size:12px; margin-top:6px; }
+.rngd-kv div{ display:flex; justify-content:space-between; gap:6px; border-bottom:1px dashed rgba(24,34,40,.08); padding:2px 0; }
+.rngd-kv .k{ color:var(--muted); }
+.rngd-kv .v{ font-family:"IBM Plex Mono",monospace; }
+.rngd-sec-label{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em;
+  color:var(--muted); margin:10px 0 4px; }
+.rngd-item{ border-radius:8px; padding:7px 10px; margin-bottom:5px; font-size:12.5px; border-left:3px solid; }
+.rngd-item .item-top{ display:flex; justify-content:space-between; gap:8px; font-weight:600; }
+.rngd-item .item-detail{ color:var(--ink); opacity:.85; margin-top:2px; }
+.rngd-item.critical{ background:rgba(163,42,33,.08); border-color:var(--critical); }
+.rngd-item.high{ background:rgba(176,89,11,.08); border-color:var(--high); }
+.rngd-item.medium{ background:rgba(138,116,17,.08); border-color:var(--medium); }
+.rngd-item.low, .rngd-item.info{ background:rgba(91,102,112,.08); border-color:var(--muted); }
+.rngd-item.ok{ background:var(--ok-wash); border-color:var(--ok); }
+.rngd-tag{ font-family:"IBM Plex Mono",monospace; font-size:9.5px; text-transform:uppercase; letter-spacing:.05em;
+  padding:1px 6px; border-radius:100px; background:rgba(24,34,40,.08); color:var(--muted); white-space:nowrap; }
+
+div[data-testid="stVerticalBlockBorderWrapper"] .stButton button{ font-size:12px; padding:4px 10px; white-space:normal; height:auto; }
 </style>
 """,
     unsafe_allow_html=True,
@@ -115,6 +145,7 @@ st.markdown(
     <span class="rngd-pill ok">{n_scenarios} IFC scenarios</span>
     <span class="rngd-pill ok">{len(explorer.list_available_files())} openable IFC files</span>
     <span class="rngd-pill ok">{len(vs.chunks)} KB chunks ({vs.backend_name})</span>
+    <span class="rngd-pill ok">{vs.real_chunk_count} from RNGD's real IBC/ADA docs</span>
     {f'<span class="rngd-pill ok">last decision: {decision}</span>' if decision else ""}
   </div>
 </div>""",
@@ -190,7 +221,21 @@ with st.sidebar:
                     help="Off by default: the full lot is usually much bigger than the building, which made the building look tiny.")
 
     st.divider()
-    st.caption(f"Knowledge base: {vs.backend_name}, {len(vs.chunks)} chunks from data/knowledge_base/*.md")
+    with st.expander(f":material/library_books: Documents ({len(vs.chunks)} chunks, {vs.backend_name})", expanded=False):
+        st.caption("Synthetic sample (data/knowledge_base/*.md): zoning preset, BaaP catalog, stacking rules, design guidelines.")
+        st.caption(f"**Real, RNGD-supplied (docs/), {vs.real_chunk_count} chunks:**")
+        avail = real_docs.available()
+        st.markdown(
+            f"- {'✅' if avail['ibc_csv'] else '❌'} 2021 IBC rules — 42 machine-testable rules, 5-story R-1 hotel prototype (CSV)\n"
+            f"- {'✅' if avail['ibc_xlsx'] else '❌'} Companion workbook — project config, reference projects, occupant-load factors, hotel space mapping\n"
+            f"- {'✅' if avail['ada_pdf'] else '❌'} ADA 2010 Standards for Accessible Design — official DOJ PDF, 279 pages"
+        )
+        doc_q = st.text_input("Search these documents", value="dead-end corridor", key="doc_search")
+        if doc_q:
+            for h in vs.retrieve(doc_q, k=4):
+                badge = "real" if h["source_kind"] == "real" else "sample"
+                with st.expander(f"[{badge}] {h['source']} | {h['heading']} (score {h['score']:.2f})"):
+                    st.text(h["text"])
 
 # ======================================================= status hook =====
 STATUS_ICON = {"ok": ":material/check_circle:", "degraded": ":material/warning:", "error": ":material/error:"}
@@ -202,7 +247,7 @@ def _render_step(container, entry):
 
 
 # =========================================================== columns =====
-main_col, chat_col = st.columns([5.5, 1] if ss.wide_view else [2.5, 1], gap="large")
+main_col, chat_col = st.columns([5.5, 1] if ss.wide_view else [1.8, 1.3], gap="large")
 
 # ------------------------------------------------------- pipeline mode ---
 with main_col:
@@ -360,7 +405,8 @@ with main_col:
         c[4].metric("Parking", f"{m['parking_provided']}/{m['parking_required']}")
         c[5].metric("Checks failed", len(fails))
 
-        tab3d, tabplan, tabchk, tabexplain, tabdl = st.tabs(["3D model", "Site plan", "Compliance", "How this was built", "Download"])
+        tab3d, tabplan, tabchk, tabibc, tabexplain, tabdl = st.tabs(
+            ["3D model", "Site plan", "Compliance (sample zoning)", "Real IBC check", "How this was built", "Download"])
 
         with tab3d:
             lv = None if ss.level_view == "all" else int(ss.level_view)
@@ -398,6 +444,24 @@ with main_col:
                     note, _ = chat.suggest_after_ifc(params, lay, vs)
                 ss.chat_history.append({"role": "assistant", "content": f"**IFC design review ({params.units} units, {params.zoning}).**\n\n{note}"})
                 st.rerun()
+
+        with tabibc:
+            ibc_rows = code_check.evaluate(params, lay)
+            if not ibc_rows:
+                st.warning("docs/ not found — add RNGD's IBC rule files to enable this check.")
+            else:
+                st.caption(f"Cross-checked against {len(ibc_rows)} of RNGD's real, machine-testable 2021 IBC rules "
+                           f"(docs/RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv) for their five-story R-1 hotel "
+                           f"prototype — not the synthetic zoning preset used elsewhere. "
+                           f"{code_check.not_yet_checked_count()} further rules in that set need space-level occupancy "
+                           f"modeling (assembly/mercantile/kitchen areas, egress capacity) this prototype doesn't build yet.")
+                ibc_df = pd.DataFrame(ibc_rows)[["rule_id", "rule_name", "section", "required", "measured", "status", "note"]].astype(str)
+                st.dataframe(ibc_df, hide_index=True, use_container_width=True)
+                n_fail = sum(1 for r in ibc_rows if r["status"] == "FAIL")
+                if n_fail:
+                    st.error(f"{n_fail} real-code check(s) failed — see the chat panel's summary card for a colored breakdown.")
+                else:
+                    st.success("All cross-checked real IBC rules pass for this layout.")
 
         with tabexplain:
             st.markdown("Step-by-step account of this specific run (see `reports/ifc_design/ifc_design_report.pdf` for the full method):")
@@ -489,24 +553,99 @@ with main_col:
                 st.caption(f"{len(rows)} matching elements (showing up to 500).")
 
 # ================================================================ chat ===
+MATCH_COLOR = lambda p: "var(--ok)" if p >= 80 else ("var(--high)" if p >= 50 else "var(--critical)")
+
+
+def _render_card(card: summary_card.SummaryCard) -> None:
+    html = [f'<div class="rngd-card"><div class="card-top"><span class="card-title">{card.title}</span>'
+            f'<span class="card-badge">{card.badge}</span></div><div class="card-headline">{card.headline}</div>']
+    if card.match_pct is not None:
+        color = MATCH_COLOR(card.match_pct)
+        html.append(
+            f'<div class="rngd-match"><div class="bar"><div class="fill" style="width:{card.match_pct:.0f}%;background:{color}"></div></div>'
+            f'<div class="label"><span>Match to requirements</span><span style="color:{color}">{card.match_pct:.0f}%</span></div></div>'
+        )
+    if card.metrics:
+        html.append('<div class="rngd-kv">' + "".join(f'<div><span class="k">{k}</span><span class="v">{v}</span></div>' for k, v in card.metrics) + "</div>")
+    if card.setbacks:
+        html.append('<div class="rngd-sec-label">Setbacks / envelope</div><div class="rngd-kv">' +
+                    "".join(f'<div><span class="k">{k}</span><span class="v">{v}</span></div>' for k, v in card.setbacks) + "</div>")
+    html.append("</div>")
+    if card.items:
+        html.append(f'<div class="rngd-sec-label">Conflicts &amp; failed checks ({len(card.items)})</div>')
+        for it in card.items[:12]:
+            tag = f'<span class="rngd-tag">{it.tag}</span>' if it.tag else ""
+            html.append(f'<div class="rngd-item {it.severity}"><div class="item-top"><span>{it.label}</span>{tag}</div>'
+                        f'<div class="item-detail">{it.detail}</div></div>')
+    st.markdown("".join(html), unsafe_allow_html=True)
+
+
+QUICK_QUESTIONS = {
+    "Multi-Agent Pipeline": {
+        None: ["What does this pipeline do?", "Explain each agent", "What is FAR / a buildable envelope?"],
+        "ready": ["Summarize this design", "What conflicts were found, and how severe?",
+                 "How close is this to the client's requirements?", "What would fix the parking shortfall?"],
+    },
+    "IFC Design Studio": {
+        "ready": ["Summarize this design", "Why did any checks fail?", "How does this compare to the real IBC rules?",
+                 "What's the smallest change to make this compliant?"],
+    },
+    "Open IFC File": {
+        "ready": ["What is in this building?", "List notable items in this model", "What got excluded from the 3D view, and why?"],
+    },
+}
+
+
+def _quick_questions() -> list[str]:
+    bucket = QUICK_QUESTIONS.get(mode, {})
+    if mode == "Multi-Agent Pipeline":
+        return bucket["ready"] if ss.pipeline_state else bucket[None]
+    if mode == "IFC Design Studio":
+        return bucket.get("ready", [])
+    if mode == "Open IFC File":
+        return bucket.get("ready", []) if ss.explorer_summary else ["What can this mode do?"]
+    return []
+
+
+def _ask(question: str) -> None:
+    ss.chat_history.append({"role": "user", "content": question})
+    with st.spinner("Thinking..."):
+        reply_text, _ = chat.reply(ss.chat_history, vs, ss.pipeline_state, ss.ifc_params, ss.ifc_layout,
+                                   ss.explorer_summary, ss.explorer_file)
+    ss.chat_history.append({"role": "assistant", "content": reply_text})
+
+
 with chat_col:
     st.markdown('<div class="rngd-chat-title">Assistant — online</div>', unsafe_allow_html=True)
-    chat_box = st.container(height=560)
+
+    card = {"Multi-Agent Pipeline": summary_card.pipeline_card(ss.pipeline_state),
+            "IFC Design Studio": summary_card.ifc_card(ss.ifc_params, ss.ifc_layout) if ss.ifc_params else None,
+            "Open IFC File": summary_card.explorer_card(ss.explorer_summary, ss.explorer_file)}.get(mode)
+    if card:
+        _render_card(card)
+
+    qs = _quick_questions()
+    if qs:
+        st.markdown('<div class="rngd-sec-label">Ask about this design</div>', unsafe_allow_html=True)
+        qcols = st.columns(2)
+        for i, q in enumerate(qs):
+            if qcols[i % 2].button(q, key=f"qq_{mode}_{i}", use_container_width=True):
+                _ask(q)
+                st.rerun()
+
+    chat_box = st.container(height=420)
     with chat_box:
         if not ss.chat_history:
             st.chat_message("assistant").write(
                 "Hi! I can explain any part of this project — the pipeline agents, the physics "
-                "simulation, the IFC Design Studio, zoning terms, or your latest results. I'll also "
-                "chime in with suggestions after a run finishes. What would you like to know?"
+                "simulation, the IFC Design Studio, the real IBC rules RNGD supplied, or your latest "
+                "results. I'll also chime in with suggestions after a run finishes. Try one of the "
+                "buttons above, or ask your own question below."
             )
         for msg in ss.chat_history:
             st.chat_message(msg["role"]).write(msg["content"])
 
     prompt = st.chat_input("Ask about any component or result...")
     if prompt:
-        ss.chat_history.append({"role": "user", "content": prompt})
-        with st.spinner("Thinking..."):
-            reply_text, _ = chat.reply(ss.chat_history, vs, ss.pipeline_state, ss.ifc_params, ss.ifc_layout,
-                                       ss.explorer_summary, ss.explorer_file)
-        ss.chat_history.append({"role": "assistant", "content": reply_text})
+        _ask(prompt)
         st.rerun()

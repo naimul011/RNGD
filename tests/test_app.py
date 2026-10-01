@@ -32,6 +32,40 @@ def test_ifc_studio_scenario_button_generates_design():
     assert at.metric[0].value == "60"
 
 
+def test_ifc_studio_shows_real_ibc_tab_and_summary_card():
+    at = _at().run()
+    at.sidebar.radio[0].set_value("IFC Design Studio").run()
+    btn = next(b for b in at.sidebar.button if "Right-sized" in b.label)
+    btn.click().run()
+    assert not at.exception
+    tab_labels = [t.label for t in at.tabs]
+    assert "Real IBC check" in tab_labels
+    # summary card is rendered as raw markdown HTML in the chat column
+    markdown_html = "\n".join(m.value for m in at.markdown)
+    assert "Match to requirements" in markdown_html
+    assert "IFC Design Studio" in markdown_html
+
+
+def test_quick_question_button_asks_and_replies():
+    at = _at().run()
+    assert not at.exception
+    before = len(at.session_state["chat_history"])
+    qbtn = next(b for b in at.button if b.label == "What does this pipeline do?")
+    qbtn.click().run()
+    assert not at.exception
+    history = at.session_state["chat_history"]
+    assert len(history) == before + 2
+    assert history[-2]["role"] == "user" and history[-1]["role"] == "assistant"
+
+
+def test_real_docs_loaded_into_knowledge_base():
+    at = _at().run()
+    assert not at.exception
+    from rngd.vectorstore import get_vectorstore
+
+    assert get_vectorstore().real_chunk_count > 0
+
+
 def test_chat_panel_replies():
     at = _at().run()
     assert not at.exception
