@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 
-from .. import config, llm_groq
+from .. import config, llm
 from ..schemas import BaaPPlan, ConflictReport, CustomerProgram, SiteConstraints
 from ..vectorstore import VectorStore
 
@@ -72,7 +72,7 @@ def run(
     context = vs.retrieve_as_context("insufficient information program does not fit site structured parking", k=3)
 
     model = config.MODEL_ROUTE["conflict"]
-    parsed, latency_ms = llm_groq.call_json(
+    parsed, latency_ms = llm.call_json(
         model=model,
         system=SYSTEM,
         user=(

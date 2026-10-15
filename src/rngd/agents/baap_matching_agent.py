@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import math
 
-from .. import config, llm_groq
+from .. import config, llm
 from ..schemas import BaaPPlan
 from ..vectorstore import VectorStore
 
@@ -70,7 +70,7 @@ def run(program, vs: VectorStore) -> tuple[BaaPPlan, float]:
     context = vs.retrieve_as_context(query, k=4)
 
     model = config.MODEL_ROUTE["baap_matching"]
-    parsed, latency_ms = llm_groq.call_json(
+    parsed, latency_ms = llm.call_json(
         model=model,
         system=SYSTEM,
         user=(

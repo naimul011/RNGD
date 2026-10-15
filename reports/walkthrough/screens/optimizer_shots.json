@@ -1,0 +1,32 @@
+[
+ {
+  "file": "32_hotel_optimize_settings.png",
+  "caption": "Optimize layouts: buildable area, shape mode (generative, blend or one shape), core placement and floors.",
+  "mode": "Hotel Schematic"
+ },
+ {
+  "file": "33_hotel_optimize_decide.png",
+  "caption": "Decision step: every distinct layout ranked by TOPSIS under the chosen priority, with the Pareto flag; the Show dropdown switches between the top 5, 10 or 25, the Pareto front and all layouts.",
+  "mode": "Hotel Schematic"
+ },
+ {
+  "file": "34_hotel_optimize_compare.png",
+  "caption": "Comparison: typical-floor thumbnails of the first-ranked layouts, keys against gross area per key for every layout, and the fitness gained by pattern search.",
+  "mode": "Hotel Schematic"
+ },
+ {
+  "file": "35_hotel_optimize_inspect.png",
+  "caption": "One layout inspected: keys, upper bound, footprint, corridor share, dead end, code checks and fitness.",
+  "mode": "Hotel Schematic"
+ },
+ {
+  "file": "36_hotel_optimize_plan.png",
+  "caption": "Interactive furnished plan of the selected layout (hover gives room data).",
+  "mode": "Hotel Schematic"
+ },
+ {
+  "file": "37_hotel_optimize_3d.png",
+  "caption": "Stacked 3D massing of the selected layout, coloured by room type.",
+  "mode": "Hotel Schematic"
+ }
+]

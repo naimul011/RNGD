@@ -1,0 +1,296 @@
+{
+ "engine": "anthropic/claude-sonnet-5.5",
+ "sections": {
+  "title": "RNGD Hotel Floor Plan Optimization: fp1_multi, Extended Program (3 Levels, 48 Keys)",
+  "executive_summary": "The optimizer placed all 62 of 62 rooms and all 48 requested keys across three levels on the fp1_multi site, with a final fitness of 0.9119. The best fitness in the first generation was 0.8972. Daylight, egress, ADA, and corner objectives all scored 1.0, and every exterior-facing check in the data came back at an exterior fraction of 1.0. All six code checks listed in the data pass, including the 50 ft dead-end limit in IBC-R1-027 (provided: 41 ft). The weakest objectives are efficiency (0.6763) and compactness (0.6412), and balance (0.816) is also moderate. The run was short (219 evaluations, 5.6 s) and did not use an LLM review, so the result is a first-pass layout that still needs professional code review.",
+  "approach": "Rooms were placed on the fixed site grid with the systematic search method, using a population of 24 for 30 generations (seed 7). The run used 219 evaluations in 5.6 seconds. Fitness is a weighted sum of ten 0-1 objective scores. Placement carries the most weight (0.3), followed by daylight (0.14), egress (0.12), efficiency (0.1), ADA (0.08), core access (0.07), adjacency (0.07), balance (0.05), compactness (0.04), and corner (0.03). No LLM design review was used (use_llm is false, with 0 checkpoints), so the score reflects only the computed objectives. The best fitness rose from 0.8972 in the first generation to 0.9119 in the last.",
+  "results": "All 62 rooms and all 48 requested keys were placed. The placed area is 22831 sf against a program area of 22576 sf. Corridors take 936 sf, a corridor ratio of 0.0971. Maximum travel is 60.1 ft, the longest dead end is 40.7 ft, and both cores are reached. Daylight scores 1.0, with an exterior fraction of 1.0. Shared wall length is 948 ft. By level: L1 has 20 rooms, 12 keys, and 7820 sf, and also holds the public and back-of-house spaces (lobby/front desk, breakfast/lounge, fitness, luggage, public restrooms, BOH/office). L2 has 22 rooms, 19 keys, and 7827 sf. L3 has 20 rooms, 17 keys, and 7184 sf. The key mix is 7 King, 3 QQ, 1 King Suite, and 1 ADA King on L1. L2 has 10 King, 6 QQ, 1 King Suite, 1 ADA King, and 1 ADA Suite. L3 has 9 King, 5 QQ, 1 King Suite, 1 ADA King, and 1 ADA Suite. Efficiency (0.6763) and compactness (0.6412) are the lowest scores, and balance is 0.816. Core access is 0.8951 and adjacency is 0.9483. The data does not say what drives the lower efficiency and compactness scores.",
+  "code_and_accessibility": "All six checks in the data pass. For egress, IBC-R1-015 requires at least 2 exits and 2 are reached. IBC-R1-018 (exit separation) requires 60 ft and the layout provides 81 ft. IBC-R1-023 (exit access travel) allows up to 250 ft and the layout provides 60 ft; the zoning excerpt's stricter 200 ft limit to a stair enclosure would also be met. IBC-R1-025 requires a 44 in corridor and 60 in is provided. IBC-R1-027, the dead-end limit for a fully sprinklered R-1 building, is 50 ft, and the layout provides 41 ft. That rule is marked critical, starter-verified, and requires professional review, so the pass is a screening result and not a code approval. For accessibility, ADA-224.2 is checked at a minimum of 2 mobility rooms for 48 keys, and 5 are provided (one on L1, two each on L2 and L3). They are split between ADA King and ADA Suite types, which is consistent with the dispersion intent of ADA 224.5. The retrieved excerpts do not include the Table 224.2 values, so the required count of 2 comes from the check output and not from the excerpt. The communication-features table (224.4) shown starts at 151 rooms and was not evaluated for this 48-key hotel. IBC-R1-024 requires a 0.5-hour corridor rating, but no check for it appears in the data.",
+  "comparison": "The reference design (floorplan1.json, 500 generations) reached a fitness of 0.8798 and placed 61 of 72 rooms and 58 keys, with no failed checks. The optimized design reached 0.9119 in 30 generations and placed 62 of 62 rooms and 48 of 48 keys. Its corridor ratio is 0.0971, against 0.1515 for the reference. Its exterior fraction is 1.0, against 0.8793. Its dead end is 40.7 ft, against 47.7 ft. It performs worse on two measures: maximum travel is 60.1 ft against 49.2 ft, and shared wall is 948 ft against 982 ft. The two designs appear to use different programs (62 versus 72 rooms and 48 versus 58 keys), so the fitness values are not a like-for-like comparison. The reference also did not place all of its rooms.",
+  "recommendations": [
+   "Have a licensed professional review the egress results, especially the critical dead-end rule IBC-R1-027 (41 ft against a 50 ft limit), before the layout is used for permitting.",
+   "Add checks for corridor fire-resistance rating (IBC-R1-024) and for ADA communication-feature rooms, which the current output does not cover.",
+   "Run a longer search (more generations or more seeds) and compare the results, since this run used only 30 generations and 219 evaluations.",
+   "Investigate the low efficiency (0.6763) and compactness (0.6412) scores to see whether the objective weights or the floor geometry cause them.",
+   "Run the optimization with the LLM design reviewer turned on to get a qualitative check on circulation and room adjacency.",
+   "Confirm with the developer whether the 48-key program is the intended target, because the reference design had 58 keys."
+  ],
+  "limitations": [
+   "Only one search run (seed 7) is reported, so the variability between runs is unknown.",
+   "No LLM review was used, so the result reflects computed objectives only.",
+   "Code rules are starter-verified, and the retrieved excerpts mark professional review as required. The pass results are not a compliance determination.",
+   "The reference design appears to use a different program, so the comparison is indicative only.",
+   "Some requirements are not modeled or not shown in the data, such as corridor ratings, ADA communication features, and accessible-room details such as bathroom type."
+  ]
+ },
+ "fact_check": [
+  {
+   "number": "0.03",
+   "traced": true
+  },
+  {
+   "number": "0.04",
+   "traced": true
+  },
+  {
+   "number": "0.05",
+   "traced": true
+  },
+  {
+   "number": "0.07",
+   "traced": true
+  },
+  {
+   "number": "0.08",
+   "traced": true
+  },
+  {
+   "number": "0.0971",
+   "traced": true
+  },
+  {
+   "number": "0.1",
+   "traced": true
+  },
+  {
+   "number": "0.12",
+   "traced": true
+  },
+  {
+   "number": "0.14",
+   "traced": true
+  },
+  {
+   "number": "0.1515",
+   "traced": true
+  },
+  {
+   "number": "0.3",
+   "traced": true
+  },
+  {
+   "number": "0.5",
+   "traced": true
+  },
+  {
+   "number": "0.6412",
+   "traced": true
+  },
+  {
+   "number": "0.6763",
+   "traced": true
+  },
+  {
+   "number": "0.816",
+   "traced": true
+  },
+  {
+   "number": "0.8793",
+   "traced": true
+  },
+  {
+   "number": "0.8798",
+   "traced": true
+  },
+  {
+   "number": "0.8951",
+   "traced": true
+  },
+  {
+   "number": "0.8972",
+   "traced": true
+  },
+  {
+   "number": "0.9119",
+   "traced": true
+  },
+  {
+   "number": "0.9483",
+   "traced": true
+  },
+  {
+   "number": "1.0",
+   "traced": true
+  },
+  {
+   "number": "12",
+   "traced": true
+  },
+  {
+   "number": "15",
+   "traced": true
+  },
+  {
+   "number": "151",
+   "traced": true
+  },
+  {
+   "number": "17",
+   "traced": true
+  },
+  {
+   "number": "18",
+   "traced": true
+  },
+  {
+   "number": "19",
+   "traced": true
+  },
+  {
+   "number": "20",
+   "traced": true
+  },
+  {
+   "number": "200",
+   "traced": true
+  },
+  {
+   "number": "219",
+   "traced": true
+  },
+  {
+   "number": "22",
+   "traced": true
+  },
+  {
+   "number": "224.2",
+   "traced": true
+  },
+  {
+   "number": "224.4",
+   "traced": true
+  },
+  {
+   "number": "224.5",
+   "traced": true
+  },
+  {
+   "number": "22576",
+   "traced": true
+  },
+  {
+   "number": "22831",
+   "traced": true
+  },
+  {
+   "number": "23",
+   "traced": true
+  },
+  {
+   "number": "24",
+   "traced": true
+  },
+  {
+   "number": "24.2",
+   "traced": true
+  },
+  {
+   "number": "25",
+   "traced": true
+  },
+  {
+   "number": "250",
+   "traced": true
+  },
+  {
+   "number": "27",
+   "traced": true
+  },
+  {
+   "number": "27,",
+   "traced": true
+  },
+  {
+   "number": "30",
+   "traced": true
+  },
+  {
+   "number": "40.7",
+   "traced": true
+  },
+  {
+   "number": "41",
+   "traced": true
+  },
+  {
+   "number": "44",
+   "traced": true
+  },
+  {
+   "number": "47.7",
+   "traced": true
+  },
+  {
+   "number": "48",
+   "traced": true
+  },
+  {
+   "number": "49.2",
+   "traced": true
+  },
+  {
+   "number": "5.6",
+   "traced": true
+  },
+  {
+   "number": "50",
+   "traced": true
+  },
+  {
+   "number": "500",
+   "traced": true
+  },
+  {
+   "number": "58",
+   "traced": true
+  },
+  {
+   "number": "60",
+   "traced": true
+  },
+  {
+   "number": "60.1",
+   "traced": true
+  },
+  {
+   "number": "61",
+   "traced": true
+  },
+  {
+   "number": "62",
+   "traced": true
+  },
+  {
+   "number": "7184",
+   "traced": true
+  },
+  {
+   "number": "72",
+   "traced": true
+  },
+  {
+   "number": "7820",
+   "traced": true
+  },
+  {
+   "number": "7827",
+   "traced": true
+  },
+  {
+   "number": "81",
+   "traced": true
+  },
+  {
+   "number": "936",
+   "traced": true
+  },
+  {
+   "number": "948",
+   "traced": true
+  },
+  {
+   "number": "982",
+   "traced": true
+  }
+ ]
+}

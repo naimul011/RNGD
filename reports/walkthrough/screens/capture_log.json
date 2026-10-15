@@ -1,0 +1,177 @@
+{
+  "url": "http://localhost:8501",
+  "started": "2026-10-05 15:55:50",
+  "shots": [
+    {
+      "file": "01_pipeline_inputs.png",
+      "caption": "Multi-Agent Pipeline before a run: the sample customer request and site sketch that feed the agents; the assistant panel on the right.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "02_pipeline_running.png",
+      "caption": "The pipeline running live: each agent reports its step as it finishes.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "03_pipeline_overview.png",
+      "caption": "Pipeline result overview: the arbiter's decision, confidence and conflict count.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "04_pipeline_agent_trace.png",
+      "caption": "Agent trace: every agent step with model, status and latency.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "05_pipeline_program_site.png",
+      "caption": "Program parsed from the request and the computed site constraints.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "06_pipeline_baap_conflicts.png",
+      "caption": "BaaP module counts and the conflicts the Conflict Agent found.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "07_pipeline_site_simulation.png",
+      "caption": "Physics-style site simulation and the computer-vision QA of the rendered plan.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "08_pipeline_floor_plates.png",
+      "caption": "Rule-based floor plates (ground and typical floor).",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "09_pipeline_final_decision.png",
+      "caption": "The arbiter's final decision, unresolved issues and next steps.",
+      "mode": "Multi-Agent Pipeline"
+    },
+    {
+      "file": "10_ifc_baseline_3d_model.png",
+      "caption": "IFC Design Studio, Baseline scenario (120 units, 4 floors, surface parking): the generated IFC4 model in the 3D viewer.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "11_ifc_baseline_site_plan.png",
+      "caption": "Baseline site plan: building, parking, easement and fire lane on the synthetic lot.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "12_ifc_baseline_compliance.png",
+      "caption": "Baseline compliance against the ten sample-zoning checks.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "13_ifc_baseline_real_ibc_check.png",
+      "caption": "Baseline cross-checked against RNGD's real 2021 IBC rules.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "14_ifc_baseline_how_this_was_built.png",
+      "caption": "Step-by-step explanation of how the layout was generated.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "15_ifc_rightsized_compliance.png",
+      "caption": "Right-sized scenario (60 units, podium parking): the compliance checks after the fix.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "16_ifc_rightsized_3d.png",
+      "caption": "Right-sized scenario in 3D.",
+      "mode": "IFC Design Studio"
+    },
+    {
+      "file": "17_explorer_3d_model.png",
+      "caption": "A real IFC file (CDI Solutions, Metairie Bank, IFC2X3, 89 MB) recentred and shown in 3D.",
+      "mode": "Open IFC File"
+    },
+    {
+      "file": "18_explorer_summary.png",
+      "caption": "What is in the real model: schema, storeys and element counts by IFC class.",
+      "mode": "Open IFC File"
+    },
+    {
+      "file": "19_explorer_element_browser.png",
+      "caption": "Searchable list of the model's elements.",
+      "mode": "Open IFC File"
+    },
+    {
+      "file": "20_hotel_overview.png",
+      "caption": "Hotel Schematic workspace: KPI tiles, the room-by-room 3D model and the key results with suggested fixes.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "21_hotel_program.png",
+      "caption": "The editable program (Project Renegade L+L space allocation, 28 rows) with area and room-mix charts.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "22_hotel_floor.png",
+      "caption": "Interactive floor plan of Level 1 (hover shows each room's area and size).",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "23_hotel_program_detail.png",
+      "caption": "Detailed program: per-room size, beds, sleeping capacity, placement, IBC occupant load and fit-out.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "24_hotel_plan_level2.png",
+      "caption": "Interactive plan of Level 2, a typical guest floor (24 keys).",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "25_hotel_plan_drawing.png",
+      "caption": "The same level in drawing style (as used on the PDF sheets).",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "26_hotel_room.png",
+      "caption": "Keys of each room type on each guest floor.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "27_hotel_unit.png",
+      "caption": "Unit type detail: enlarged plan and two 3D interior views.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "28_hotel_code.png",
+      "caption": "Code screen against RNGD's IBC rule set and the 2010 ADA guest-room tables, with rule text.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "29_hotel_report_results.png",
+      "caption": "PDF report tab after generating: summary numbers and the results that went into the report.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "30_hotel_report_sheets.png",
+      "caption": "Sheet gallery of the generated drawing set.",
+      "mode": "Hotel Schematic"
+    },
+    {
+      "file": "31_assistant_answer.png",
+      "caption": "The assistant answering a one-click question about the hotel design, using the live design state.",
+      "mode": "Assistant"
+    }
+  ],
+  "timings": {
+    "startup_s": 2.2,
+    "pipeline_run_s": 104.8,
+    "ifc_baseline_s": 3.8,
+    "ifc_rightsized_s": 5.1,
+    "ifc_open_s": 52.4,
+    "hotel_pdf_s": 24.2,
+    "assistant_reply_s": 36.8
+  },
+  "errors": [],
+  "assistant": {
+    "after_pipeline": "",
+    "hotel_question": "Why does the story check fail, and how do we fix it?",
+    "hotel_answer": "smart_toy\n\nWhy the story\u2011count check fails\n\nRule\tRequirement\tWhat the model shows\tWhy it fails\nIBC\u2011R1\u2011007 \u2013 Stories above grade (RNGD\u2019s real 2021 IBC CSV)\t\u2264\u202f5 stories above the grade plane for a sprinklered R\u20111, Type\u202fIIA building\t6 stories above grade (Level\u202f1 podium + 5 guest floors)\tThe podium is being counted as a \u201cstory above grade\u201d because it is a finished, occupiable floor (lobby/BOH). The IBC treats any occupiable floor that meets the definition of a story (height\u202f\u2265\u202f8\u202fft, has a ceiling, is not a mezzanine) as part of the story count. With the podium included, the total exceeds the 5\u2011story limit.\n\nHow to bring the design into compliance\n\nRe\u2011classify the podium\nIf the podium can be treated as a non\u2011habitable \u201cparking/mechanical\u201d level (Type\u202fIA, not Type\u202fIIA), the IBC allows it to be excluded from the \u201cstories above grade\u201d count.\n\nChange the podium program from Lobby\u202f+\u202fBOH to a parking/garage or service level that is not occupied (no sleeping rooms, no assembly).\nUpdate the code\u2011screen to mark the podium as \u201cnon\u2011habitable\u201d; the story count will then be 5 (guest floors only) and the rule will PASS.\n\nReduce the number of guest floors\n\nDrop one guest floor (e.g., go from 5 guest floors to 4).\nKeep the podium as a regular lobby/BOH (still counted) \u2192 total stories = 5 \u2192 PASS.\nThis will lower total GSF and may affect unit count; you\u2019ll need to re\u2011run the BaaP matching to see if the 117\u2011key program still fits.\n\nApply for a zoning/IBC variance\n\nIf the client insists on keeping the podium as an occupied floor and the 5\u2011story limit, a variance from the local building authority can be requested.\nDocument the rationale (e.g., podium provides essential public amenities, no additional fire\u2011risk, meets fire\u2011rating requirements).\nNote: The variance is a non\u2011technical fix; the pipeline will still flag the rule as FAIL until the variance is granted.\n\nCombine (1)\u202f+\u202f(2) for flexibility\n\nConvert the podium to a parking/garage level (non\u2011habitable) and keep 5 guest floors.\nThis satisfies the story count and may help the parking shortfall (see the earlier \u201cparking\u2011shortfall\u201d issue).\n\nWhat to do next in the tool\n\nEdit the hotel schematic (in the \u201cHotel Schematic\u201d UI) \u2192 change the Level\u202f1 program type or delete one guest floor.\nRe\u2011run the \u201cCode screen\u201d (the real\u2011IBC check tab) to verify that IBC\u2011R1\u2011007 now PASSes.\nIf you keep the podium as a lobby, run the IFC Design Studio with a structured\u2011parking garage under the podium; that may also solve the separate parking\u2011stall shortfall.\n\nBottom line: The failure is purely a code\u2011count issue\u2014reduce the counted stories or re\u2011classify the podium so it no longer counts as an \u201cabove\u2011grade\u201d story. Once that is done, the story\u2011count rule will pass, and you can focus on the remaining parking conflict."
+  },
+  "finished": "2026-10-05 16:01:56"
+}

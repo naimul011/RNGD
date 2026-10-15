@@ -1,0 +1,15 @@
+{
+  "_note": "All dimensions in feet. width_ft is one side, depth_ft the other; the GA decides which faces the corridor. Adjacency uses full instance names: a room with count 3 becomes 'Office 1', 'Office 2', 'Office 3'.",
+  "door_width_ft": 3.0,
+  "rooms": [
+    {"name": "King",      "width_ft": 25, "depth_ft": 12, "count": 63, "priority": 2},
+    {"name": "ADA corner suite",     "width_ft": 30, "depth_ft": 24, "count": 3, "priority": 5},
+    {"name": "ADA suite",         "width_ft": 25, "depth_ft": 20, "count": 3, "priority": 3},
+    {"name": "Janitor's closet", "count": 1, "per_floor": true, "floors": ["L1", "L2", "L3"],
+ "width_ft": 25, "depth_ft": 10, "priority": 10}
+  ],
+
+  "adjacency": [
+
+  ]
+}

@@ -1,0 +1,242 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{booktabs,longtable,xcolor,array}
+\usepackage{fontspec}\setmainfont{Arial}
+\setlength{\parskip}{0.45em}\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.12}
+\definecolor{pass}{HTML}{1E7B3A}\definecolor{fail}{HTML}{B22222}
+\begin{document}
+\section*{Appendix A --- Program}
+Source: Project Renegade Living + Lodging Prototype, cover sheet (06/20/25). Areas are the total for each row, as in the source schedule.
+\begin{longtable}{p{1.4cm}p{9.5cm}p{3cm}}\toprule \textbf{Count} & \textbf{Type} & \textbf{Total area (SF)} \\ \midrule \endhead
+\multicolumn{3}{l}{\textbf{Shared}} \\
+1 & Corridor & 1,335 \\
+1 & Gym & 968 \\
+1 & Lobby & 2,865 \\
+1 & Mens & 205 \\
+1 & Womens & 200 \\
+\midrule 5 & & 5,573 \\
+\multicolumn{3}{l}{\textbf{BOH}} \\
+1 & BOH & 69 \\
+1 & Hotel Kitchen / Pantry & 331 \\
+1 & Housekeeping & 103 \\
+5 & Ice & 297 \\
+5 & IT & 372 \\
+5 & Jan & 269 \\
+1 & Janitor & 107 \\
+1 & Loading & 282 \\
+1 & MEP Service & 309 \\
+12 & Stair & 1,868 \\
+5 & Supplies & 394 \\
+\midrule 38 & & 4,401 \\
+\multicolumn{3}{l}{\textbf{Tenant}} \\
+1 & White Box Retail & 3,533 \\
+\midrule 1 & & 3,533 \\
+\multicolumn{3}{l}{\textbf{Hotel Units}} \\
+1 & ADA Corner Suite & 852 \\
+2 & ADA King Spa & 920 \\
+2 & ADA QQ & 892 \\
+2 & ADA Suite & 1,278 \\
+2 & Corner Suite & 1,728 \\
+69 & King & 23,692 \\
+3 & King Spa & 1,379 \\
+33 & QQ & 11,342 \\
+3 & Suite & 1,920 \\
+\midrule 117 & & 44,003 \\
+\multicolumn{3}{l}{\textbf{Business}} \\
+1 & BOH / Bus & 1,718 \\
+1 & Luggage & 122 \\
+\midrule 2 & & 1,840 \\
+\midrule \textbf{163} & \textbf{Total} & \textbf{59,350} \\
+\bottomrule\end{longtable}
+
+\section*{Appendix B --- Gross area}
+\begin{tabular}{p{3cm}p{3.6cm}p{3.6cm}p{2cm}}\toprule \textbf{Level} & \textbf{Source sheets (SF)} & \textbf{This schematic (SF)} & \textbf{Keys} \\ \midrule
+Level 1 & 12,485 & 13,575 & 0 \\
+Level 2 & 12,342 & 12,587 & 24 \\
+Level 3 & 12,342 & 12,587 & 24 \\
+Level 4 & 12,342 & 12,587 & 23 \\
+Level 5 & 12,342 & 12,587 & 23 \\
+Level 6 & 12,342 & 12,587 & 23 \\
+\midrule Total & 74,195 & 76,508 & 117 \\ \bottomrule
+\end{tabular}
+
+Meeting rule: 59,350 SF net $\times$ 1.33 $\times$ 1.08 = 85,300 SF (rounded up to the
+nearest 100 SF). The source sheets carry 74,195 SF, a ratio of 1.25. The two rules
+disagree by 11,105 SF; see open question 3.
+
+\section*{Appendix C --- Code checks}
+Screened against RNGD's 2021 IBC rule set. Planning level only, not a code determination.
+\begin{longtable}{p{1.8cm}p{3.8cm}p{4.1cm}p{3.2cm}p{1.4cm}}\toprule
+\textbf{Rule} & \textbf{Check} & \textbf{Required} & \textbf{Provided} & \textbf{Status} \\ \midrule \endhead
+- & Keys placed & 117 & 117 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-007 & Stories above grade & $\le$ 5 (Type IIA, sprinklered R-1) & 6 & \textcolor{fail}{\textbf{FAIL}} \\
+IBC-R1-005 & Building height (ft) & $\le$ 85 (Type IIA) & 69.8 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-010 & Area per story (SF) & $\le$ 72,000 (Type IIA) & 13,575 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-012 & High-rise screen (ft to top floor) & $\le$ 75 & 59.0 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-015 & Exits per story & 2 for 1-500 occupants & 2 stairs; max load 316 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-018 & Exit separation (ft) & $\ge$ 1/3 diagonal = 75 & 207 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-023 & Exit access travel (ft) & $\le$ 250 (sprinklered) & 130 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-025 & Corridor width (in) & $\ge$ 44 & 72 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-027 & Dead-end corridor (ft) & $\le$ 50 (sprinklered R-1) & 5 & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-028 & Egress door clear width (in) & $\ge$ 32 & 34 (3'-0" leaf) & \textcolor{pass}{\textbf{PASS}} \\
+IBC-R1-003 & Automatic sprinklers & NFPA 13 required & assumed & ASSUMED \\
+ADA-224.2 & Accessible guest rooms (mobility) & $\ge$ 7 for 117 rooms (5 + 2 with roll-in) & 7 & \textcolor{pass}{\textbf{PASS}} \\
+ADA-224.4 & Rooms with communication features & $\ge$ 12 & not designated & REVIEW \\
+ADA-224.5 & Dispersion across room types & spread over 3 types & 3 types: king, suite, two-bed & \textcolor{pass}{\textbf{PASS}} \\
+- & Fits buildable envelope & 170 x 265 ft & 234 x 58 ft & \textcolor{pass}{\textbf{PASS}} \\
+\bottomrule\end{longtable}
+\begin{itemize}
+\item IBC-R1-007: Level 1 counts as a story above grade plane. A Type IA podium (IBC 510.2) could allow 5 stories above it.
+\item IBC-R1-023: Half the stair-to-stair run plus the room depth.
+\item ADA-224.2: Confirm which 2 of the ADA units get roll-in showers (Table 224.2).
+\item ADA-224.4: Designate 12 rooms; at most 10\% of the mobility rooms may count (224.5).
+\end{itemize}
+
+\section*{Appendix D --- RNGD IBC rule set}
+42 rules from the CSV. 11 are evaluated against this schematic (column
+``Checked''). Most of the rest need space-level occupancy or detailed egress modelling.
+{\small\setlength{\tabcolsep}{3pt} \begin{longtable}{p{1.75cm}p{2.0cm}p{4.7cm}p{1.2cm}p{1.5cm}p{1.7cm}p{0.9cm}p{1.1cm}}
+\toprule
+\textbf{Rule} & \textbf{Category} & \textbf{Rule} & \textbf{Op} & \textbf{Value} & \textbf{Units} & \textbf{Hard} & \textbf{Checked} \\ \midrule \endhead
+IBC-R1-001 & Occupancy & R-1 transient hotel classification & eq & R-1 & classification & Hard & no \\
+IBC-R1-002 & Mixed Use & Small accessory assembly space classification & < & 50 occupants or 750 sf & threshold & Hard & no \\
+IBC-R1-003 & Fire Protection & Automatic sprinkler required for Group R & requires & Automatic sprinkler system & system & Hard & yes \\
+IBC-R1-004 & Height / Stories & Allowable height and stories depend on occupancy, construction type, and spri... & lookup & Table 504.3 / 504.4 & lookup & Hard & no \\
+IBC-R1-005 & Height / Stories & R occupancy sprinklered Type IIA allowable height & $\le$ & 85 & ft & Hard & yes \\
+IBC-R1-006 & Height / Stories & R occupancy sprinklered Type IIB allowable height & $\le$ & 75 & ft & Hard & no \\
+IBC-R1-007 & Height / Stories & R-1 sprinklered Type IIA allowable stories & $\le$ & 5 & stories above grade plane & Hard & yes \\
+IBC-R1-008 & Height / Stories & R-1 sprinklered Type IIB allowable stories & $\le$ & 5 & stories above grade plane & Hard & no \\
+IBC-R1-010 & Area & R-1 Type IIA allowable area factor, multistory sprinklered & $\le$ & 72000 & sf per story base factor & Hard & yes \\
+IBC-R1-011 & Area & R-1 Type IIB allowable area factor, multistory sprinklered & $\le$ & 48000 & sf per story base factor & Hard & no \\
+IBC-R1-012 & High-Rise Screen & High-rise threshold screen & > & 75 & ft to occupied floor & Hard & yes \\
+IBC-R1-013 & Egress & R-1 single-exit space maximum occupant load & $\le$ & 10 & occupants & Hard & no \\
+IBC-R1-014 & Egress & R-1 single-exit common path maximum & $\le$ & 75 & ft & Hard & no \\
+IBC-R1-015 & Egress & Minimum exits per story: 1-500 occupants & eq & 2 & exits/access to exits & Hard & yes \\
+IBC-R1-016 & Egress & Minimum exits per story: 501-1000 occupants & eq & 3 & exits/access to exits & Hard & no \\
+IBC-R1-017 & Egress & Minimum exits per story: over 1000 occupants & eq & 4 & exits/access to exits & Hard & no \\
+IBC-R1-018 & Egress & Exit separation in sprinklered building & $\ge$ & 1/3 of maximum overall diagonal & ratio & Hard & yes \\
+IBC-R1-019 & Egress & Stair minimum width & $\ge$ & 44 & in & Hard & no \\
+IBC-R1-020 & Egress & Stair minimum width for occupant load under 50 & $\ge$ & 36 & in & Hard & no \\
+IBC-R1-021 & Egress & Stair maximum riser height & $\le$ & 7 & in & Hard & no \\
+IBC-R1-022 & Egress & Stair minimum tread depth & $\ge$ & 11 & in & Hard & no \\
+IBC-R1-023 & Egress & R exit access travel distance, sprinklered & $\le$ & 250 & ft & Hard & yes \\
+IBC-R1-024 & Corridors & R corridor fire-resistance rating & eq & 0.5 & hour & Hard & no \\
+IBC-R1-025 & Corridors & Default minimum corridor width & $\ge$ & 44 & in & Hard & yes \\
+IBC-R1-026 & Corridors & Minimum corridor width when occupant load is under 50 & $\ge$ & 36 & in & Hard & no \\
+IBC-R1-027 & Corridors & Dead-end corridor maximum for sprinklered R-1 & $\le$ & 50 & ft & Hard & yes \\
+IBC-R1-028 & Doors & Minimum clear width of required egress door opening & $\ge$ & 32 & in clear & Hard & yes \\
+IBC-R1-029 & Egress & Minimum means-of-egress ceiling height & $\ge$ & 7.5 & ft & Hard & no \\
+IBC-OL-001 & Occupant Load & Area-based occupant load calculation & formula & Area ÷ factor & occupants & Hard & no \\
+IBC-OL-002 & Occupant Load & Assembly without fixed seats - concentrated & divide\_round\_up & 7 & sf/person net & Hard & no \\
+IBC-OL-003 & Occupant Load & Assembly without fixed seats - standing & divide\_round\_up & 5 & sf/person net & Hard & no \\
+IBC-OL-004 & Occupant Load & Assembly without fixed seats - unconcentrated & divide\_round\_up & 15 & sf/person net & Hard & no \\
+IBC-OL-005 & Occupant Load & Business areas & divide\_round\_up & 150 & sf/person gross & Hard & no \\
+IBC-OL-006 & Occupant Load & Exercise rooms & divide\_round\_up & 50 & sf/person gross & Hard & no \\
+IBC-OL-007 & Occupant Load & Kitchens, commercial & divide\_round\_up & 200 & sf/person gross & Hard & no \\
+IBC-OL-008 & Occupant Load & Accessory storage / mechanical equipment room & divide\_round\_up & 300 & sf/person gross & Hard & no \\
+IBC-OL-009 & Occupant Load & Mercantile & divide\_round\_up & 60 & sf/person gross & Hard & no \\
+IBC-OL-010 & Occupant Load & Mercantile storage / stock / shipping & divide\_round\_up & 300 & sf/person gross & Hard & no \\
+IBC-OL-011 & Occupant Load & Parking garages & divide\_round\_up & 200 & sf/person gross & Hard & no \\
+IBC-OL-012 & Occupant Load & Residential & divide\_round\_up & 200 & sf/person gross & Hard & no \\
+IBC-OL-013 & Occupant Load & Pool / rink area & divide\_round\_up & 50 & sf/person gross & Hard & no \\
+IBC-OL-014 & Occupant Load & Pool / rink decks & divide\_round\_up & 15 & sf/person gross & Hard & no \\
+\bottomrule\end{longtable}}
+
+\section*{Appendix E --- RNGD workbook}
+{\small \subsection*{Workbook sheet: Project\_Config}
+\begin{longtable}{p{5.20cm}p{5.20cm}p{5.20cm}}
+\toprule
+\textbf{Field} & \textbf{Working Value} & \textbf{Status / Note} \\ \midrule \endhead
+Base code & 2021 International Building Code & Fixed \\
+Jurisdiction layer &  & Per RNGD direction; base code only \\
+Project type & New construction & Fixed for prototype \\
+Primary occupancy & Group R-1 transient hotel & Fixed \\
+Stories & 5 stories above grade plane & Fixed for current prototype \\
+Sprinkler protection & Fully sprinklered; NFPA 13 assumption & Fixed for current prototype \\
+Construction type & Type II; IIA vs IIB not yet locked & Keep both applicable Chapter 5 rows until subtype is confirmed \\
+High-rise strategy & Screen only & Five-story prototype should still be checked against the 75-ft occu... \\
+Accessibility scope & Not yet decided & IBC Chapter 11 can be added later if the team wants it inside this ... \\
+\bottomrule\end{longtable}
+\subsection*{Workbook sheet: Occupant\_Load\_Factors}
+\begin{longtable}{p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}}
+\toprule
+\textbf{factor\_id} & \textbf{IBC function of space} & \textbf{factor} & \textbf{area\_basis} & \textbf{machine\_key} \\ \midrule \endhead
+OL-F01 & Assembly without fixed seats - concentrated & 7 & net & assembly\_concentrated \\
+OL-F02 & Assembly without fixed seats - standing & 5 & net & assembly\_standing \\
+OL-F03 & Assembly without fixed seats - unconcentrated & 15 & net & assembly\_unconcentrated \\
+OL-F04 & Business areas & 150 & gross & business \\
+OL-F05 & Exercise rooms & 50 & gross & exercise\_room \\
+OL-F06 & Kitchens, commercial & 200 & gross & commercial\_kitchen \\
+OL-F07 & Accessory storage / mechanical equipment room & 300 & gross & accessory\_storage\_mechanical \\
+OL-F08 & Mercantile & 60 & gross & mercantile \\
+OL-F09 & Mercantile storage / stock / shipping & 300 & gross & mercantile\_storage \\
+OL-F10 & Parking garages & 200 & gross & parking\_garage \\
+OL-F11 & Residential & 200 & gross & residential \\
+OL-F12 & Pool / rink & 50 & gross & pool\_rink \\
+OL-F13 & Pool / rink decks & 15 & gross & pool\_deck \\
+\bottomrule\end{longtable}
+\subsection*{Workbook sheet: Hotel\_Space\_Mapping}
+\begin{longtable}{p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}}
+\toprule
+\textbf{reference\_space} & \textbf{reference\_area\_sf} & \textbf{suggested\_machine\_key} & \textbf{factor} & \textbf{area\_basis} \\ \midrule \endhead
+Lobby & 2865 & assembly\_unconcentrated & 15 & net \\
+Gym & 968 & exercise\_room & 50 & gross \\
+Hotel Kitchen / Pantry & 331 & commercial\_kitchen & 200 & gross \\
+MEP Service & 309 & accessory\_storage\_mechanical & 300 & gross \\
+White Box Retail & 3533 & mercantile & 60 & gross \\
+Housekeeping & 103 & accessory\_storage\_mechanical & 300 & gross \\
+Supplies & 79 & accessory\_storage\_mechanical & 300 & gross \\
+Janitor & 54 & accessory\_storage\_mechanical & 300 & gross \\
+King guestroom & 344 & residential & 200 & gross \\
+QQ guestroom & 344 & residential & 200 & gross \\
+\bottomrule\end{longtable}
+\subsection*{Workbook sheet: Rule\_Test\_Cases}
+\begin{longtable}{p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}p{3.12cm}}
+\toprule
+\textbf{test\_id} & \textbf{test\_type} & \textbf{rule\_id} & \textbf{scenario} & \textbf{area\_sf} \\ \midrule \endhead
+TC-001 & occupant\_load\_calc & IBC-OL-012 & 344 SF King guestroom mapped to Residential & 344.0 \\
+TC-002 & occupant\_load\_calc & IBC-OL-006 & 968 SF hotel gym & 968.0 \\
+TC-003 & occupant\_load\_calc & IBC-OL-007 & 331 SF commercial kitchen/pantry & 331.0 \\
+TC-004 & occupant\_load\_calc & IBC-OL-009 & 3,533 SF white-box retail & 3533.0 \\
+TC-005 & occupant\_load\_calc & IBC-OL-004 & 2,865 SF lobby provisionally mapped to unconcentrated assembly & 2865.0 \\
+TC-006 & compliance & IBC-R1-015 & Story occupant load 191 with 2 exits &  \\
+TC-007 & compliance & IBC-R1-016 & Story occupant load 600 with only 2 exits &  \\
+TC-008 & compliance & IBC-R1-023 & Sprinklered Group R travel distance of 240 ft &  \\
+TC-009 & compliance & IBC-R1-023 & Sprinklered Group R travel distance of 260 ft &  \\
+TC-010 & compliance & IBC-R1-027 & Sprinklered R-1 dead-end corridor of 55 ft &  \\
+\bottomrule\end{longtable}}
+
+\section*{Appendix F --- Assumptions}
+\begin{itemize}
+\item Envelope from the app sidebar (default synthetic lot 170 x 265 ft). Street assumed on the south side.
+\item Double-loaded corridor, 6 ft clear; room depth 26 ft; room width = program area / 26 ft.
+\item Floor-to-floor: Level 1 16 ft, guest floors 10.75 ft (from the L+L elevations).
+\item Core at the west end (Stair 1, two elevators, shafts); Stair 2 at the east end of the north side.
+\item Rows whose count equals the number of guest floors (Ice, IT, Jan, Supplies) are placed once per floor.
+\item Room mix spread evenly across floors, largest units first. Fixtures and furniture are typical, not from RNGD unit drawings.
+\item Occupant loads use the RNGD CSV factors (IBC Table 1004.5); lobby as assembly unconcentrated (15 SF net).
+\item 3D views are drawn with a painter's-algorithm axonometric in matplotlib. OpenGL renderers (moderngl, pyvista) are not installed in this environment.
+\end{itemize}
+
+\section*{Appendix G --- Open questions for RNGD}
+\begin{enumerate}
+\item Which area of the Level 1 / Level 2 drawing was meant? The reference coordinate note (scale 1.08 to the original image) did not name a room, stair or gridline. Please mark the spot on the L+L plans sheet.
+\item Story limit: the program needs Level 1 plus five guest floors (six stories), but RNGD rule IBC-R1-007 allows five stories for sprinklered Type IIA R-1. Is a Type IA podium (IBC 510.2) intended, as in the L+L prototype?
+\item Confirm the gross-up rule: kickoff meeting said 33\% circulation + 8\% wall burden; the L+L source sheets imply 1.25.
+\item Real lot, setbacks, street frontage and fire-lane requirements (the envelope used here is synthetic).
+\item Is parking part of this phase? It is not modelled.
+\item Confirm the per-floor support rooms (Ice, IT, Jan, Supplies) and the Level 1 BOH arrangement.
+\item Column grid: 30-34 ft bays assumed from the kickoff meeting. Is there a preferred structural module?
+\item Prefab panel / module catalog to replace the indicative panel breakdown on the elevations.
+\end{enumerate}
+
+\section*{Appendix H --- Sources}
+\begin{itemize}
+\item Project Renegade Living + Lodging Prototype drawings, cover sheet space allocation and plans (06/20/25).
+\item RNGD Model Training data: ADA Suite, Corner Suite and King groups (floor plans and 3D views); Schemes 1-3.
+\item RNGD IBC 2021 R1 rule set: RNGD\_IBC\_2021\_R1\_Five\_Story\_AI\_Rules\_v0\_2.csv and the companion xlsx workbook.
+\item Kickoff meeting transcript (circulation and wall-burden rule, 30-34 ft bays, 2D-first output, upload of programs).
+\item RNGD Product Requirements Document (hotels as the first use case; proposal contents).
+\end{itemize}
+\end{document}

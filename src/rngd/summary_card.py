@@ -140,3 +140,61 @@ def explorer_card(summary: dict | None, file_label: str | None) -> SummaryCard |
         setbacks=[],
         items=items,
     )
+
+
+def hotel_card(sch, circulation_pct: float = 33, wall_pct: float = 8) -> SummaryCard:
+    """Hotel Schematic mode: program, massing and the IBC / ADA screen."""
+    from .hotel.details import failing_advice
+
+    p = sch.program
+    scored = [c for c in sch.checks if c["status"] in ("PASS", "FAIL")]
+    passed = sum(c["status"] == "PASS" for c in scored)
+    n = p.net_to_gross(circulation_pct, wall_pct)
+    items = []
+    for c in sch.checks:
+        if c["status"] == "PASS":
+            continue
+        sev = {"FAIL": "critical", "REVIEW": "medium", "ASSUMED": "info"}.get(c["status"], "low")
+        tip = failing_advice(c)
+        items.append(CardItem(label=f"{c['check']}", detail=f"required {c['required']}, provided {c['provided']}"
+                              + (f". Next: {tip}" if tip else ""), severity=sev,
+                              tag=c["rule_id"] if c["rule_id"] != "-" else c.get("source", "")))
+    return SummaryCard(
+        title="Hotel Schematic", badge=p.source[:38] + ("..." if len(p.source) > 38 else ""),
+        headline=f"{p.keys} keys on {len(sch.levels) - 1} guest floors; {passed}/{len(scored)} code checks pass",
+        match_pct=100 * passed / len(scored) if scored else None,
+        metrics=[("Keys", str(p.keys)), ("Net SF", f"{p.net_sf:,.0f}"),
+                 ("Gross drawn", f"{sum(lv.gross_sf for lv in sch.levels):,.0f}"),
+                 (f"Gross {circulation_pct:.0f}%+{wall_pct:.0f}%", f"{n['required_gross_sf']:,.0f}"), ("Levels", str(len(sch.levels))),
+                 ("Height", f"{sch.height_ft:.1f} ft")],
+        setbacks=[("Envelope", f"{sch.site['envelope_d']:.0f} x {sch.site['envelope_w']:.0f} ft"),
+                  ("Podium", f"{sch.levels[0].length_ft:.0f} x {sch.levels[0].width_ft:.0f} ft"),
+                  ("Tower", f"{sch.levels[1].length_ft:.0f} x {sch.levels[1].width_ft:.0f} ft")],
+        items=items,
+    )
+
+
+def optimizer_card(result: dict) -> SummaryCard:
+    """Design Optimizer mode: the optimized layout and its code screen."""
+    m = result["metrics"]
+    scored = m["checks"]
+    passed = sum(c["status"] == "PASS" for c in scored)
+    items = [CardItem(label=c["check"], detail=f"required {c['required']}, provided {c['provided']}", severity="critical",
+                      tag=c["rule_id"]) for c in scored if c["status"] == "FAIL"]
+    if m["unplaced_by_type"]:
+        items.append(CardItem(label="Rooms not placed", detail=", ".join(f"{k} x{v}" for k, v in m["unplaced_by_type"].items()),
+                              severity="medium", tag="program"))
+    ref = result.get("reference")
+    setbacks = []
+    if ref:
+        rm = ref["metrics"]
+        setbacks = [("Reference rooms", f"{rm['rooms_placed']}/{rm['rooms_total']}"), ("Reference fitness", f"{rm['fitness']}"),
+                    ("Reference dead end", f"{rm['dead_end_ft']} ft")]
+    return SummaryCard(
+        title="Design Optimizer", badge=f"{result['site']} · {result['program']}"[:40],
+        headline=f"{m['rooms_placed']}/{m['rooms_total']} rooms placed, fitness {m['fitness']}; {passed}/{len(scored)} checks pass",
+        match_pct=100 * m["rooms_placed"] / max(1, m["rooms_total"]),
+        metrics=[("Keys", f"{m['keys_placed']}/{m['keys_requested']}"), ("Corridor", f"{100 * m['corridor_ratio']:.1f}%"),
+                 ("Windows", f"{100 * m['exterior_fraction']:.0f}%"), ("Travel", f"{m['max_travel_ft']} ft"),
+                 ("Dead end", f"{m['dead_end_ft']} ft"), ("LLM reviews", str(len(result.get("reviews", []))))],
+        setbacks=setbacks, items=items)

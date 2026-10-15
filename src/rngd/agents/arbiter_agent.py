@@ -1,17 +1,17 @@
-"""Arbiter Agent — the ONE Anthropic Claude call per pipeline run.
+"""Arbiter Agent — the ONE expensive LLM call per pipeline run (OpenRouter, Claude model).
 
-Every other agent in this system runs on Groq (fast, cheap, good enough for
+Every other agent in this system runs on a light or reasoning model (fast, cheap, good enough for
 structured extraction and grounded reasoning over retrieved text). This is
 the single step reserved for the most complex judgment call: synthesizing the
 entire trace — program, site, BaaP plan, conflicts, simulation/CV iteration
 history — into one final, defensible decision and executive narrative. Per
-project directive, Anthropic is used here only, not per-agent.
+project directive, the expensive model is used here only, not per-agent.
 """
 from __future__ import annotations
 
 import json
 
-from .. import llm_anthropic
+from .. import config, llm
 from ..schemas import FinalDecision, ProjectState
 
 SYSTEM = """You are the final Arbiter for RNGD's AI-assisted concept-to-schematic \
@@ -54,7 +54,8 @@ def _compile_summary(state: ProjectState) -> dict:
 
 def run(state: ProjectState) -> tuple[FinalDecision, float]:
     summary = _compile_summary(state)
-    parsed, latency_ms = llm_anthropic.call_json(
+    parsed, latency_ms = llm.call_json(
+        model=config.ARBITER_MODEL,
         system=SYSTEM,
         user=f"Full pipeline trace:\n\n{json.dumps(summary, indent=2, default=str)}",
     )

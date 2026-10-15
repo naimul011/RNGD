@@ -6,7 +6,7 @@ LLM, grounded with citations.
 """
 from __future__ import annotations
 
-from .. import config, llm_groq
+from .. import config, llm
 from ..schemas import BuildableEnvelope, Easement, SiteConstraints, ZoningRules
 from ..vectorstore import VectorStore
 
@@ -73,7 +73,7 @@ def run(site_conditions: dict, vs: VectorStore, cv_cross_check: dict | None = No
     context = vs.retrieve_multi_as_context(queries, k_each=2)
 
     model = config.MODEL_ROUTE["zoning"]
-    parsed, latency_ms = llm_groq.call_json(
+    parsed, latency_ms = llm.call_json(
         model=model,
         system=SYSTEM,
         user=f"Zoning district: {district}\n\nRetrieved code excerpts:\n\n{context}",

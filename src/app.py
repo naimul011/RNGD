@@ -33,7 +33,10 @@ from rngd.vectorstore import get_vectorstore
 st.set_page_config(page_title="RNGD AI Studio", layout="wide", page_icon=":material/architecture:")
 
 # ============================================================== theme ====
-st.markdown(
+# st.html() (not st.markdown) because the markdown->HTML pipeline treats a
+# blank line inside a raw <style> block as ending the HTML passthrough,
+# leaking everything after it onto the page as literal visible text.
+st.html(
     """
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
@@ -109,8 +112,7 @@ code, .stCode, [data-testid="stMetricValue"] { font-family: "IBM Plex Mono", mon
 
 div[data-testid="stVerticalBlockBorderWrapper"] .stButton button{ font-size:12px; padding:4px 10px; white-space:normal; height:auto; }
 </style>
-""",
-    unsafe_allow_html=True,
+"""
 )
 
 # ============================================================ session ====
@@ -125,6 +127,10 @@ ss.setdefault("explorer_meshes", None)
 ss.setdefault("explorer_file", None)
 ss.setdefault("explorer_suggested_for", None)
 ss.setdefault("wide_view", False)
+ss.setdefault("hotel_program", None)
+if ss.hotel_program is None:
+    from rngd.hotel.program import default_program
+    ss.hotel_program = default_program()
 for k, v in dict(units=120, floors=4, zoning=list(ZONING)[0], parking="surface", wings=0, studio=20, onebr=45).items():
     ss.setdefault(k, v)
 
@@ -133,11 +139,11 @@ vs = get_vectorstore()
 # ============================================================= header ====
 n_scenarios = len(SCENARIOS)
 decision = ss.pipeline_state.final_decision.decision if ss.pipeline_state else None
-st.markdown(
+st.html(
     f"""<div class="rngd-header">
   <div class="eyebrow">RNGD &middot; Concept-to-Schematic AI &middot; Semester Proof of Concept</div>
   <h1>RNGD AI Studio</h1>
-  <div class="sub">Multi-agent schematic pipeline (Groq + Claude, physics simulation, classical CV), a parametric
+  <div class="sub">Multi-agent schematic pipeline (OpenRouter LLMs, physics simulation, classical CV), a parametric
   IFC Design Studio, and a real-IFC file explorer — side by side with a chat assistant that knows every component.
   Pipeline/IFC-studio zoning and BaaP data is synthetic; the file explorer opens real models.</div>
   <div style="margin-top:12px">
@@ -148,13 +154,12 @@ st.markdown(
     <span class="rngd-pill ok">{vs.real_chunk_count} from RNGD's real IBC/ADA docs</span>
     {f'<span class="rngd-pill ok">last decision: {decision}</span>' if decision else ""}
   </div>
-</div>""",
-    unsafe_allow_html=True,
+</div>"""
 )
 
 # ============================================================= sidebar ===
 with st.sidebar:
-    mode = st.radio("Mode", ["Multi-Agent Pipeline", "IFC Design Studio", "Open IFC File"], key="mode")
+    mode = st.radio("Mode", ["Multi-Agent Pipeline", "IFC Design Studio", "Open IFC File", "Hotel Schematic", "Design Optimizer"], key="mode")
     st.checkbox("Wide 3D view (collapses the chat panel)", key="wide_view",
                 help="Gives the model viewer most of the window. Chat stays usable, just narrower.")
     st.divider()
@@ -164,6 +169,51 @@ with st.sidebar:
         project_id = st.selectbox("Sample project", options=["project_001"])
         max_iter = st.slider("Max simulation iterations", 1, 5, config.MAX_SIMULATION_ITERATIONS)
         run_clicked = st.button("Run full pipeline", type="primary", use_container_width=True)
+
+    elif mode == "Design Optimizer":
+        import optimizer_ui
+        opt_paths = optimizer_ui.sidebar(ss)
+
+    elif mode == "Hotel Schematic":
+        st.subheader("1 · Program")
+        p_ = ss.hotel_program
+        st.caption(f"**Loaded:** {p_.source}  \n{p_.keys} keys · {len(p_.rows)} rows · {p_.net_sf:,.0f} SF net")
+        up = st.file_uploader("Upload a program (CSV or XLSX)", type=["csv", "xlsx"],
+                              help="Columns: room_type, count, area_sf (row total), category (optional: "
+                                   "guest / shared / boh / business / tenant). You can also edit the program "
+                                   "directly in the Program tab.")
+        if up is not None and st.button("Use uploaded program", use_container_width=True, type="primary"):
+            from rngd.hotel.program import load_program_file
+            import tempfile as _tf
+            tmp = Path(_tf.gettempdir()) / up.name
+            tmp.write_bytes(up.getvalue())
+            try:
+                ss.hotel_program = load_program_file(tmp)
+                ss.hot_prog_ver = ss.get("hot_prog_ver", 0) + 1
+                st.rerun()
+            except Exception as e:
+                st.error(f"Could not load program: {e}")
+        if st.button("Restore default L+L program", use_container_width=True):
+            from rngd.hotel.program import default_program
+            ss.hotel_program = default_program()
+            ss.hot_prog_ver = ss.get("hot_prog_ver", 0) + 1
+            st.rerun()
+        st.download_button("Download program (CSV template)", use_container_width=True,
+                           data=pd.DataFrame(p_.rows, columns=["room_type", "count", "area_sf", "category"]).to_csv(index=False),
+                           file_name="hotel_program.csv", mime="text/csv")
+        st.subheader("2 · Site & massing")
+        c1, c2 = st.columns(2)
+        c1.number_input("Envelope width (ft)", 60, 600, 170, key="hot_w")
+        c2.number_input("Envelope depth (ft)", 60, 600, 265, key="hot_d")
+        st.slider("Guest floors above Level 1", 2, 8, 5, key="hot_floors",
+                  help="RNGD's IBC rule set allows 5 stories (Type IIA, sprinklered R-1). Level 1 counts as a story.")
+        c1, c2 = st.columns(2)
+        c1.number_input("Level 1 height (ft)", 12.0, 24.0, 16.0, 0.25, key="hot_l1")
+        c2.number_input("Guest floor height (ft)", 9.0, 14.0, 10.75, 0.25, key="hot_fl")
+        st.subheader("3 · Gross-up rule")
+        c1, c2 = st.columns(2)
+        c1.number_input("Circulation %", 0, 60, 33, key="hot_circ", help="Kickoff meeting: 33%. Not client-confirmed.")
+        c2.number_input("Wall burden %", 0, 20, 8, key="hot_wall", help="Kickoff meeting: 6-8%.")
 
     elif mode == "Open IFC File":
         st.subheader("Open a real IFC file")
@@ -247,7 +297,7 @@ def _render_step(container, entry):
 
 
 # =========================================================== columns =====
-main_col, chat_col = st.columns([5.5, 1] if ss.wide_view else [1.8, 1.3], gap="large")
+main_col, chat_col = st.columns([5.5, 1] if ss.wide_view else ([2.5, 1] if mode in ("Hotel Schematic", "Design Optimizer") else [1.8, 1.3]), gap="large")
 
 # ------------------------------------------------------- pipeline mode ---
 with main_col:
@@ -296,8 +346,8 @@ with main_col:
                 rows = [{"step": e.step, "agent": e.agent, "action": e.action, "model": e.model,
                          "status": e.status, "latency_ms": e.latency_ms, "summary": e.summary} for e in state.trace]
                 st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
-                st.caption("Model routing: light Groq model for extraction, larger Groq reasoning model for multi-constraint "
-                           "judgment, classical CV for anything image-based, and exactly one Anthropic call — the final arbiter.")
+                st.caption("Model routing via OpenRouter: light model for extraction, larger reasoning model for multi-constraint "
+                           "judgment, classical CV for anything image-based, and exactly one arbiter call — the final decision.")
 
             with tabs[2]:
                 c1, c2 = st.columns(2)
@@ -363,7 +413,7 @@ with main_col:
                 st.markdown("**Recommended next steps**")
                 for s in fd.recommended_next_steps:
                     st.markdown(f"- {s}")
-                st.caption(f"This is the single Anthropic ({config.ANTHROPIC_MODEL}) call in the whole pipeline.")
+                st.caption(f"This is the single arbiter call ({config.ARBITER_MODEL}, via OpenRouter) in the whole pipeline.")
 
             with tabs[7]:
                 st.subheader("Ask any agent, about any part of the project, at any time")
@@ -489,7 +539,7 @@ with main_col:
             st.caption("The .ifc opens in any BIM tool (BIMvision, Blender-BIM, FreeCAD, Autodesk Viewer).")
 
     # ------------------------------------------------------ explorer mode -
-    else:
+    elif mode == "Open IFC File":
         if explorer_load_clicked and explorer_path is not None:
             with st.spinner(f"Opening {explorer_path.name} — triangulating geometry (first time only, can take a while)..."):
                 summary, meshes = explorer.load(explorer_path, skip_framing=skip_framing)
@@ -552,6 +602,15 @@ with main_col:
                 st.dataframe(pd.DataFrame(rows[:500]), hide_index=True, use_container_width=True)
                 st.caption(f"{len(rows)} matching elements (showing up to 500).")
 
+    # ------------------------------------------------------ hotel mode -
+    if mode == "Hotel Schematic":
+        import hotel_ui
+        hotel_ui.render(ss)
+
+    if mode == "Design Optimizer":
+        import optimizer_ui
+        optimizer_ui.render_mode(ss, opt_paths)
+
 # ================================================================ chat ===
 MATCH_COLOR = lambda p: "var(--ok)" if p >= 80 else ("var(--high)" if p >= 50 else "var(--critical)")
 
@@ -577,7 +636,7 @@ def _render_card(card: summary_card.SummaryCard) -> None:
             tag = f'<span class="rngd-tag">{it.tag}</span>' if it.tag else ""
             html.append(f'<div class="rngd-item {it.severity}"><div class="item-top"><span>{it.label}</span>{tag}</div>'
                         f'<div class="item-detail">{it.detail}</div></div>')
-    st.markdown("".join(html), unsafe_allow_html=True)
+    st.html("".join(html))
 
 
 QUICK_QUESTIONS = {
@@ -593,6 +652,16 @@ QUICK_QUESTIONS = {
     "Open IFC File": {
         "ready": ["What is in this building?", "List notable items in this model", "What got excluded from the 3D view, and why?"],
     },
+    "Design Optimizer": {
+        "ready": ["Explain how this design was optimized", "Why were some rooms not placed?",
+                  "What did the LLM reviewer change, and why?", "How does this compare with the reference design?",
+                  "Which code checks are at risk?", "What should we try next to improve it?"],
+    },
+    "Hotel Schematic": {
+        "ready": ["Summarize this hotel schematic", "Why does the story check fail, and how do we fix it?",
+                  "Is the ADA room count enough?", "How could we cut gross area?",
+                  "Explain the room mix by floor", "What should we confirm with RNGD?"],
+    },
 }
 
 
@@ -604,29 +673,33 @@ def _quick_questions() -> list[str]:
         return bucket.get("ready", [])
     if mode == "Open IFC File":
         return bucket.get("ready", []) if ss.explorer_summary else ["What can this mode do?"]
-    return []
+    return bucket.get("ready", [])
 
 
 def _ask(question: str) -> None:
     ss.chat_history.append({"role": "user", "content": question})
     with st.spinner("Thinking..."):
         reply_text, _ = chat.reply(ss.chat_history, vs, ss.pipeline_state, ss.ifc_params, ss.ifc_layout,
-                                   ss.explorer_summary, ss.explorer_file)
+                                   ss.explorer_summary, ss.explorer_file, hotel_schematic=ss.get("hotel_sch"),
+                                   optimizer_result=ss.get("opt_result"))
     ss.chat_history.append({"role": "assistant", "content": reply_text})
 
 
 with chat_col:
-    st.markdown('<div class="rngd-chat-title">Assistant — online</div>', unsafe_allow_html=True)
+    st.html('<div class="rngd-chat-title">Assistant — online</div>')
 
     card = {"Multi-Agent Pipeline": summary_card.pipeline_card(ss.pipeline_state),
             "IFC Design Studio": summary_card.ifc_card(ss.ifc_params, ss.ifc_layout) if ss.ifc_params else None,
-            "Open IFC File": summary_card.explorer_card(ss.explorer_summary, ss.explorer_file)}.get(mode)
+            "Open IFC File": summary_card.explorer_card(ss.explorer_summary, ss.explorer_file),
+            "Design Optimizer": summary_card.optimizer_card(ss.opt_result) if ss.get("opt_result") else None,
+            "Hotel Schematic": summary_card.hotel_card(ss.hotel_sch, ss.get("hot_circ", 33), ss.get("hot_wall", 8))
+            if ss.get("hotel_sch") else None}.get(mode)
     if card:
         _render_card(card)
 
     qs = _quick_questions()
     if qs:
-        st.markdown('<div class="rngd-sec-label">Ask about this design</div>', unsafe_allow_html=True)
+        st.html('<div class="rngd-sec-label">Ask about this design</div>')
         qcols = st.columns(2)
         for i, q in enumerate(qs):
             if qcols[i % 2].button(q, key=f"qq_{mode}_{i}", use_container_width=True):

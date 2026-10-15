@@ -58,7 +58,7 @@ code-approved; a licensed professional must review any real design.
 \section{{Getting started}}
 \begin{{enumerate}}[nosep]
 \item \texttt{{pip install -r requirements.txt}}
-\item Create \texttt{{RNGD/.env}} with \texttt{{GROQ\_API\_KEY}} and \texttt{{ANTHROPIC\_API\_KEY}} (not committed to git).
+\item Create \texttt{{RNGD/.env}} with \texttt{{OPENROUTER\_API\_KEY}} (not committed to git).
 \item \texttt{{python src/make\_sample\_data.py}} (once, generates the sample site sketch).
 \item \texttt{{streamlit run src/app.py}} — opens in your browser at \texttt{{http://localhost:8501}}.
 \end{{enumerate}}
@@ -184,8 +184,8 @@ in the suite for exactly that reason.
 Symptom & Fix \\ \midrule
 \texttt{{IndexError}} on startup mentioning \texttt{{parents[...]}} & Launch from the repo root as \texttt{{streamlit run src/app.py}}, or make sure any \texttt{{Path(\_\_file\_\_)}} use is \texttt{{.resolve()}}d first — already fixed in this app, kept here as a reminder if you copy the pattern elsewhere. \\
 "Port already in use" & Add \texttt{{--server.port 8502}} (or any free port) to the \texttt{{streamlit run}} command. \\
-Chat button greyed out / no reply & Check \texttt{{GROQ\_API\_KEY}} is set in \texttt{{.env}} and the process was restarted after adding it. \\
-"Extract requirements" fails & The Groq intake agent needs \texttt{{GROQ\_API\_KEY}}; everything else in the IFC studio works without any key. \\
+Chat button greyed out / no reply & Check \texttt{{OPENROUTER\_API\_KEY}} is set in \texttt{{.env}} and the process was restarted after adding it. \\
+"Extract requirements" fails & The intake agent needs \texttt{{OPENROUTER\_API\_KEY}}; everything else in the IFC studio works without any key. \\
 First load feels slow & The knowledge-base embedding model downloads/loads once per process start (a few seconds); subsequent reruns reuse it. \\ \bottomrule
 \end{{tabular}}\end{{table}}
 

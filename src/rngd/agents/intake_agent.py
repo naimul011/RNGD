@@ -1,7 +1,7 @@
 """Program Intake Agent: unstructured customer RFP text -> CustomerProgram."""
 from __future__ import annotations
 
-from .. import config, llm_groq
+from .. import config, llm
 from ..schemas import CustomerProgram
 
 SYSTEM = """You are RNGD's Program Intake Agent for a Building-as-a-Product (BaaP) \
@@ -27,7 +27,7 @@ or goes in assumptions if you had to infer it."""
 
 def run(rfp_text: str) -> tuple[CustomerProgram, float]:
     model = config.MODEL_ROUTE["intake"]
-    parsed, latency_ms = llm_groq.call_json(
+    parsed, latency_ms = llm.call_json(
         model=model,
         system=SYSTEM,
         user=f"Customer request:\n\n{rfp_text}",

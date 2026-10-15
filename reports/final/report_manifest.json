@@ -1,0 +1,348 @@
+{
+  "generated": "2026-10-05T16:01:06",
+  "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\RNGD_final_schematic_report.pdf",
+  "pages": 18,
+  "program_source": "Project Renegade Living + Lodging Prototype, cover sheet (06/20/25)",
+  "site": {
+    "envelope_w": 170,
+    "envelope_d": 265
+  },
+  "layout": {
+    "upper_levels": 5,
+    "ground_height_ft": 16.0,
+    "floor_height_ft": 10.75
+  },
+  "summary": {
+    "keys": 117,
+    "net_sf": 59350.0,
+    "gross_source_sf": 74195.0,
+    "gross_meeting_sf": 85300,
+    "gross_drawn_sf": 76508.20016215667,
+    "levels": 6,
+    "height_ft": 69.75,
+    "tower": [
+      217.01130029390896,
+      58.0
+    ],
+    "podium": [
+      234.05039787798407,
+      58.0
+    ]
+  },
+  "checks": [
+    {
+      "rule_id": "-",
+      "check": "Keys placed",
+      "required": "117",
+      "provided": "117",
+      "status": "PASS",
+      "source": "Program",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-007",
+      "check": "Stories above grade",
+      "required": "<= 5 (Type IIA, sprinklered R-1)",
+      "provided": "6",
+      "status": "FAIL",
+      "source": "RNGD IBC rule set",
+      "note": "Level 1 counts as a story above grade plane. A Type IA podium (IBC 510.2) could allow 5 stories above it."
+    },
+    {
+      "rule_id": "IBC-R1-005",
+      "check": "Building height (ft)",
+      "required": "<= 85 (Type IIA)",
+      "provided": "69.8",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-010",
+      "check": "Area per story (SF)",
+      "required": "<= 72,000 (Type IIA)",
+      "provided": "13,575",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-012",
+      "check": "High-rise screen (ft to top floor)",
+      "required": "<= 75",
+      "provided": "59.0",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story",
+      "required": "2 for 1-500 occupants",
+      "provided": "2 stairs; max load 316",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (ft)",
+      "required": ">= 1/3 diagonal = 75",
+      "provided": "207",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel (ft)",
+      "required": "<= 250 (sprinklered)",
+      "provided": "130",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": "Half the stair-to-stair run plus the room depth."
+    },
+    {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width (in)",
+      "required": ">= 44",
+      "provided": "72",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor (ft)",
+      "required": "<= 50 (sprinklered R-1)",
+      "provided": "5",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-028",
+      "check": "Egress door clear width (in)",
+      "required": ">= 32",
+      "provided": "34 (3'-0\" leaf)",
+      "status": "PASS",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "IBC-R1-003",
+      "check": "Automatic sprinklers",
+      "required": "NFPA 13 required",
+      "provided": "assumed",
+      "status": "ASSUMED",
+      "source": "RNGD IBC rule set",
+      "note": ""
+    },
+    {
+      "rule_id": "ADA-224.2",
+      "check": "Accessible guest rooms (mobility)",
+      "required": ">= 7 for 117 rooms (5 + 2 with roll-in)",
+      "provided": "7",
+      "status": "PASS",
+      "source": "2010 ADA Standards",
+      "note": "Confirm which 2 of the ADA units get roll-in showers (Table 224.2)."
+    },
+    {
+      "rule_id": "ADA-224.4",
+      "check": "Rooms with communication features",
+      "required": ">= 12",
+      "provided": "not designated",
+      "status": "REVIEW",
+      "source": "2010 ADA Standards",
+      "note": "Designate 12 rooms; at most 10% of the mobility rooms may count (224.5)."
+    },
+    {
+      "rule_id": "ADA-224.5",
+      "check": "Dispersion across room types",
+      "required": "spread over 3 types",
+      "provided": "3 types: king, suite, two-bed",
+      "status": "PASS",
+      "source": "2010 ADA Standards",
+      "note": ""
+    },
+    {
+      "rule_id": "-",
+      "check": "Fits buildable envelope",
+      "required": "170 x 265 ft",
+      "provided": "234 x 58 ft",
+      "status": "PASS",
+      "source": "Site (synthetic lot)",
+      "note": ""
+    }
+  ],
+  "mix_by_floor": {
+    "Corner Suite": {
+      "Level 2": 1,
+      "Level 3": 1,
+      "Level 4": 0,
+      "Level 5": 0,
+      "Level 6": 0,
+      "Total": 2
+    },
+    "King Spa": {
+      "Level 2": 1,
+      "Level 3": 1,
+      "Level 4": 1,
+      "Level 5": 0,
+      "Level 6": 0,
+      "Total": 3
+    },
+    "QQ": {
+      "Level 2": 7,
+      "Level 3": 7,
+      "Level 4": 7,
+      "Level 5": 6,
+      "Level 6": 6,
+      "Total": 33
+    },
+    "King": {
+      "Level 2": 14,
+      "Level 3": 14,
+      "Level 4": 13,
+      "Level 5": 14,
+      "Level 6": 14,
+      "Total": 69
+    },
+    "Suite": {
+      "Level 2": 1,
+      "Level 3": 0,
+      "Level 4": 0,
+      "Level 5": 1,
+      "Level 6": 1,
+      "Total": 3
+    },
+    "ADA Suite": {
+      "Level 2": 0,
+      "Level 3": 1,
+      "Level 4": 1,
+      "Level 5": 0,
+      "Level 6": 0,
+      "Total": 2
+    },
+    "ADA Corner Suite": {
+      "Level 2": 0,
+      "Level 3": 0,
+      "Level 4": 1,
+      "Level 5": 0,
+      "Level 6": 0,
+      "Total": 1
+    },
+    "ADA QQ": {
+      "Level 2": 0,
+      "Level 3": 0,
+      "Level 4": 0,
+      "Level 5": 1,
+      "Level 6": 1,
+      "Total": 2
+    },
+    "ADA King Spa": {
+      "Level 2": 0,
+      "Level 3": 0,
+      "Level 4": 0,
+      "Level 5": 1,
+      "Level 6": 1,
+      "Total": 2
+    },
+    "Keys per floor": {
+      "Level 2": 24,
+      "Level 3": 24,
+      "Level 4": 23,
+      "Level 5": 23,
+      "Level 6": 23,
+      "Total": 117
+    }
+  },
+  "sheets": [
+    {
+      "number": "G001",
+      "title": "L+L overview: axonometric, gross area, room count, space allocation",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\G001.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\G001.png"
+    },
+    {
+      "number": "G002",
+      "title": "Code screen and program summary",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\G002.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\G002.png"
+    },
+    {
+      "number": "A001",
+      "title": "Site plan",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A001.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A001.png"
+    },
+    {
+      "number": "A101",
+      "title": "Floor plans: Levels 1 & 2",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A101.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A101.png"
+    },
+    {
+      "number": "A102",
+      "title": "Floor plans: Levels 3 & 4",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A102.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A102.png"
+    },
+    {
+      "number": "A103",
+      "title": "Floor plans: Levels 5 & 6",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A103.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A103.png"
+    },
+    {
+      "number": "A201",
+      "title": "Elevations with indicative panel breakdown",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A201.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A201.png"
+    },
+    {
+      "number": "A401",
+      "title": "Enlarged unit plans",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A401.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A401.png"
+    },
+    {
+      "number": "A402",
+      "title": "Enlarged unit plans",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A402.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A402.png"
+    },
+    {
+      "number": "A501",
+      "title": "Unit 3D views (interiors)",
+      "pdf": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A501.pdf",
+      "png": "C:\\Users\\PFT2248-2\\Documents\\RNGD\\reports\\final\\sheets\\A501.png"
+    }
+  ],
+  "open_questions": [
+    "Which area of the Level 1 / Level 2 drawing was meant? The reference coordinate note (scale 1.08 to the original image) did not name a room, stair or gridline. Please mark the spot on the L+L plans sheet.",
+    "Story limit: the program needs Level 1 plus five guest floors (six stories), but RNGD rule IBC-R1-007 allows five stories for sprinklered Type IIA R-1. Is a Type IA podium (IBC 510.2) intended, as in the L+L prototype?",
+    "Confirm the gross-up rule: kickoff meeting said 33% circulation + 8% wall burden; the L+L source sheets imply 1.25.",
+    "Real lot, setbacks, street frontage and fire-lane requirements (the envelope used here is synthetic).",
+    "Is parking part of this phase? It is not modelled.",
+    "Confirm the per-floor support rooms (Ice, IT, Jan, Supplies) and the Level 1 BOH arrangement.",
+    "Column grid: 30-34 ft bays assumed from the kickoff meeting. Is there a preferred structural module?",
+    "Prefab panel / module catalog to replace the indicative panel breakdown on the elevations."
+  ],
+  "assumptions": [
+    "Envelope from the app sidebar (default synthetic lot 170 x 265 ft). Street assumed on the south side.",
+    "Double-loaded corridor, 6 ft clear; room depth 26 ft; room width = program area / 26 ft.",
+    "Floor-to-floor: Level 1 16 ft, guest floors 10.75 ft (from the L+L elevations).",
+    "Core at the west end (Stair 1, two elevators, shafts); Stair 2 at the east end of the north side.",
+    "Rows whose count equals the number of guest floors (Ice, IT, Jan, Supplies) are placed once per floor.",
+    "Room mix spread evenly across floors, largest units first. Fixtures and furniture are typical, not from RNGD unit drawings.",
+    "Occupant loads use the RNGD CSV factors (IBC Table 1004.5); lobby as assembly unconcentrated (15 SF net)."
+  ],
+  "sources": [
+    "Project Renegade Living + Lodging Prototype drawings, cover sheet space allocation and plans (06/20/25).",
+    "RNGD Model Training data: ADA Suite, Corner Suite and King groups (floor plans and 3D views); Schemes 1-3.",
+    "RNGD IBC 2021 R1 rule set: RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv and the companion xlsx workbook.",
+    "Kickoff meeting transcript (circulation and wall-burden rule, 30-34 ft bays, 2D-first output, upload of programs).",
+    "RNGD Product Requirements Document (hotels as the first use case; proposal contents)."
+  ]
+}

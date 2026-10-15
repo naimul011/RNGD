@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 
-from .. import config, llm_groq
+from .. import config, llm
 from ..schemas import CVMetrics, CriticSuggestion, SimulationStepStats
 
 SYSTEM = """You are RNGD's Design Critic Agent, closing the loop between a physics-style \
@@ -28,7 +28,7 @@ Return ONLY a JSON object with exactly these keys:
 
 def run(cv: CVMetrics, sim_stats: SimulationStepStats, iteration: int, max_iterations: int) -> tuple[CriticSuggestion, float]:
     model = config.MODEL_ROUTE["design_critic"]
-    parsed, latency_ms = llm_groq.call_json(
+    parsed, latency_ms = llm.call_json(
         model=model,
         system=SYSTEM,
         user=(

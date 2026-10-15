@@ -1,0 +1,606 @@
+{
+  "intake": [
+    {
+      "input": "original request, run 1",
+      "units": 120,
+      "floors": 4,
+      "mix": {
+        "studio": 0.2,
+        "1br": 0.45,
+        "2br": 0.35,
+        "3br": 0.0
+      },
+      "budget": 28000000.0,
+      "parking": "surface parking",
+      "hard": [
+        "120 units"
+      ],
+      "latency_s": 31.3
+    },
+    {
+      "input": "original request, run 2",
+      "units": 120,
+      "floors": 4,
+      "mix": {
+        "studio": 0.2,
+        "1br": 0.45,
+        "2br": 0.35,
+        "3br": 0.0
+      },
+      "budget": 28000000.0,
+      "parking": "surface parking",
+      "hard": [
+        "120 units"
+      ],
+      "latency_s": 51.3
+    },
+    {
+      "input": "edited request",
+      "units": 84,
+      "floors": 6,
+      "mix": {
+        "studio": 0.1,
+        "1br": 0.5,
+        "2br": 0.4,
+        "3br": 0.0
+      },
+      "budget": 19500000.0,
+      "parking": "surface parking",
+      "hard": [
+        "84 units firm requirement",
+        "parking per local code"
+      ],
+      "latency_s": 33.4
+    }
+  ],
+  "zoning": [
+    {
+      "run": 1,
+      "extracted": {
+        "max_height_ft": 65.0,
+        "max_stories": 5,
+        "max_far": 2.5,
+        "max_lot_coverage_pct": 60.0,
+        "front_setback_ft": 15.0,
+        "side_setback_ft": 10.0,
+        "rear_setback_ft": 20.0,
+        "parking_ratio_per_unit": 1.25,
+        "fire_lane_clear_width_ft": 20.0
+      },
+      "matches_kb": {
+        "max_height_ft": true,
+        "max_stories": true,
+        "max_far": true,
+        "max_lot_coverage_pct": true,
+        "front_setback_ft": true,
+        "side_setback_ft": true,
+        "rear_setback_ft": true,
+        "parking_ratio_per_unit": true,
+        "fire_lane_clear_width_ft": true
+      },
+      "all_match": true,
+      "envelope": [
+        170.0,
+        265.0
+      ],
+      "citations": [
+        "4.2 Bulk and Dimensional Standards: max height",
+        "4.2 Bulk and Dimensional Standards: max stories",
+        "4.2 Bulk and Dimensional Standards: max FAR",
+        "4.2 Bulk and Dimensional Standards: max lot coverage"
+      ],
+      "latency_s": 110.2
+    },
+    {
+      "run": 2,
+      "extracted": {
+        "max_height_ft": 65.0,
+        "max_stories": 5,
+        "max_far": 2.5,
+        "max_lot_coverage_pct": 60.0,
+        "front_setback_ft": 15.0,
+        "side_setback_ft": 10.0,
+        "rear_setback_ft": 20.0,
+        "parking_ratio_per_unit": 1.25,
+        "fire_lane_clear_width_ft": 20.0
+      },
+      "matches_kb": {
+        "max_height_ft": true,
+        "max_stories": true,
+        "max_far": true,
+        "max_lot_coverage_pct": true,
+        "front_setback_ft": true,
+        "side_setback_ft": true,
+        "rear_setback_ft": true,
+        "parking_ratio_per_unit": true,
+        "fire_lane_clear_width_ft": true
+      },
+      "all_match": true,
+      "envelope": [
+        170.0,
+        265.0
+      ],
+      "citations": [
+        "4.2 Bulk and Dimensional Standards: max height",
+        "4.2 Bulk and Dimensional Standards: max stories",
+        "4.2 Bulk and Dimensional Standards: max FAR",
+        "4.2 Bulk and Dimensional Standards: max lot coverage"
+      ],
+      "latency_s": 5.4
+    }
+  ],
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "kb_chunks": {
+    "total": 682,
+    "real": 655
+  },
+  "retrieval_example": [
+    {
+      "source": "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "heading": "IBC-R1-027 Dead-end corridor maximum for sprinklered R-1",
+      "score": 0.689
+    },
+    {
+      "source": "zoning_code_sample.md",
+      "heading": "4.4 Fire and Life-Safety Access",
+      "score": 0.54
+    },
+    {
+      "source": "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "heading": "IBC-R1-026 Minimum corridor width when occupant load is under 50",
+      "score": 0.493
+    }
+  ],
+  "hotel_cases": [
+    {
+      "case": "A1 default L+L program, 5 guest floors",
+      "keys": 117,
+      "net_sf": 59350,
+      "levels": 6,
+      "keys_per_floor": [
+        24,
+        24,
+        23,
+        23,
+        23
+      ],
+      "tower_len_ft": 217.0,
+      "podium_len_ft": 234.1,
+      "gross_drawn_sf": 76508,
+      "height_ft": 69.75,
+      "dead_end_ft": 5.0,
+      "travel_ft": 129.5,
+      "ada_required": ">= 7 for 117 rooms (5 + 2 with roll-in)",
+      "ada_provided": "7",
+      "pass": 13,
+      "fail": [
+        "Stories above grade"
+      ],
+      "hash_run1": "f1ecee4c2ae4d2e7",
+      "hash_run2": "f1ecee4c2ae4d2e7",
+      "identical_reruns": true
+    },
+    {
+      "case": "A2 same program, 4 guest floors",
+      "keys": 117,
+      "net_sf": 59350,
+      "levels": 5,
+      "keys_per_floor": [
+        30,
+        29,
+        29,
+        29
+      ],
+      "tower_len_ft": 258.0,
+      "podium_len_ft": 258.0,
+      "gross_drawn_sf": 74828,
+      "height_ft": 59.0,
+      "dead_end_ft": 5.0,
+      "travel_ft": 150.0,
+      "ada_required": ">= 7 for 117 rooms (5 + 2 with roll-in)",
+      "ada_provided": "7",
+      "pass": 14,
+      "fail": [],
+      "hash_run1": "7b58316db7cfeb0f",
+      "hash_run2": "7b58316db7cfeb0f",
+      "identical_reruns": true
+    },
+    {
+      "case": "A3 different program: 76-key select-service",
+      "keys": 76,
+      "net_sf": 33220,
+      "levels": 5,
+      "keys_per_floor": [
+        19,
+        19,
+        19,
+        19
+      ],
+      "tower_len_ft": 167.5,
+      "podium_len_ft": 167.5,
+      "gross_drawn_sf": 48564,
+      "height_ft": 59.0,
+      "dead_end_ft": 5.0,
+      "travel_ft": 104.7,
+      "ada_required": ">= 5 for 76 rooms (4 + 1 with roll-in)",
+      "ada_provided": "4",
+      "pass": 13,
+      "fail": [
+        "Accessible guest rooms (mobility)"
+      ],
+      "hash_run1": "ff6fff580cecf411",
+      "hash_run2": "ff6fff580cecf411",
+      "identical_reruns": true
+    },
+    {
+      "case": "A4 L+L program scaled to ~160 keys",
+      "keys": 161,
+      "net_sf": 75910,
+      "levels": 6,
+      "keys_per_floor": [
+        33,
+        32,
+        32,
+        32,
+        32
+      ],
+      "tower_len_ft": 288.4,
+      "podium_len_ft": 288.4,
+      "gross_drawn_sf": 100359,
+      "height_ft": 69.75,
+      "dead_end_ft": 5.0,
+      "travel_ft": 165.2,
+      "ada_required": ">= 8 for 161 rooms (6 + 2 with roll-in)",
+      "ada_provided": "10",
+      "pass": 12,
+      "fail": [
+        "Stories above grade",
+        "Fits buildable envelope"
+      ],
+      "hash_run1": "b4fea14427e74ce3",
+      "hash_run2": "b4fea14427e74ce3",
+      "identical_reruns": true
+    }
+  ],
+  "hotel_sweep": [
+    {
+      "factor": 0.35,
+      "floors": 4,
+      "keys": 43,
+      "tower_len_ft": 127.7,
+      "gross_drawn_sf": 43528,
+      "fits": true,
+      "stories_ok": true,
+      "travel_ft": 84.9
+    },
+    {
+      "factor": 0.35,
+      "floors": 5,
+      "keys": 43,
+      "tower_len_ft": 114.5,
+      "gross_drawn_sf": 47100,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 78.3
+    },
+    {
+      "factor": 0.35,
+      "floors": 6,
+      "keys": 43,
+      "tower_len_ft": 106.9,
+      "gross_drawn_sf": 51079,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 74.4
+    },
+    {
+      "factor": 0.5,
+      "floors": 4,
+      "keys": 59,
+      "tower_len_ft": 161.1,
+      "gross_drawn_sf": 51256,
+      "fits": true,
+      "stories_ok": true,
+      "travel_ft": 101.5
+    },
+    {
+      "factor": 0.5,
+      "floors": 5,
+      "keys": 59,
+      "tower_len_ft": 133.3,
+      "gross_drawn_sf": 52540,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 87.6
+    },
+    {
+      "factor": 0.5,
+      "floors": 6,
+      "keys": 59,
+      "tower_len_ft": 120.1,
+      "gross_drawn_sf": 55674,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 81.0
+    },
+    {
+      "factor": 0.65,
+      "floors": 4,
+      "keys": 75,
+      "tower_len_ft": 187.5,
+      "gross_drawn_sf": 57068,
+      "fits": true,
+      "stories_ok": true,
+      "travel_ft": 114.7
+    },
+    {
+      "factor": 0.65,
+      "floors": 5,
+      "keys": 75,
+      "tower_len_ft": 154.2,
+      "gross_drawn_sf": 58597,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 98.1
+    },
+    {
+      "factor": 0.65,
+      "floors": 6,
+      "keys": 75,
+      "tower_len_ft": 140.9,
+      "gross_drawn_sf": 62939,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 91.5
+    },
+    {
+      "factor": 0.8,
+      "floors": 4,
+      "keys": 94,
+      "tower_len_ft": 217.9,
+      "gross_drawn_sf": 64121,
+      "fits": true,
+      "stories_ok": true,
+      "travel_ft": 129.9
+    },
+    {
+      "factor": 0.8,
+      "floors": 5,
+      "keys": 94,
+      "tower_len_ft": 187.5,
+      "gross_drawn_sf": 67942,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 114.7
+    },
+    {
+      "factor": 0.8,
+      "floors": 6,
+      "keys": 94,
+      "tower_len_ft": 163.6,
+      "gross_drawn_sf": 70835,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 102.8
+    },
+    {
+      "factor": 1.0,
+      "floors": 4,
+      "keys": 117,
+      "tower_len_ft": 258.0,
+      "gross_drawn_sf": 74828,
+      "fits": true,
+      "stories_ok": true,
+      "travel_ft": 150.0
+    },
+    {
+      "factor": 1.0,
+      "floors": 5,
+      "keys": 117,
+      "tower_len_ft": 217.0,
+      "gross_drawn_sf": 76508,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 129.5
+    },
+    {
+      "factor": 1.0,
+      "floors": 6,
+      "keys": 117,
+      "tower_len_ft": 190.6,
+      "gross_drawn_sf": 79899,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 116.3
+    },
+    {
+      "factor": 1.2,
+      "floors": 4,
+      "keys": 140,
+      "tower_len_ft": 301.6,
+      "gross_drawn_sf": 87466,
+      "fits": false,
+      "stories_ok": true,
+      "travel_ft": 171.8
+    },
+    {
+      "factor": 1.2,
+      "floors": 5,
+      "keys": 140,
+      "tower_len_ft": 244.3,
+      "gross_drawn_sf": 85015,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 143.1
+    },
+    {
+      "factor": 1.2,
+      "floors": 6,
+      "keys": 140,
+      "tower_len_ft": 217.0,
+      "gross_drawn_sf": 89095,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 129.5
+    },
+    {
+      "factor": 1.4,
+      "floors": 4,
+      "keys": 164,
+      "tower_len_ft": 341.8,
+      "gross_drawn_sf": 99115,
+      "fits": false,
+      "stories_ok": true,
+      "travel_ft": 191.9
+    },
+    {
+      "factor": 1.4,
+      "floors": 5,
+      "keys": 164,
+      "tower_len_ft": 288.4,
+      "gross_drawn_sf": 100359,
+      "fits": false,
+      "stories_ok": false,
+      "travel_ft": 165.2
+    },
+    {
+      "factor": 1.4,
+      "floors": 6,
+      "keys": 164,
+      "tower_len_ft": 244.3,
+      "gross_drawn_sf": 99184,
+      "fits": true,
+      "stories_ok": false,
+      "travel_ft": 143.1
+    },
+    {
+      "factor": 1.6,
+      "floors": 4,
+      "keys": 187,
+      "tower_len_ft": 386.9,
+      "gross_drawn_sf": 112215,
+      "fits": false,
+      "stories_ok": true,
+      "travel_ft": 214.5
+    },
+    {
+      "factor": 1.6,
+      "floors": 5,
+      "keys": 187,
+      "tower_len_ft": 316.4,
+      "gross_drawn_sf": 110104,
+      "fits": false,
+      "stories_ok": false,
+      "travel_ft": 179.2
+    },
+    {
+      "factor": 1.6,
+      "floors": 6,
+      "keys": 187,
+      "tower_len_ft": 276.7,
+      "gross_drawn_sf": 112359,
+      "fits": false,
+      "stories_ok": false,
+      "travel_ft": 159.4
+    },
+    {
+      "factor": 1.75,
+      "floors": 4,
+      "keys": 207,
+      "tower_len_ft": 422.9,
+      "gross_drawn_sf": 122633,
+      "fits": false,
+      "stories_ok": true,
+      "travel_ft": 232.4
+    },
+    {
+      "factor": 1.75,
+      "floors": 5,
+      "keys": 207,
+      "tower_len_ft": 349.4,
+      "gross_drawn_sf": 121593,
+      "fits": false,
+      "stories_ok": false,
+      "travel_ft": 195.7
+    },
+    {
+      "factor": 1.75,
+      "floors": 6,
+      "keys": 207,
+      "tower_len_ft": 301.6,
+      "gross_drawn_sf": 122458,
+      "fits": false,
+      "stories_ok": false,
+      "travel_ft": 171.8
+    }
+  ],
+  "physics": [
+    {
+      "case": "P1 120x120 ft building, 60 stalls asked",
+      "footprint": [
+        120,
+        120
+      ],
+      "stalls_requested": 60,
+      "stalls_placed": 45,
+      "steps": 1,
+      "final_penalty": 0.0,
+      "converged": true
+    },
+    {
+      "case": "P2 128x220 ft building (Elm St.), 150 stalls asked",
+      "footprint": [
+        127.5,
+        220
+      ],
+      "stalls_requested": 150,
+      "stalls_placed": 15,
+      "steps": 6,
+      "final_penalty": 0.438,
+      "converged": true
+    },
+    {
+      "case": "P3 190 ft wide building in a 170 ft envelope",
+      "footprint": [
+        190,
+        200
+      ],
+      "stalls_requested": 40,
+      "stalls_placed": 15,
+      "steps": 250,
+      "final_penalty": 36.0,
+      "converged": false
+    }
+  ],
+  "arbiter_numbers": {
+    "source_file": "project_state.json",
+    "decision": "REVISE",
+    "numbers": [
+      {
+        "number": "1.25",
+        "in_computed_data": true,
+        "is_difference_of_two_computed_values": false
+      },
+      {
+        "number": "15",
+        "in_computed_data": true,
+        "is_difference_of_two_computed_values": false
+      },
+      {
+        "number": "120",
+        "in_computed_data": true,
+        "is_difference_of_two_computed_values": false
+      },
+      {
+        "number": "135",
+        "in_computed_data": true,
+        "is_difference_of_two_computed_values": false
+      },
+      {
+        "number": "150",
+        "in_computed_data": true,
+        "is_difference_of_two_computed_values": false
+      }
+    ]
+  }
+}

@@ -7,7 +7,7 @@ handoffs — gets caught automatically instead of silently trusting one source.
 
 This is genuine pixel-level image processing (color thresholding + bounding
 box extraction + a georeferenced pixel->feet transform), not an LLM
-describing an image — see llm_groq.py's module docstring for why.
+describing an image — see rngd/llm.py for the model setup.
 """
 from __future__ import annotations
 

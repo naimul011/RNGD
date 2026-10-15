@@ -22,7 +22,7 @@ def main():
     for entry in state.trace:
         print(f"[{entry.step:02d}] {entry.agent:16s} {entry.action:35s} {entry.status:8s} {entry.latency_ms:8.1f}ms  {entry.summary}")
 
-    print("\n--- Final Decision (Anthropic Arbiter) ---")
+    print("\n--- Final Decision (Arbiter) ---")
     fd = state.final_decision
     print(f"Decision: {fd.decision}  (confidence {fd.confidence:.2f})")
     print(f"Narrative: {fd.narrative}")

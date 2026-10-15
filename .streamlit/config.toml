@@ -1,0 +1,6 @@
+[server]
+# Streamlit's file watcher walks every loaded module. Touching transformers' lazy
+# submodules (pulled in by sentence-transformers) makes it import vision models such
+# as ZoeDepth, which print "No module named 'torchvision'" tracebacks. The app never
+# uses them, so turn the watcher off; restart streamlit after editing the code.
+fileWatcherType = "none"

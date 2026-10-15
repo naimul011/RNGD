@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from . import config, llm_groq
+from . import config, llm
 from .agents import arbiter_agent, baap_matching_agent, conflict_agent, design_critic_agent, intake_agent, zoning_agent
 from .schemas import CVMetrics, ProjectState, SimulationStepStats
 from .simulation import floor_plate, renderer
@@ -98,7 +98,7 @@ def run_pipeline(
     _run_simulation_loop(state, numbers, max_iterations, on_step=on_step)
     _generate_floor_plates(state, on_step=on_step)
 
-    with traced_call(state, "arbiter", "final_decision", config.ANTHROPIC_MODEL) as t:
+    with traced_call(state, "arbiter", "final_decision", config.ARBITER_MODEL) as t:
         state.final_decision, latency = arbiter_agent.run(state)
         t.summary = f"{state.final_decision.decision} (confidence {state.final_decision.confidence:.2f})"
         t.details = {"latency_ms": latency}
@@ -280,5 +280,5 @@ def ask_agent(state: ProjectState, agent_name: str, question: str) -> str:
         "guessing."
     )
     user = f"Question: {question}\n\nRetrieved knowledge base context:\n{context}\n\nCurrent project state:\n{state_context}"
-    text, _latency = llm_groq.call_text(config.MODEL_ROUTE.get("ask_agent", config.GROQ_MODEL_LIGHT), system, user)
+    text, _latency = llm.call_text(config.MODEL_ROUTE.get("ask_agent", config.LLM_LIGHT), system, user)
     return text

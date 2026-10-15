@@ -1,0 +1,197 @@
+{
+  "_note": "Hotel program for the QA grids (3 levels, ~9,400-9,600 SF placeable per level, ~25,000 SF net after corridors). Derived from the Project Renegade L+L room types: King 13x26, QQ 14x26, King Suite, ADA King and ADA Suite, per-floor Linen/Ice/IT near the core, and Level 1 public and BOH rooms with adjacencies. Sized to ~91% of the usable area (about 22,800 SF, 48 keys), so the optimizer competes on layout quality rather than on which rooms to drop. width_ft is the side along the corridor for guest rooms.",
+  "door_width_ft": 3.0,
+  "corridor_width_ft": 5.0,
+  "exterior_slack_ft": 6.0,
+  "rooms": [
+    {
+      "name": "Lobby / Front Desk",
+      "width_ft": 30,
+      "depth_ft": 38,
+      "count": 1,
+      "priority": 10,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": true,
+      "near_core": true
+    },
+    {
+      "name": "Breakfast / Lounge",
+      "width_ft": 28,
+      "depth_ft": 30,
+      "count": 1,
+      "priority": 7,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": true
+    },
+    {
+      "name": "Fitness",
+      "width_ft": 20,
+      "depth_ft": 24,
+      "count": 1,
+      "priority": 5,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": true
+    },
+    {
+      "name": "BOH / Office",
+      "width_ft": 18,
+      "depth_ft": 20,
+      "count": 1,
+      "priority": 8,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": false,
+      "near_core": true
+    },
+    {
+      "name": "Public Restrooms",
+      "width_ft": 12,
+      "depth_ft": 20,
+      "count": 1,
+      "priority": 8,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": false,
+      "near_core": true
+    },
+    {
+      "name": "Luggage",
+      "width_ft": 8,
+      "depth_ft": 10,
+      "count": 1,
+      "priority": 4,
+      "floors": [
+        "L1"
+      ],
+      "category": "public",
+      "exterior": false
+    },
+    {
+      "name": "Housekeeping / Linen",
+      "width_ft": 12,
+      "depth_ft": 16,
+      "count": 1,
+      "priority": 9,
+      "per_floor": true,
+      "category": "service",
+      "exterior": false,
+      "near_core": true
+    },
+    {
+      "name": "Ice / Vending",
+      "width_ft": 8,
+      "depth_ft": 10,
+      "count": 1,
+      "priority": 7,
+      "per_floor": true,
+      "floors": [
+        "L2",
+        "L3"
+      ],
+      "category": "service",
+      "exterior": false,
+      "near_core": true
+    },
+    {
+      "name": "IT / Elec",
+      "width_ft": 8,
+      "depth_ft": 10,
+      "count": 1,
+      "priority": 8,
+      "per_floor": true,
+      "category": "service",
+      "exterior": false,
+      "near_core": true
+    },
+    {
+      "name": "King",
+      "width_ft": 13,
+      "depth_ft": 26,
+      "count": 26,
+      "priority": 3,
+      "category": "guest"
+    },
+    {
+      "name": "QQ",
+      "width_ft": 14,
+      "depth_ft": 26,
+      "count": 14,
+      "priority": 3,
+      "category": "guest"
+    },
+    {
+      "name": "King Suite",
+      "width_ft": 26,
+      "depth_ft": 26,
+      "count": 3,
+      "priority": 4,
+      "category": "suite",
+      "corner": true
+    },
+    {
+      "name": "ADA King",
+      "width_ft": 16,
+      "depth_ft": 26,
+      "count": 3,
+      "priority": 6,
+      "category": "ada",
+      "near_core": true,
+      "min_per_floor": 1
+    },
+    {
+      "name": "ADA Suite",
+      "width_ft": 25,
+      "depth_ft": 26,
+      "count": 2,
+      "priority": 6,
+      "category": "ada",
+      "near_core": true,
+      "corner": true
+    }
+  ],
+  "adjacency": [
+    {
+      "a": "Lobby / Front Desk",
+      "b": "Luggage",
+      "weight": 1.0,
+      "max_ft": 30
+    },
+    {
+      "a": "Lobby / Front Desk",
+      "b": "Public Restrooms",
+      "weight": 0.8,
+      "max_ft": 45
+    },
+    {
+      "a": "Lobby / Front Desk",
+      "b": "Breakfast / Lounge",
+      "weight": 0.8,
+      "max_ft": 50
+    },
+    {
+      "a": "Lobby / Front Desk",
+      "b": "BOH / Office",
+      "weight": 0.6,
+      "max_ft": 50
+    },
+    {
+      "a": "Breakfast / Lounge",
+      "b": "BOH / Office",
+      "weight": 0.4,
+      "max_ft": 60
+    }
+  ]
+}

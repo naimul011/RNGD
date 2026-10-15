@@ -1,0 +1,52 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{booktabs,longtable,xcolor,array}
+\usepackage{fontspec}\setmainfont{Arial}
+\setlength{\parskip}{0.45em}\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.12}
+\definecolor{pass}{HTML}{1E7B3A}\definecolor{fail}{HTML}{B22222}
+\begin{document}
+\begin{center}
+{\fontsize{44}{48}\selectfont\bfseries RNGD}\\[0.6em]
+{\Large PROJECT RENEGADE --- LIVING + LODGING PROTOTYPE}\\[0.3em]
+{\large Schematic proposal generated from the program}\\[0.3em]
+{\small\color{fail} AI-generated concept schematic --- not for construction}
+\end{center}
+\vspace{1em}
+\section*{Summary}
+\begin{tabular}{p{5.2cm}p{10.5cm}}
+Program & Project Renegade Living + Lodging Prototype, cover sheet (06/20/25) \\
+Keys & 117 in 9 unit types \\
+Net program area & 59,350 SF in 28 program rows \\
+Gross area, source sheets & 74,195 SF (ratio 1.25) \\
+Gross area, meeting rule & 85,300 SF (33\% circulation + 8\% walls, rounded up to 100 SF) \\
+Gross area, this schematic & 76,508 SF over 6 levels \\
+Massing & Level 1 234 x 58 ft; guest floors 217 x 58 ft; 69.8 ft to roof \\
+Keys per floor & Level 2: 24, Level 3: 24, Level 4: 23, Level 5: 23, Level 6: 23 \\
+Code screen & 13 pass, 1 fail, 1 assumed \\
+\end{tabular}
+
+\textbf{Failing checks:} Stories above grade (IBC-R1-007: required $\le$ 5 (Type IIA, sprinklered R-1), provided 6).
+
+The drawing set follows the RNGD Living + Lodging sheet format: an overview sheet with the axonometric and
+the gross-area, room-count and space-allocation schedules; colour-coded plans with column grid, dimension
+strings, doors and furniture; elevations with an indicative prefab panel breakdown; enlarged plans and 3D
+views for every unit type. Each sheet is also saved as a PNG in \texttt{reports/final/sheets/}.
+
+\section*{Drawing set}
+\begin{tabular}{lp{12.5cm}}\toprule \textbf{Sheet} & \textbf{Content} \\ \midrule
+G001 & L+L overview: axonometric, gross area, room count, space allocation \\
+G002 & Code screen and program summary \\
+A001 & Site plan \\
+A101 & Floor plans: Levels 1 \& 2 \\
+A102 & Floor plans: Levels 3 \& 4 \\
+A103 & Floor plans: Levels 5 \& 6 \\
+A201 & Elevations with indicative panel breakdown \\
+A401 & Enlarged unit plans \\
+A402 & Enlarged unit plans \\
+A501 & Unit 3D views (interiors) \\
+\bottomrule\end{tabular}
+
+Appendices after the drawings: program, gross-area reconciliation, code checks, the full RNGD IBC rule set,
+RNGD workbook tables, assumptions, open questions and sources.
+\end{document}

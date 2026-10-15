@@ -1,0 +1,3359 @@
+[
+ {
+  "site": "fp1_multi",
+  "reference": {
+   "file": "floorplan1.json",
+   "generations": 500,
+   "reported_score": 0.478,
+   "metrics": {
+    "fitness": 0.8798,
+    "terms": {
+     "placement": 0.8911,
+     "daylight": 0.8793,
+     "efficiency": 0.4952,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.9164,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 0.9512,
+     "compactness": 0.7036
+    },
+    "weights": {
+     "placement": 0.3,
+     "daylight": 0.14,
+     "efficiency": 0.1,
+     "egress": 0.12,
+     "ada": 0.08,
+     "core_access": 0.07,
+     "adjacency": 0.07,
+     "corner": 0.03,
+     "balance": 0.05,
+     "compactness": 0.04
+    },
+    "rooms_placed": 61,
+    "rooms_total": 72,
+    "keys_placed": 58,
+    "keys_requested": 69,
+    "placed_area_sf": 20010,
+    "program_area_sf": 23310,
+    "corridor_sf": 1460,
+    "corridor_ratio": 0.1515,
+    "placeable_sf_per_level": 9640,
+    "max_travel_ft": 49.2,
+    "dead_end_ft": 47.7,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 0.8793,
+    "ada_required": 4,
+    "ada_placed": 6,
+    "shared_wall_ft": 982,
+    "unplaced_by_type": {
+     "King": 11
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 21,
+      "keys": 20,
+      "area_sf": 6650,
+      "by_type": {
+       "ADA suite": 2,
+       "Janitor's closet": 1,
+       "King": 18
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 19,
+      "keys": 18,
+      "area_sf": 6690,
+      "by_type": {
+       "ADA corner suite": 2,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 21,
+      "keys": 20,
+      "area_sf": 6670,
+      "by_type": {
+       "ADA corner suite": 1,
+       "Janitor's closet": 1,
+       "King": 19
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 60 ft",
+      "provided": "81 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "49 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "48 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 4 for 58 keys",
+      "provided": "6",
+      "status": "PASS"
+     }
+    ]
+   }
+  },
+  "optimized": {
+   "site": "fp1_multi",
+   "program": "rooms_hotel.json",
+   "metrics": {
+    "fitness": 0.9602,
+    "terms": {
+     "placement": 0.9537,
+     "daylight": 1.0,
+     "efficiency": 0.684,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.9451,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 0.9792,
+     "compactness": 0.8082
+    },
+    "weights": {
+     "placement": 0.2986,
+     "daylight": 0.16,
+     "efficiency": 0.0477,
+     "egress": 0.1486,
+     "ada": 0.0914,
+     "core_access": 0.077,
+     "adjacency": 0.0667,
+     "corner": 0.0343,
+     "balance": 0.0457,
+     "compactness": 0.0299
+    },
+    "rooms_placed": 71,
+    "rooms_total": 72,
+    "keys_placed": 68,
+    "keys_requested": 69,
+    "placed_area_sf": 23019,
+    "program_area_sf": 23310,
+    "corridor_sf": 914,
+    "corridor_ratio": 0.0948,
+    "placeable_sf_per_level": 9640,
+    "max_travel_ft": 58.1,
+    "dead_end_ft": 41.7,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 1.0,
+    "ada_required": 4,
+    "ada_placed": 6,
+    "shared_wall_ft": 1305,
+    "unplaced_by_type": {
+     "King": 1
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 23,
+      "keys": 22,
+      "area_sf": 7529,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 20
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 24,
+      "keys": 23,
+      "area_sf": 7745,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 21
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 24,
+      "keys": 23,
+      "area_sf": 7745,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 21
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 60 ft",
+      "provided": "81 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "58 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "42 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 4 for 68 keys",
+      "provided": "6",
+      "status": "PASS"
+     }
+    ]
+   },
+   "history": [
+    {
+     "gen": 1,
+     "best": 0.9387,
+     "best_fitness": 0.9387,
+     "mean": 0.8577,
+     "best_placed": 70,
+     "best_keys": 67,
+     "evaluations": 58,
+     "seconds": 2.6
+    },
+    {
+     "gen": 2,
+     "best": 0.9387,
+     "best_fitness": 0.9387,
+     "mean": 0.9008,
+     "best_placed": 70,
+     "best_keys": 67,
+     "evaluations": 88,
+     "seconds": 4.8
+    },
+    {
+     "gen": 3,
+     "best": 0.9407,
+     "best_fitness": 0.9407,
+     "mean": 0.9069,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 118,
+     "seconds": 6.9
+    },
+    {
+     "gen": 4,
+     "best": 0.9407,
+     "best_fitness": 0.9407,
+     "mean": 0.9261,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 148,
+     "seconds": 9.0
+    },
+    {
+     "gen": 5,
+     "best": 0.9411,
+     "best_fitness": 0.9411,
+     "mean": 0.9072,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 178,
+     "seconds": 11.0
+    },
+    {
+     "gen": 6,
+     "best": 0.9412,
+     "best_fitness": 0.9412,
+     "mean": 0.9078,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 208,
+     "seconds": 13.2
+    },
+    {
+     "gen": 7,
+     "best": 0.9412,
+     "best_fitness": 0.9412,
+     "mean": 0.9236,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 238,
+     "seconds": 15.4
+    },
+    {
+     "gen": 8,
+     "best": 0.9415,
+     "best_fitness": 0.9415,
+     "mean": 0.9157,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 268,
+     "seconds": 17.3
+    },
+    {
+     "gen": 9,
+     "best": 0.9415,
+     "best_fitness": 0.9415,
+     "mean": 0.9155,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 298,
+     "seconds": 19.6
+    },
+    {
+     "gen": 10,
+     "best": 0.9417,
+     "best_fitness": 0.9417,
+     "mean": 0.9226,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 328,
+     "seconds": 22.2
+    },
+    {
+     "gen": 11,
+     "best": 0.9417,
+     "best_fitness": 0.9417,
+     "mean": 0.9262,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 358,
+     "seconds": 24.4
+    },
+    {
+     "gen": 12,
+     "best": 0.9417,
+     "best_fitness": 0.9417,
+     "mean": 0.9251,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 388,
+     "seconds": 26.7
+    },
+    {
+     "gen": 13,
+     "best": 0.9482,
+     "best_fitness": 0.9482,
+     "mean": 0.932,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 418,
+     "seconds": 156.7
+    },
+    {
+     "gen": 14,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9222,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 448,
+     "seconds": 159.2
+    },
+    {
+     "gen": 15,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.932,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 478,
+     "seconds": 162.1
+    },
+    {
+     "gen": 16,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9347,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 508,
+     "seconds": 165.4
+    },
+    {
+     "gen": 17,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9188,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 538,
+     "seconds": 168.5
+    },
+    {
+     "gen": 18,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9299,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 568,
+     "seconds": 171.9
+    },
+    {
+     "gen": 19,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9296,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 598,
+     "seconds": 175.2
+    },
+    {
+     "gen": 20,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9346,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 628,
+     "seconds": 178.8
+    },
+    {
+     "gen": 21,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9215,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 658,
+     "seconds": 182.2
+    },
+    {
+     "gen": 22,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9234,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 688,
+     "seconds": 185.5
+    },
+    {
+     "gen": 23,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9266,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 718,
+     "seconds": 189.0
+    },
+    {
+     "gen": 24,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9285,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 748,
+     "seconds": 192.3
+    },
+    {
+     "gen": 25,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9337,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 778,
+     "seconds": 195.7
+    },
+    {
+     "gen": 26,
+     "best": 0.9484,
+     "best_fitness": 0.9484,
+     "mean": 0.9357,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 808,
+     "seconds": 199.1
+    },
+    {
+     "gen": 27,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9182,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 838,
+     "seconds": 210.6
+    },
+    {
+     "gen": 28,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9404,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 868,
+     "seconds": 214.0
+    },
+    {
+     "gen": 29,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9346,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 898,
+     "seconds": 217.5
+    },
+    {
+     "gen": 30,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9393,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 928,
+     "seconds": 221.3
+    },
+    {
+     "gen": 31,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9335,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 958,
+     "seconds": 224.9
+    },
+    {
+     "gen": 32,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.934,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 988,
+     "seconds": 228.3
+    },
+    {
+     "gen": 33,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9395,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1018,
+     "seconds": 231.4
+    },
+    {
+     "gen": 34,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9383,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1048,
+     "seconds": 234.9
+    },
+    {
+     "gen": 35,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9379,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1078,
+     "seconds": 238.2
+    },
+    {
+     "gen": 36,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9399,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1108,
+     "seconds": 241.5
+    },
+    {
+     "gen": 37,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9408,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1138,
+     "seconds": 244.7
+    },
+    {
+     "gen": 38,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9425,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1168,
+     "seconds": 247.9
+    },
+    {
+     "gen": 39,
+     "best": 0.9562,
+     "best_fitness": 0.9562,
+     "mean": 0.9284,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1198,
+     "seconds": 251.1
+    },
+    {
+     "gen": 40,
+     "best": 0.9602,
+     "best_fitness": 0.9602,
+     "mean": 0.9457,
+     "best_placed": 71,
+     "best_keys": 68,
+     "evaluations": 1228,
+     "seconds": 302.3
+    }
+   ],
+   "reviews": [
+    {
+     "gen": 13,
+     "candidates": [
+      {
+       "id": "G13-1",
+       "fitness": 0.9482456360304156,
+       "rooms_placed": 71,
+       "llm_score": 9.2
+      },
+      {
+       "id": "G13-2",
+       "fitness": 0.9479059947955882,
+       "rooms_placed": 71,
+       "llm_score": 9.1
+      },
+      {
+       "id": "G13-3",
+       "fitness": 0.9446585734202665,
+       "rooms_placed": 70,
+       "llm_score": 8.3
+      },
+      {
+       "id": "G13-4",
+       "fitness": 0.9399596275411843,
+       "rooms_placed": 68,
+       "llm_score": 7.5
+      }
+     ],
+     "weights_before": {
+      "placement": 0.3,
+      "daylight": 0.14,
+      "efficiency": 0.1,
+      "egress": 0.12,
+      "ada": 0.08,
+      "core_access": 0.07,
+      "adjacency": 0.07,
+      "corner": 0.03,
+      "balance": 0.05,
+      "compactness": 0.04
+     },
+     "weights_after": {
+      "placement": 0.31027892006387603,
+      "daylight": 0.14479682936314217,
+      "efficiency": 0.08222391381692717,
+      "egress": 0.12411156802555043,
+      "ada": 0.08274104535036696,
+      "core_access": 0.06841650187408467,
+      "adjacency": 0.07239841468157109,
+      "corner": 0.031027892006387607,
+      "balance": 0.05062717712375578,
+      "compactness": 0.03337773769433803
+     },
+     "reviews": [
+      {
+       "id": "G13-1",
+       "score": 9.2,
+       "strengths": [
+        "71/72 rooms placed (high placement)",
+        "100% daylight (exterior fraction 1.0)",
+        "Corner suites present (corner=1.0)",
+        "Dead\u2011end 41.7\u202fft < 50\u202fft limit",
+        "ADA rooms near core (core_access 0.9451)"
+       ],
+       "issues": [
+        "1 King room unplaced",
+        "Corridor ratio 0.0953 (still modest)",
+        "Compactness not max (0.8068 < 1.0)"
+       ]
+      },
+      {
+       "id": "G13-2",
+       "score": 9.1,
+       "strengths": [
+        "71/72 rooms placed",
+        "Full daylight",
+        "Corner suites on corners",
+        "Dead\u2011end 43.7\u202fft within IBC limit",
+        "ADA dispersion satisfied"
+       ],
+       "issues": [
+        "1 King room unplaced",
+        "Slightly longer dead\u2011end than G13\u20111",
+        "Efficiency 0.6788 (corridor area a touch higher)"
+       ]
+      },
+      {
+       "id": "G13-3",
+       "score": 8.3,
+       "strengths": [
+        "Daylight 100%",
+        "Corner suites present",
+        "ADA rooms compliant",
+        "Dead\u2011end 42.7\u202fft OK"
+       ],
+       "issues": [
+        "2 King rooms unplaced (70/72 placed)",
+        "Placement 0.9442 lower than top candidates",
+        "Compactness 0.8011 modest",
+        "Balance slightly lower (0.9789)"
+       ]
+      },
+      {
+       "id": "G13-4",
+       "score": 7.5,
+       "strengths": [
+        "Full daylight",
+        "Corner suites on corners",
+        "ADA rooms near core",
+        "Dead\u2011end 41.7\u202fft within limit"
+       ],
+       "issues": [
+        "4 King rooms unplaced (68/72 placed)",
+        "Placement 0.9275 lowest",
+        "Compactness 0.795 (least prefab\u2011friendly)",
+        "Overall program fulfillment reduced"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 1.0,
+      "daylight": 1.0,
+      "efficiency": 0.795,
+      "egress": 1.0,
+      "ada": 1.0,
+      "core_access": 0.945,
+      "adjacency": 1.0,
+      "corner": 1.0,
+      "balance": 0.979,
+      "compactness": 0.8068
+     },
+     "rationale": "Daylight and corner exposure are guest\u2011experience drivers, so they retain full weight (1.0). Placement of program elements is critical, kept at 1.0. Egress must meet IBC dead\u2011end limits, so weight stays 1.0. ADA dispersion and adjacency are mandated by code, kept at 1.0. Core access is good but not perfect; use the observed 0.9451 value as a modest reduction (0.945). Efficiency (corridor area) is less critical than guest experience, so we lower its weight to the lowest compactness observed (0.795). Balance across floors is important but already high; we apply the typical balance score 0.979. C",
+     "citations": [
+      "design_guidelines.md",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "zoning_code_sample.md",
+      "ada_2010_standards_for_accessible_design.pdf"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 55.7
+    },
+    {
+     "gen": 27,
+     "candidates": [
+      {
+       "id": "G27-1",
+       "fitness": 0.956151934315781,
+       "rooms_placed": 71,
+       "llm_score": 9.0
+      },
+      {
+       "id": "G27-2",
+       "fitness": 0.9526058992892814,
+       "rooms_placed": 70,
+       "llm_score": 8.7
+      },
+      {
+       "id": "G27-3",
+       "fitness": 0.9508432295719539,
+       "rooms_placed": 69,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G27-4",
+       "fitness": 0.9470668001319864,
+       "rooms_placed": 68,
+       "llm_score": 8.2
+      }
+     ],
+     "weights_before": {
+      "placement": 0.31027892006387603,
+      "daylight": 0.14479682936314217,
+      "efficiency": 0.08222391381692717,
+      "egress": 0.12411156802555043,
+      "ada": 0.08274104535036696,
+      "core_access": 0.06841650187408467,
+      "adjacency": 0.07239841468157109,
+      "corner": 0.031027892006387607,
+      "balance": 0.05062717712375578,
+      "compactness": 0.03337773769433803
+     },
+     "weights_after": {
+      "placement": 0.31081562469490986,
+      "daylight": 0.15268135949925402,
+      "efficiency": 0.060690840400953475,
+      "egress": 0.1308697367136463,
+      "ada": 0.08724649114243087,
+      "core_access": 0.06781342582159366,
+      "adjacency": 0.07634067974962701,
+      "corner": 0.032717434178411574,
+      "balance": 0.05231626783241938,
+      "compactness": 0.028508139966753856
+     },
+     "reviews": [
+      {
+       "id": "G27-1",
+       "score": 9.0,
+       "strengths": [
+        "100% daylight exposure",
+        "Corner suites on all floors",
+        "ADA rooms well dispersed and near core",
+        "All egress metrics within IBC limits",
+        "Shortest dead\u2011end corridor among top three"
+       ],
+       "issues": [
+        "1 King room unplaced",
+        "Compactness only moderate (0.8082)",
+        "Core access slightly below ideal"
+       ]
+      },
+      {
+       "id": "G27-2",
+       "score": 8.7,
+       "strengths": [
+        "Full exterior wall coverage",
+        "Corner suites on each level",
+        "ADA rooms near core",
+        "Egress compliant"
+       ],
+       "issues": [
+        "2 King rooms unplaced",
+        "Core access marginally lower (0.9408)",
+        "Compactness similar to G27-1"
+       ]
+      },
+      {
+       "id": "G27-3",
+       "score": 8.5,
+       "strengths": [
+        "Daylight and corner suite goals met",
+        "ADA dispersion balanced",
+        "Egress safe"
+       ],
+       "issues": [
+        "3 King rooms unplaced",
+        "Placement lowest (0.9347)",
+        "Compactness slightly lower (0.799)"
+       ]
+      },
+      {
+       "id": "G27-4",
+       "score": 8.2,
+       "strengths": [
+        "Dead\u2011end corridor shortest (33.7\u202fft)",
+        "Corner suites present",
+        "ADA rooms near core"
+       ],
+       "issues": [
+        "4 King rooms unplaced",
+        "Placement weakest (0.924)",
+        "Compactness lowest (0.7894)",
+        "Core access good but placement suffers"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.95,
+      "daylight": 1.0,
+      "efficiency": 0.7,
+      "egress": 1.0,
+      "ada": 1.0,
+      "core_access": 0.94,
+      "adjacency": 1.0,
+      "corner": 1.0,
+      "balance": 0.98,
+      "compactness": 0.81
+     },
+     "rationale": "Placement, core access, balance and compactness were weighted to reflect guest\u2011experience and buildability concerns that the raw fitness does not capture. Values were taken directly from the best\u2011performing candidate metrics (e.g., placement 0.9537 \u2192 0.95, core_access 0.9451 \u2192 0.94, balance 0.9792 \u2192 0.98, compactness 0.8082 \u2192 0.81). Daylight, egress, ADA and corner objectives already meet code and design goals, so they retain a neutral multiplier of 1.0. Efficiency uses the corridor\u2011area figure (\u22480.68) to keep corridor space low.",
+     "citations": [
+      "design_guidelines.md | Building Layout",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv | IBC\u2011R1\u2011027 Dead\u2011end corridor maximum",
+      "zoning_code_sample.md | 4.4 Fire and Life\u2011Safety Access",
+      "ada_2010_standards_for_accessible_design.pdf | page 87 (dispersion guidance)"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 8.1
+    },
+    {
+     "gen": 40,
+     "candidates": [
+      {
+       "id": "G40-1",
+       "fitness": 0.9601870585637771,
+       "rooms_placed": 71,
+       "llm_score": 9.2
+      },
+      {
+       "id": "G40-2",
+       "fitness": 0.95692505175194,
+       "rooms_placed": 70,
+       "llm_score": 9.0
+      },
+      {
+       "id": "G40-3",
+       "fitness": 0.9545463002955256,
+       "rooms_placed": 69,
+       "llm_score": 8.7
+      },
+      {
+       "id": "G40-4",
+       "fitness": 0.953422136998738,
+       "rooms_placed": 69,
+       "llm_score": 8.4
+      }
+     ],
+     "weights_before": {
+      "placement": 0.31081562469490986,
+      "daylight": 0.15268135949925402,
+      "efficiency": 0.060690840400953475,
+      "egress": 0.1308697367136463,
+      "ada": 0.08724649114243087,
+      "core_access": 0.06781342582159366,
+      "adjacency": 0.07634067974962701,
+      "corner": 0.032717434178411574,
+      "balance": 0.05231626783241938,
+      "compactness": 0.028508139966753856
+     },
+     "weights_after": {
+      "placement": 0.29863977896868815,
+      "daylight": 0.16003662796408175,
+      "efficiency": 0.04771091971179187,
+      "egress": 0.1486054402523616,
+      "ada": 0.091449501693761,
+      "core_access": 0.07700362400276747,
+      "adjacency": 0.06668192831836739,
+      "corner": 0.034293563135160375,
+      "balance": 0.04569712547657717,
+      "compactness": 0.029881490476443177
+     },
+     "reviews": [
+      {
+       "id": "G40-1",
+       "score": 9.2,
+       "strengths": [
+        "71/72 rooms placed (high placement)",
+        "Daylight 1.0 \u2013 all rooms with windows on exterior",
+        "Corner suites on every floor",
+        "ADA rooms close to core (core_access 0.9451)",
+        "Dead\u2011end 41.7\u202fft < 50\u202fft limit"
+       ],
+       "issues": [
+        "1 King room unplaced",
+        "Compactness 0.8082 \u2013 not optimal for prefab",
+        "Core access could be higher"
+       ]
+      },
+      {
+       "id": "G40-2",
+       "score": 9.0,
+       "strengths": [
+        "70/72 rooms placed",
+        "Daylight 1.0 \u2013 full exterior exposure",
+        "Corner suites present",
+        "ADA dispersion across floors",
+        "Dead\u2011end 41.7\u202fft compliant"
+       ],
+       "issues": [
+        "2 King rooms unplaced",
+        "Core_access 0.9417 \u2013 slightly farther from core",
+        "Compactness 0.8032 \u2013 modest prefab friendliness"
+       ]
+      },
+      {
+       "id": "G40-3",
+       "score": 8.7,
+       "strengths": [
+        "All code metrics at 1.0",
+        "Perfect key balance (balance 1.0)",
+        "Corner suites on every floor",
+        "ADA rooms meet dispersion requirement"
+       ],
+       "issues": [
+        "3 King rooms unplaced (69/72 rooms placed)",
+        "Placement 0.9322 lower than top candidates",
+        "Compactness 0.7999 \u2013 lowest among set"
+       ]
+      },
+      {
+       "id": "G40-4",
+       "score": 8.4,
+       "strengths": [
+        "All code checks passed",
+        "Perfect key balance (balance 1.0)",
+        "Corner suites present"
+       ],
+       "issues": [
+        "Higher corridor ratio (0.0969) and lower efficiency (0.677)",
+        "Core_access 0.9284 \u2013 ADA rooms farther from core",
+        "Compactness 0.7941 \u2013 least prefab\u2011friendly",
+        "Dead\u2011end 44.7\u202fft close to limit",
+        "3 King rooms unplaced"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 1.1,
+      "daylight": 1.2,
+      "efficiency": 0.9,
+      "egress": 1.3,
+      "ada": 1.2,
+      "core_access": 1.3,
+      "adjacency": 1.0,
+      "corner": 1.2,
+      "balance": 1.0,
+      "compactness": 1.2
+     },
+     "rationale": "Daylight and corner exposure are key guest\u2011experience drivers, so their weights are boosted. Egress and core_access are critical for code compliance and ADA usability, thus higher multipliers. Placement remains important but slightly less than safety factors. Efficiency is already good, so its weight is reduced to avoid over\u2011penalizing minor differences. Compactness is emphasized for prefab buildability. Balance and adjacency are kept neutral.",
+     "citations": [
+      "design_guidelines.md \u2013 corners and ADA near core",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv \u2013 dead\u2011end \u226450\u202fft",
+      "zoning_code_sample.md \u2013 max travel 200\u202fft, dead\u2011end 50\u202fft",
+      "ada_2010_standards_for_accessible_design.pdf \u2013 dispersion and core proximity",
+      "baap_catalog.md \u2013 module footprint and prefab considerations"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 48.0
+    }
+   ],
+   "seconds": 302.5,
+   "evaluations": 1228,
+   "weights": {
+    "placement": 0.29863977896868815,
+    "daylight": 0.16003662796408175,
+    "efficiency": 0.04771091971179187,
+    "egress": 0.1486054402523616,
+    "ada": 0.091449501693761,
+    "core_access": 0.07700362400276747,
+    "adjacency": 0.06668192831836739,
+    "corner": 0.034293563135160375,
+    "balance": 0.04569712547657717,
+    "compactness": 0.029881490476443177
+   }
+  }
+ },
+ {
+  "site": "fp2_multi",
+  "reference": {
+   "file": "floorplan2.json",
+   "generations": 500,
+   "reported_score": 0.5884,
+   "metrics": {
+    "fitness": 0.8597,
+    "terms": {
+     "placement": 0.8119,
+     "daylight": 0.84,
+     "efficiency": 0.6118,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.9219,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 0.9717,
+     "compactness": 0.6051
+    },
+    "weights": {
+     "placement": 0.3,
+     "daylight": 0.14,
+     "efficiency": 0.1,
+     "egress": 0.12,
+     "ada": 0.08,
+     "core_access": 0.07,
+     "adjacency": 0.07,
+     "corner": 0.03,
+     "balance": 0.05,
+     "compactness": 0.04
+    },
+    "rooms_placed": 53,
+    "rooms_total": 72,
+    "keys_placed": 50,
+    "keys_requested": 69,
+    "placed_area_sf": 17610,
+    "program_area_sf": 23310,
+    "corridor_sf": 1100,
+    "corridor_ratio": 0.1165,
+    "placeable_sf_per_level": 9446,
+    "max_travel_ft": 60.3,
+    "dead_end_ft": 46.7,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 0.84,
+    "ada_required": 2,
+    "ada_placed": 6,
+    "shared_wall_ft": 737,
+    "unplaced_by_type": {
+     "King": 19
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 17,
+      "keys": 16,
+      "area_sf": 5670,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 14
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 5970,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 5970,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 48 ft",
+      "provided": "59 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "60 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "47 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 2 for 50 keys",
+      "provided": "6",
+      "status": "PASS"
+     }
+    ]
+   }
+  },
+  "optimized": {
+   "site": "fp2_multi",
+   "program": "rooms_hotel.json",
+   "metrics": {
+    "fitness": 0.9128,
+    "terms": {
+     "placement": 0.6584,
+     "daylight": 1.0,
+     "efficiency": 0.6725,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.9566,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 1.0,
+     "compactness": 0.8907
+    },
+    "weights": {
+     "placement": 0.1537,
+     "daylight": 0.1952,
+     "efficiency": 0.0813,
+     "egress": 0.1673,
+     "ada": 0.0984,
+     "core_access": 0.0877,
+     "adjacency": 0.0813,
+     "corner": 0.0418,
+     "balance": 0.0539,
+     "compactness": 0.0393
+    },
+    "rooms_placed": 42,
+    "rooms_total": 72,
+    "keys_placed": 39,
+    "keys_requested": 69,
+    "placed_area_sf": 14853,
+    "program_area_sf": 23310,
+    "corridor_sf": 928,
+    "corridor_ratio": 0.0982,
+    "placeable_sf_per_level": 9446,
+    "max_travel_ft": 66.1,
+    "dead_end_ft": 41.7,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 1.0,
+    "ada_required": 2,
+    "ada_placed": 3,
+    "shared_wall_ft": 909,
+    "unplaced_by_type": {
+     "King": 27,
+     "ADA suite": 3
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 14,
+      "keys": 13,
+      "area_sf": 4951,
+      "by_type": {
+       "ADA corner suite": 1,
+       "Janitor's closet": 1,
+       "King": 12
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 14,
+      "keys": 13,
+      "area_sf": 4951,
+      "by_type": {
+       "ADA corner suite": 1,
+       "Janitor's closet": 1,
+       "King": 12
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 14,
+      "keys": 13,
+      "area_sf": 4951,
+      "by_type": {
+       "ADA corner suite": 1,
+       "Janitor's closet": 1,
+       "King": 12
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 48 ft",
+      "provided": "59 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "66 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "42 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 2 for 39 keys",
+      "provided": "3",
+      "status": "PASS"
+     }
+    ]
+   },
+   "history": [
+    {
+     "gen": 1,
+     "best": 0.8424,
+     "best_fitness": 0.8424,
+     "mean": 0.7589,
+     "best_placed": 38,
+     "best_keys": 35,
+     "evaluations": 58,
+     "seconds": 6.5
+    },
+    {
+     "gen": 2,
+     "best": 0.8432,
+     "best_fitness": 0.8432,
+     "mean": 0.7553,
+     "best_placed": 38,
+     "best_keys": 35,
+     "evaluations": 88,
+     "seconds": 11.3
+    },
+    {
+     "gen": 3,
+     "best": 0.8449,
+     "best_fitness": 0.8449,
+     "mean": 0.7598,
+     "best_placed": 39,
+     "best_keys": 36,
+     "evaluations": 118,
+     "seconds": 17.3
+    },
+    {
+     "gen": 4,
+     "best": 0.8505,
+     "best_fitness": 0.8505,
+     "mean": 0.7862,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 148,
+     "seconds": 22.4
+    },
+    {
+     "gen": 5,
+     "best": 0.8535,
+     "best_fitness": 0.8535,
+     "mean": 0.7758,
+     "best_placed": 39,
+     "best_keys": 36,
+     "evaluations": 178,
+     "seconds": 27.4
+    },
+    {
+     "gen": 6,
+     "best": 0.8537,
+     "best_fitness": 0.8537,
+     "mean": 0.7782,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 208,
+     "seconds": 32.1
+    },
+    {
+     "gen": 7,
+     "best": 0.8537,
+     "best_fitness": 0.8537,
+     "mean": 0.7936,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 238,
+     "seconds": 36.7
+    },
+    {
+     "gen": 8,
+     "best": 0.8538,
+     "best_fitness": 0.8538,
+     "mean": 0.8056,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 268,
+     "seconds": 41.7
+    },
+    {
+     "gen": 9,
+     "best": 0.8544,
+     "best_fitness": 0.8544,
+     "mean": 0.8208,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 298,
+     "seconds": 46.7
+    },
+    {
+     "gen": 10,
+     "best": 0.8547,
+     "best_fitness": 0.8547,
+     "mean": 0.8209,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 328,
+     "seconds": 51.2
+    },
+    {
+     "gen": 11,
+     "best": 0.8549,
+     "best_fitness": 0.8549,
+     "mean": 0.8224,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 358,
+     "seconds": 55.9
+    },
+    {
+     "gen": 12,
+     "best": 0.8549,
+     "best_fitness": 0.8549,
+     "mean": 0.8254,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 388,
+     "seconds": 60.2
+    },
+    {
+     "gen": 13,
+     "best": 0.8808,
+     "best_fitness": 0.8808,
+     "mean": 0.8482,
+     "best_placed": 41,
+     "best_keys": 38,
+     "evaluations": 418,
+     "seconds": 117.5
+    },
+    {
+     "gen": 14,
+     "best": 0.8817,
+     "best_fitness": 0.8817,
+     "mean": 0.8386,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 448,
+     "seconds": 120.4
+    },
+    {
+     "gen": 15,
+     "best": 0.8822,
+     "best_fitness": 0.8822,
+     "mean": 0.8478,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 478,
+     "seconds": 123.9
+    },
+    {
+     "gen": 16,
+     "best": 0.8822,
+     "best_fitness": 0.8822,
+     "mean": 0.8666,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 508,
+     "seconds": 127.4
+    },
+    {
+     "gen": 17,
+     "best": 0.8826,
+     "best_fitness": 0.8826,
+     "mean": 0.8469,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 538,
+     "seconds": 131.3
+    },
+    {
+     "gen": 18,
+     "best": 0.8828,
+     "best_fitness": 0.8828,
+     "mean": 0.8472,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 568,
+     "seconds": 135.3
+    },
+    {
+     "gen": 19,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.8455,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 598,
+     "seconds": 138.7
+    },
+    {
+     "gen": 20,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.858,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 628,
+     "seconds": 141.9
+    },
+    {
+     "gen": 21,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.8444,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 658,
+     "seconds": 145.5
+    },
+    {
+     "gen": 22,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.8378,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 688,
+     "seconds": 148.7
+    },
+    {
+     "gen": 23,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.8503,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 718,
+     "seconds": 152.3
+    },
+    {
+     "gen": 24,
+     "best": 0.8834,
+     "best_fitness": 0.8834,
+     "mean": 0.8456,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 748,
+     "seconds": 155.8
+    },
+    {
+     "gen": 25,
+     "best": 0.8835,
+     "best_fitness": 0.8835,
+     "mean": 0.8541,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 778,
+     "seconds": 159.1
+    },
+    {
+     "gen": 26,
+     "best": 0.8835,
+     "best_fitness": 0.8835,
+     "mean": 0.8502,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 808,
+     "seconds": 163.2
+    },
+    {
+     "gen": 27,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.8367,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 838,
+     "seconds": 206.9
+    },
+    {
+     "gen": 28,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.8641,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 868,
+     "seconds": 210.2
+    },
+    {
+     "gen": 29,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.84,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 898,
+     "seconds": 213.4
+    },
+    {
+     "gen": 30,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.8507,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 928,
+     "seconds": 216.6
+    },
+    {
+     "gen": 31,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.8448,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 958,
+     "seconds": 219.6
+    },
+    {
+     "gen": 32,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8582,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 988,
+     "seconds": 223.3
+    },
+    {
+     "gen": 33,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8731,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1018,
+     "seconds": 226.6
+    },
+    {
+     "gen": 34,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8645,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1048,
+     "seconds": 230.2
+    },
+    {
+     "gen": 35,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8484,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1078,
+     "seconds": 234.4
+    },
+    {
+     "gen": 36,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8692,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1108,
+     "seconds": 238.1
+    },
+    {
+     "gen": 37,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8666,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1138,
+     "seconds": 242.1
+    },
+    {
+     "gen": 38,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8754,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1168,
+     "seconds": 245.8
+    },
+    {
+     "gen": 39,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8692,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1198,
+     "seconds": 249.9
+    },
+    {
+     "gen": 40,
+     "best": 0.9128,
+     "best_fitness": 0.9128,
+     "mean": 0.8748,
+     "best_placed": 42,
+     "best_keys": 39,
+     "evaluations": 1228,
+     "seconds": 289.6
+    }
+   ],
+   "reviews": [
+    {
+     "gen": 13,
+     "candidates": [
+      {
+       "id": "G13-1",
+       "fitness": 0.8810297305001384,
+       "rooms_placed": 41,
+       "llm_score": 8.7
+      },
+      {
+       "id": "G13-2",
+       "fitness": 0.8801095633543635,
+       "rooms_placed": 40,
+       "llm_score": 8.0
+      },
+      {
+       "id": "G13-3",
+       "fitness": 0.8803082888994378,
+       "rooms_placed": 41,
+       "llm_score": 8.6
+      },
+      {
+       "id": "G13-4",
+       "fitness": 0.8790605012074449,
+       "rooms_placed": 40,
+       "llm_score": 7.8
+      }
+     ],
+     "weights_before": {
+      "placement": 0.3,
+      "daylight": 0.14,
+      "efficiency": 0.1,
+      "egress": 0.12,
+      "ada": 0.08,
+      "core_access": 0.07,
+      "adjacency": 0.07,
+      "corner": 0.03,
+      "balance": 0.05,
+      "compactness": 0.04
+     },
+     "weights_after": {
+      "placement": 0.2413740389577699,
+      "daylight": 0.16091602597184662,
+      "efficiency": 0.0804580129859233,
+      "egress": 0.1379280222615828,
+      "ada": 0.09195201484105521,
+      "core_access": 0.07682935660025816,
+      "adjacency": 0.08045801298592331,
+      "corner": 0.0344820055653957,
+      "balance": 0.05533212493060497,
+      "compactness": 0.04027038489964013
+     },
+     "reviews": [
+      {
+       "id": "G13-1",
+       "score": 8.7,
+       "strengths": [
+        "All rooms have exterior windows (daylight=1.0)",
+        "Corner suites present on each floor",
+        "Dead\u2011end corridors well under 50\u202fft limit",
+        "ADA suites near core (core_access\u22480.95)",
+        "Compact module layout (compactness\u22480.88)"
+       ],
+       "issues": [
+        "Only 41/72 rooms placed (placement\u22480.66)",
+        "Travel distance 67\u202fft could be shorter",
+        "Limited number of ADA suites (4 placed)"
+       ]
+      },
+      {
+       "id": "G13-2",
+       "score": 8.0,
+       "strengths": [
+        "Full daylight exposure",
+        "Corner suites on each floor",
+        "ADA suites well dispersed (5 placed)",
+        "Dead\u2011end 49\u202fft still within IBC limit"
+       ],
+       "issues": [
+        "Higher max travel distance (80\u202fft) impacts wayfinding",
+        "Dead\u2011end near 50\u202fft limit",
+        "Placement 40/72 (placement\u22480.67) lower than G13\u20111",
+        "Corridor area slightly larger (efficiency\u22480.65)"
+       ]
+      },
+      {
+       "id": "G13-3",
+       "score": 8.6,
+       "strengths": [
+        "Full exterior exposure",
+        "Corner suites on each floor",
+        "Dead\u2011end 42.7\u202fft well under limit",
+        "ADA suites near core (core_access\u22480.95)",
+        "Compact layout (compactness\u22480.87)"
+       ],
+       "issues": [
+        "41/72 rooms placed (placement\u22480.66)",
+        "Travel distance 69\u202fft could be reduced",
+        "Only 4 ADA suites placed"
+       ]
+      },
+      {
+       "id": "G13-4",
+       "score": 7.8,
+       "strengths": [
+        "Excellent corridor efficiency (efficiency\u22480.67)",
+        "Shortest travel distance (63\u202fft)",
+        "Dead\u2011end 44.7\u202fft within code",
+        "Full daylight exposure"
+       ],
+       "issues": [
+        "Lowest placement (40/72, placement\u22480.65)",
+        "Slightly lower compactness (0.89) vs other candidates",
+        "Fewer ADA suites (4 placed) and no ADA suite on L2"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.7,
+      "daylight": 1.0,
+      "efficiency": 0.7,
+      "egress": 1.0,
+      "ada": 1.0,
+      "core_access": 0.9549,
+      "adjacency": 1.0,
+      "corner": 1.0,
+      "balance": 0.9628,
+      "compactness": 0.8759
+     },
+     "rationale": "Emphasized placement and efficiency because room count and corridor area drive guest experience and wayfinding; boosted core_access and balance to reward ADA proximity to core and even key distribution; kept daylight, egress, adjacency, corner, ada at neutral 1.0 as they already meet targets; increased compactness weight to reflect prefab buildability.",
+     "citations": [
+      "design_guidelines.md",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "baap_catalog.md",
+      "ada_2010_standards_for_accessible_design.pdf"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 53.3
+    },
+    {
+     "gen": 27,
+     "candidates": [
+      {
+       "id": "G27-1",
+       "fitness": 0.8978625812541206,
+       "rooms_placed": 42,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G27-2",
+       "fitness": 0.8968128103795807,
+       "rooms_placed": 42,
+       "llm_score": 8.3
+      },
+      {
+       "id": "G27-3",
+       "fitness": 0.893065030381229,
+       "rooms_placed": 42,
+       "llm_score": 7.8
+      },
+      {
+       "id": "G27-4",
+       "fitness": 0.8932097166707873,
+       "rooms_placed": 41,
+       "llm_score": 7.2
+      }
+     ],
+     "weights_before": {
+      "placement": 0.2413740389577699,
+      "daylight": 0.16091602597184662,
+      "efficiency": 0.0804580129859233,
+      "egress": 0.1379280222615828,
+      "ada": 0.09195201484105521,
+      "core_access": 0.07682935660025816,
+      "adjacency": 0.08045801298592331,
+      "corner": 0.0344820055653957,
+      "balance": 0.05533212493060497,
+      "compactness": 0.04027038489964013
+     },
+     "weights_after": {
+      "placement": 0.2028133756387012,
+      "daylight": 0.18027855612328997,
+      "efficiency": 0.0751160650513708,
+      "egress": 0.15452447667710567,
+      "ada": 0.09443162463600904,
+      "core_access": 0.08607399662106478,
+      "adjacency": 0.07511606505137082,
+      "corner": 0.03863111916927642,
+      "balance": 0.0516583910224713,
+      "compactness": 0.041356330009340164
+     },
+     "reviews": [
+      {
+       "id": "G27-1",
+       "score": 8.5,
+       "strengths": [
+        "All rooms have exterior walls \u2192 full daylight",
+        "Corner suites present on every floor",
+        "Dead\u2011end corridors 41.7\u202fft < 50\u202fft (IBC compliance)",
+        "Core access high (0.9566) \u2013 ADA rooms near elevator",
+        "Compact layout (0.8907) good for prefab"
+       ],
+       "issues": [
+        "Only 42/72 rooms placed \u2013 many King rooms unplaced",
+        "Service zones (janitor) not explicitly co\u2011located with core"
+       ]
+      },
+      {
+       "id": "G27-2",
+       "score": 8.3,
+       "strengths": [
+        "Full exterior exposure, daylight = 1.0",
+        "Corner suites on each level",
+        "Dead\u2011end 42.7\u202fft within IBC limit",
+        "Core access 0.9566 similar to G27\u20111"
+       ],
+       "issues": [
+        "Same placement shortfall (42/72 rooms)",
+        "Slightly higher corridor ratio (0.1009) \u2013 marginally less efficient"
+       ]
+      },
+      {
+       "id": "G27-3",
+       "score": 7.8,
+       "strengths": [
+        "Daylight and corner suite goals met",
+        "Dead\u2011end 41.7\u202fft compliant",
+        "Compactness 0.8875"
+       ],
+       "issues": [
+        "Core access lower (0.9024) \u2013 ADA rooms farther from core",
+        "Max travel 69.1\u202fft, highest of the set",
+        "Placement same as others but lower service proximity"
+       ]
+      },
+      {
+       "id": "G27-4",
+       "score": 7.2,
+       "strengths": [
+        "Exterior fraction 1.0, daylight good",
+        "Compactness highest (0.8996)",
+        "Dead\u2011end 43.7\u202fft still under 50\u202fft"
+       ],
+       "issues": [
+        "Placement drops to 0.6485 (41/72 rooms)",
+        "Balance 0.9628 \u2013 keys not evenly spread (L1 only 12)",
+        "Core access 0.9516 slightly lower than top two",
+        "Fewer keys placed (38/69)"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.9,
+      "daylight": 1.2,
+      "efficiency": 1.0,
+      "egress": 1.2,
+      "ada": 1.1,
+      "core_access": 1.2,
+      "adjacency": 1.0,
+      "corner": 1.2,
+      "balance": 1.0,
+      "compactness": 1.1
+     },
+     "rationale": "Guest experience (windows, corner suites) and life\u2011safety (egress, dead\u2011ends) are weighted up; ADA dispersion and proximity to core are critical for accessibility, so core_access and ada get >1.0. Placement is de\u2011emphasized because revenue loss can be addressed later, so its multiplier is reduced. Compactness is valued for prefab buildability.",
+     "citations": [
+      "design_guidelines.md | Building Layout",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv | IBC\u2011R1\u2011027 Dead\u2011end corridor maximum",
+      "zoning_code_sample.md | 4.4 Fire and Life\u2011Safety Access",
+      "ada_2010_standards_for_accessible_design.pdf | page 87 (dispersion guidance)",
+      "baap_catalog.md | Unit Modules"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 40.1
+    },
+    {
+     "gen": 40,
+     "candidates": [
+      {
+       "id": "G40-1",
+       "fitness": 0.9127545973210855,
+       "rooms_placed": 42,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G40-2",
+       "fitness": 0.9120632272910857,
+       "rooms_placed": 42,
+       "llm_score": 8.2
+      },
+      {
+       "id": "G40-3",
+       "fitness": 0.9108521287173642,
+       "rooms_placed": 41,
+       "llm_score": 7.5
+      },
+      {
+       "id": "G40-4",
+       "fitness": 0.9096590922442817,
+       "rooms_placed": 41,
+       "llm_score": 7.3
+      }
+     ],
+     "weights_before": {
+      "placement": 0.2028133756387012,
+      "daylight": 0.18027855612328997,
+      "efficiency": 0.0751160650513708,
+      "egress": 0.15452447667710567,
+      "ada": 0.09443162463600904,
+      "core_access": 0.08607399662106478,
+      "adjacency": 0.07511606505137082,
+      "corner": 0.03863111916927642,
+      "balance": 0.0516583910224713,
+      "compactness": 0.041356330009340164
+     },
+     "weights_after": {
+      "placement": 0.1537125823435027,
+      "daylight": 0.19519058075365425,
+      "efficiency": 0.08132940864735592,
+      "egress": 0.16730621207456078,
+      "ada": 0.0984392572688477,
+      "core_access": 0.08772327007959736,
+      "adjacency": 0.08132940864735594,
+      "corner": 0.041826553018640196,
+      "balance": 0.053850748237753716,
+      "compactness": 0.03929197892873141
+     },
+     "reviews": [
+      {
+       "id": "G40-1",
+       "score": 8.5,
+       "strengths": [
+        "All rooms have exterior windows",
+        "Corner ADA suites on each floor",
+        "Dead\u2011end corridors 41.7\u202fft < 50\u202fft limit",
+        "Perfect balance of keys across floors",
+        "Highest core\u2011access score (0.9566)"
+       ],
+       "issues": [
+        "Only 42 of 72 rooms placed (58\u202f% placement)",
+        "27 King rooms unplaced reduces guest capacity",
+        "Core\u2011access not perfect (still <1.0)",
+        "Compactness could improve for prefab"
+       ]
+      },
+      {
+       "id": "G40-2",
+       "score": 8.2,
+       "strengths": [
+        "Full exterior daylight",
+        "Corner suites on each floor",
+        "Dead\u2011end length compliant",
+        "Balanced key distribution",
+        "Good core proximity (0.9524)"
+       ],
+       "issues": [
+        "Same placement shortfall as G40\u20111 (42/72)",
+        "Slightly lower core\u2011access than G40\u20111",
+        "Compactness a bit lower (0.886)",
+        "Many King rooms remain unplaced"
+       ]
+      },
+      {
+       "id": "G40-3",
+       "score": 7.5,
+       "strengths": [
+        "Exterior windows for all placed rooms",
+        "Corner ADA suites on each floor",
+        "Dead\u2011end corridors within code",
+        "Core\u2011access decent (0.9549)"
+       ],
+       "issues": [
+        "Only 41 rooms placed (57\u202f%)",
+        "Balance score reduced (0.9628)",
+        "Compactness lower (0.8775)",
+        "Key distribution slightly uneven on L3",
+        "ADA suite placed on L3 adds dispersion but still limited"
+       ]
+      },
+      {
+       "id": "G40-4",
+       "score": 7.3,
+       "strengths": [
+        "Full daylight",
+        "Corner ADA suites present",
+        "Dead\u2011end length compliant"
+       ],
+       "issues": [
+        "Placement same as G40\u20113 (41/72)",
+        "Lowest core\u2011access (0.9413) \u2013 ADA rooms farther from core",
+        "Compactness lowest (0.8775)",
+        "Balance reduced (0.9628)",
+        "Key count uneven on L1 (12 keys)"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.7,
+      "daylight": 1.0,
+      "efficiency": 1.0,
+      "egress": 1.0,
+      "ada": 0.9628,
+      "core_access": 0.9413,
+      "corner": 1.0,
+      "balance": 0.9628,
+      "compactness": 0.8775
+     },
+     "rationale": "Daylight and egress get full weight (1.0) because all candidates meet code and provide windows. Placement is down\u2011weighted (0.6584) reflecting the large number of unplaced rooms. Core access and compactness are reduced (0.9413, 0.8775) as distance to core and prefab friendliness vary. ADA dispersion and balance are slightly lowered (0.9628) to reward even spread without over\u2011penalizing minor imbalances.",
+     "citations": [
+      "design_guidelines.md",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "ada_2010_standards_for_accessible_design.pdf",
+      "baap_catalog.md"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 35.0
+    }
+   ],
+   "seconds": 289.8,
+   "evaluations": 1228,
+   "weights": {
+    "placement": 0.1537125823435027,
+    "daylight": 0.19519058075365425,
+    "efficiency": 0.08132940864735592,
+    "egress": 0.16730621207456078,
+    "ada": 0.0984392572688477,
+    "core_access": 0.08772327007959736,
+    "adjacency": 0.08132940864735594,
+    "corner": 0.041826553018640196,
+    "balance": 0.053850748237753716,
+    "compactness": 0.03929197892873141
+   }
+  }
+ },
+ {
+  "site": "fp3_multi",
+  "reference": {
+   "file": "floorplan3.json",
+   "generations": 500,
+   "reported_score": 0.5158,
+   "metrics": {
+    "fitness": 0.8506,
+    "terms": {
+     "placement": 0.8515,
+     "daylight": 0.8333,
+     "efficiency": 0.4758,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.7891,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 0.9546,
+     "compactness": 0.6987
+    },
+    "weights": {
+     "placement": 0.3,
+     "daylight": 0.14,
+     "efficiency": 0.1,
+     "egress": 0.12,
+     "ada": 0.08,
+     "core_access": 0.07,
+     "adjacency": 0.07,
+     "corner": 0.03,
+     "balance": 0.05,
+     "compactness": 0.04
+    },
+    "rooms_placed": 57,
+    "rooms_total": 72,
+    "keys_placed": 54,
+    "keys_requested": 69,
+    "placed_area_sf": 18810,
+    "program_area_sf": 23310,
+    "corridor_sf": 1480,
+    "corridor_ratio": 0.1572,
+    "placeable_sf_per_level": 9412,
+    "max_travel_ft": 100.4,
+    "dead_end_ft": 41.1,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 0.8333,
+    "ada_required": 4,
+    "ada_placed": 6,
+    "shared_wall_ft": 913,
+    "unplaced_by_type": {
+     "King": 15
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 19,
+      "keys": 18,
+      "area_sf": 6270,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 16
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 20,
+      "keys": 19,
+      "area_sf": 6150,
+      "by_type": {
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 18
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 6390,
+      "by_type": {
+       "ADA corner suite": 2,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 14
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 67 ft",
+      "provided": "146 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "100 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "41 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 4 for 54 keys",
+      "provided": "6",
+      "status": "PASS"
+     }
+    ]
+   }
+  },
+  "optimized": {
+   "site": "fp3_multi",
+   "program": "rooms_hotel.json",
+   "metrics": {
+    "fitness": 0.9182,
+    "terms": {
+     "placement": 0.8218,
+     "daylight": 1.0,
+     "efficiency": 0.6235,
+     "egress": 1.0,
+     "ada": 1.0,
+     "core_access": 0.8431,
+     "adjacency": 1.0,
+     "corner": 1.0,
+     "balance": 1.0,
+     "compactness": 0.8936
+    },
+    "weights": {
+     "placement": 0.2261,
+     "daylight": 0.1569,
+     "efficiency": 0.0713,
+     "egress": 0.1761,
+     "ada": 0.1076,
+     "core_access": 0.0663,
+     "adjacency": 0.0713,
+     "corner": 0.0336,
+     "balance": 0.0509,
+     "compactness": 0.0398
+    },
+    "rooms_placed": 54,
+    "rooms_total": 72,
+    "keys_placed": 51,
+    "keys_requested": 69,
+    "placed_area_sf": 21387,
+    "program_area_sf": 23310,
+    "corridor_sf": 1063,
+    "corridor_ratio": 0.1129,
+    "placeable_sf_per_level": 9412,
+    "max_travel_ft": 106.1,
+    "dead_end_ft": 24.4,
+    "cores_reached": 2,
+    "cores_total": 2,
+    "exterior_fraction": 1.0,
+    "ada_required": 4,
+    "ada_placed": 6,
+    "shared_wall_ft": 1245,
+    "unplaced_by_type": {
+     "King": 18
+    },
+    "levels": [
+     {
+      "level": "L1",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 7129,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     },
+     {
+      "level": "L2",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 7129,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     },
+     {
+      "level": "L3",
+      "rooms": 18,
+      "keys": 17,
+      "area_sf": 7129,
+      "by_type": {
+       "ADA corner suite": 1,
+       "ADA suite": 1,
+       "Janitor's closet": 1,
+       "King": 15
+      }
+     }
+    ],
+    "checks": [
+     {
+      "rule_id": "IBC-R1-015",
+      "check": "Exits per story (cores reached)",
+      "required": ">= 2",
+      "provided": "2",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-018",
+      "check": "Exit separation (core to core)",
+      "required": ">= 1/3 diagonal = 67 ft",
+      "provided": "146 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-023",
+      "check": "Exit access travel",
+      "required": "<= 250 ft",
+      "provided": "106 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-025",
+      "check": "Corridor width",
+      "required": ">= 44 in",
+      "provided": "60 in",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "IBC-R1-027",
+      "check": "Dead-end corridor",
+      "required": "<= 50 ft",
+      "provided": "24 ft",
+      "status": "PASS"
+     },
+     {
+      "rule_id": "ADA-224.2",
+      "check": "ADA mobility rooms",
+      "required": ">= 4 for 51 keys",
+      "provided": "6",
+      "status": "PASS"
+     }
+    ]
+   },
+   "history": [
+    {
+     "gen": 1,
+     "best": 0.8859,
+     "best_fitness": 0.8859,
+     "mean": 0.8168,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 58,
+     "seconds": 10.0
+    },
+    {
+     "gen": 2,
+     "best": 0.8859,
+     "best_fitness": 0.8859,
+     "mean": 0.8591,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 88,
+     "seconds": 15.4
+    },
+    {
+     "gen": 3,
+     "best": 0.886,
+     "best_fitness": 0.886,
+     "mean": 0.8631,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 118,
+     "seconds": 20.2
+    },
+    {
+     "gen": 4,
+     "best": 0.886,
+     "best_fitness": 0.886,
+     "mean": 0.8688,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 148,
+     "seconds": 24.8
+    },
+    {
+     "gen": 5,
+     "best": 0.886,
+     "best_fitness": 0.886,
+     "mean": 0.8574,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 178,
+     "seconds": 29.4
+    },
+    {
+     "gen": 6,
+     "best": 0.8871,
+     "best_fitness": 0.8871,
+     "mean": 0.8472,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 208,
+     "seconds": 34.3
+    },
+    {
+     "gen": 7,
+     "best": 0.8873,
+     "best_fitness": 0.8873,
+     "mean": 0.865,
+     "best_placed": 53,
+     "best_keys": 50,
+     "evaluations": 238,
+     "seconds": 39.4
+    },
+    {
+     "gen": 8,
+     "best": 0.8897,
+     "best_fitness": 0.8897,
+     "mean": 0.8513,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 268,
+     "seconds": 44.3
+    },
+    {
+     "gen": 9,
+     "best": 0.8903,
+     "best_fitness": 0.8903,
+     "mean": 0.8691,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 298,
+     "seconds": 49.2
+    },
+    {
+     "gen": 10,
+     "best": 0.8903,
+     "best_fitness": 0.8903,
+     "mean": 0.8614,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 328,
+     "seconds": 54.2
+    },
+    {
+     "gen": 11,
+     "best": 0.8903,
+     "best_fitness": 0.8903,
+     "mean": 0.8629,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 358,
+     "seconds": 59.1
+    },
+    {
+     "gen": 12,
+     "best": 0.8903,
+     "best_fitness": 0.8903,
+     "mean": 0.8753,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 388,
+     "seconds": 64.1
+    },
+    {
+     "gen": 13,
+     "best": 0.8962,
+     "best_fitness": 0.8962,
+     "mean": 0.88,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 418,
+     "seconds": 142.2
+    },
+    {
+     "gen": 14,
+     "best": 0.8962,
+     "best_fitness": 0.8962,
+     "mean": 0.8849,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 448,
+     "seconds": 145.1
+    },
+    {
+     "gen": 15,
+     "best": 0.8969,
+     "best_fitness": 0.8969,
+     "mean": 0.8791,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 478,
+     "seconds": 148.2
+    },
+    {
+     "gen": 16,
+     "best": 0.897,
+     "best_fitness": 0.897,
+     "mean": 0.8819,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 508,
+     "seconds": 151.3
+    },
+    {
+     "gen": 17,
+     "best": 0.897,
+     "best_fitness": 0.897,
+     "mean": 0.8781,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 538,
+     "seconds": 154.3
+    },
+    {
+     "gen": 18,
+     "best": 0.897,
+     "best_fitness": 0.897,
+     "mean": 0.8857,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 568,
+     "seconds": 157.2
+    },
+    {
+     "gen": 19,
+     "best": 0.897,
+     "best_fitness": 0.897,
+     "mean": 0.8752,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 598,
+     "seconds": 160.2
+    },
+    {
+     "gen": 20,
+     "best": 0.8978,
+     "best_fitness": 0.8978,
+     "mean": 0.8851,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 628,
+     "seconds": 163.1
+    },
+    {
+     "gen": 21,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8838,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 658,
+     "seconds": 166.1
+    },
+    {
+     "gen": 22,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.877,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 688,
+     "seconds": 169.0
+    },
+    {
+     "gen": 23,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8878,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 718,
+     "seconds": 171.9
+    },
+    {
+     "gen": 24,
+     "best": 0.8979,
+     "best_fitness": 0.8979,
+     "mean": 0.8906,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 748,
+     "seconds": 174.9
+    },
+    {
+     "gen": 25,
+     "best": 0.899,
+     "best_fitness": 0.899,
+     "mean": 0.8834,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 778,
+     "seconds": 177.9
+    },
+    {
+     "gen": 26,
+     "best": 0.899,
+     "best_fitness": 0.899,
+     "mean": 0.8899,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 808,
+     "seconds": 180.9
+    },
+    {
+     "gen": 27,
+     "best": 0.9122,
+     "best_fitness": 0.9122,
+     "mean": 0.8943,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 838,
+     "seconds": 265.6
+    },
+    {
+     "gen": 28,
+     "best": 0.9122,
+     "best_fitness": 0.9122,
+     "mean": 0.9008,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 868,
+     "seconds": 268.0
+    },
+    {
+     "gen": 29,
+     "best": 0.9122,
+     "best_fitness": 0.9122,
+     "mean": 0.8888,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 898,
+     "seconds": 270.1
+    },
+    {
+     "gen": 30,
+     "best": 0.9125,
+     "best_fitness": 0.9125,
+     "mean": 0.9017,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 928,
+     "seconds": 272.3
+    },
+    {
+     "gen": 31,
+     "best": 0.9125,
+     "best_fitness": 0.9125,
+     "mean": 0.9071,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 958,
+     "seconds": 275.1
+    },
+    {
+     "gen": 32,
+     "best": 0.9126,
+     "best_fitness": 0.9126,
+     "mean": 0.895,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 988,
+     "seconds": 278.0
+    },
+    {
+     "gen": 33,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.9005,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1018,
+     "seconds": 281.2
+    },
+    {
+     "gen": 34,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.8809,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1048,
+     "seconds": 284.2
+    },
+    {
+     "gen": 35,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.8822,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1078,
+     "seconds": 287.0
+    },
+    {
+     "gen": 36,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.8954,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1108,
+     "seconds": 290.0
+    },
+    {
+     "gen": 37,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.8988,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1138,
+     "seconds": 292.9
+    },
+    {
+     "gen": 38,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.898,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1168,
+     "seconds": 294.6
+    },
+    {
+     "gen": 39,
+     "best": 0.9131,
+     "best_fitness": 0.9131,
+     "mean": 0.9029,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1198,
+     "seconds": 295.3
+    },
+    {
+     "gen": 40,
+     "best": 0.9187,
+     "best_fitness": 0.9182,
+     "mean": 0.9051,
+     "best_placed": 54,
+     "best_keys": 51,
+     "evaluations": 1228,
+     "seconds": 370.8
+    }
+   ],
+   "reviews": [
+    {
+     "gen": 13,
+     "candidates": [
+      {
+       "id": "G13-1",
+       "fitness": 0.8963260654112983,
+       "rooms_placed": 54,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G13-2",
+       "fitness": 0.8949161546085234,
+       "rooms_placed": 54,
+       "llm_score": 8.2
+      },
+      {
+       "id": "G13-3",
+       "fitness": 0.8918584737363727,
+       "rooms_placed": 54,
+       "llm_score": 7.8
+      },
+      {
+       "id": "G13-4",
+       "fitness": 0.8891680872150645,
+       "rooms_placed": 52,
+       "llm_score": 7.4
+      }
+     ],
+     "weights_before": {
+      "placement": 0.3,
+      "daylight": 0.14,
+      "efficiency": 0.1,
+      "egress": 0.12,
+      "ada": 0.08,
+      "core_access": 0.07,
+      "adjacency": 0.07,
+      "corner": 0.03,
+      "balance": 0.05,
+      "compactness": 0.04
+     },
+     "weights_after": {
+      "placement": 0.267591674925669,
+      "daylight": 0.13875123885034688,
+      "efficiency": 0.09910802775024777,
+      "egress": 0.14271555996035676,
+      "ada": 0.08721506442021804,
+      "core_access": 0.06937561942517344,
+      "adjacency": 0.06937561942517344,
+      "corner": 0.03270564915758176,
+      "balance": 0.049554013875123884,
+      "compactness": 0.04360753221010902
+     },
+     "reviews": [
+      {
+       "id": "G13-1",
+       "score": 8.5,
+       "strengths": [
+        "All rooms have exterior walls (daylight\u202f=\u202f1.0)",
+        "Shortest dead\u2011end corridor (26.4\u202fft) and lowest corridor ratio (0.1167)",
+        "Full ADA dispersion (6 rooms) and near\u2011core placement",
+        "Corner suites on every floor (corner\u202f=\u202f1.0)",
+        "Balanced key count (17 per level) and high compactness (0.889)"
+       ],
+       "issues": [
+        "Program placement only 54/72 rooms (placement\u202f=\u202f0.8218)",
+        "Large number of King rooms remain unplaced",
+        "Core access not optimal (0.8183)",
+        "Service logic not explicit for lobby/ice/IT"
+       ]
+      },
+      {
+       "id": "G13-2",
+       "score": 8.2,
+       "strengths": [
+        "Full daylight exposure",
+        "All ADA rooms near core and balanced across floors",
+        "Corner suites on each floor",
+        "Dead\u2011end corridor within code (25\u202fft)",
+        "Compact layout (0.8936) and good adjacency"
+       ],
+       "issues": [
+        "Slightly higher corridor area (0.1217) and max travel (108.5\u202fft)",
+        "Same placement shortfall as G13\u20111 (54/72)",
+        "Core access marginally better but still <0.9",
+        "No explicit service zones on Level\u202f1"
+       ]
+      },
+      {
+       "id": "G13-3",
+       "score": 7.8,
+       "strengths": [
+        "Daylight 100\u202f% and corner suites present",
+        "Dead\u2011end corridor acceptable (28.4\u202fft)",
+        "Compactness highest (0.8948)",
+        "ADA rooms meet minimum requirement"
+       ],
+       "issues": [
+        "One floor lacks an ADA suite (dispersion uneven)",
+        "Placement lower (0.8069, 54/72 rooms)",
+        "Core access lowest of the set (0.8133)",
+        "Travel distance same as G13\u20111 but dead\u2011end longer",
+        "Balance perfect but ADA spread uneven"
+       ]
+      },
+      {
+       "id": "G13-4",
+       "score": 7.4,
+       "strengths": [
+        "Full daylight and corner suites",
+        "Dead\u2011end corridor within limit",
+        "Core access highest (0.825)",
+        "ADA provision exceeds requirement"
+       ],
+       "issues": [
+        "Lowest overall placement (52/72, 0.802)",
+        "Key distribution unbalanced (17/16/16) and balance metric 0.9711",
+        "Compactness lowest (0.8774) \u2013 less prefab\u2011friendly",
+        "Higher corridor ratio (0.1178) and same dead\u2011end length as G13\u20113",
+        "More King rooms unplaced (20)"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.9,
+      "daylight": 1.0,
+      "efficiency": 1.0,
+      "egress": 1.2,
+      "ada": 1.1,
+      "core_access": 1.0,
+      "adjacency": 1.0,
+      "corner": 1.1,
+      "balance": 1.0,
+      "compactness": 1.1
+     },
+     "rationale": "Daylight is already perfect, so weight stays 1.0. Egress is a safety\u2011critical factor, so it is boosted. ADA dispersion and corner suites directly affect guest experience and code compliance, so they receive a modest increase. Placement is de\u2011emphasized because the optimizer cannot yet meet the full program. Compactness is valued for prefab buildability, thus a higher multiplier. Other factors remain neutral.",
+     "citations": [
+      "design_guidelines.md | Building Layout",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv | IBC\u2011R1\u2011027 Dead\u2011end corridor maximum",
+      "ada_2010_standards_for_accessible_design.pdf | page 87 (ADA dispersion guidance)",
+      "ada_2010_standards_for_accessible_design.pdf | page 85 (ADA room proximity to core)",
+      "zoning_code_sample.md | 4.4 Fire and Life\u2011Safety Access"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 73.0
+    },
+    {
+     "gen": 27,
+     "candidates": [
+      {
+       "id": "G27-1",
+       "fitness": 0.9128997377278488,
+       "rooms_placed": 54,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G27-2",
+       "fitness": 0.9121645757747957,
+       "rooms_placed": 54,
+       "llm_score": 8.2
+      },
+      {
+       "id": "G27-3",
+       "fitness": 0.9115599156357913,
+       "rooms_placed": 54,
+       "llm_score": 8.3
+      },
+      {
+       "id": "G27-4",
+       "fitness": 0.9105357461642697,
+       "rooms_placed": 54,
+       "llm_score": 8.1
+      }
+     ],
+     "weights_before": {
+      "placement": 0.267591674925669,
+      "daylight": 0.13875123885034688,
+      "efficiency": 0.09910802775024777,
+      "egress": 0.14271555996035676,
+      "ada": 0.08721506442021804,
+      "core_access": 0.06937561942517344,
+      "adjacency": 0.06937561942517344,
+      "corner": 0.03270564915758176,
+      "balance": 0.049554013875123884,
+      "compactness": 0.04360753221010902
+     },
+     "weights_after": {
+      "placement": 0.2424771604668444,
+      "daylight": 0.15299208812344275,
+      "efficiency": 0.07649604406172138,
+      "egress": 0.15736329064125537,
+      "ada": 0.09616645539187829,
+      "core_access": 0.06460855881452987,
+      "adjacency": 0.07649604406172138,
+      "corner": 0.03606242077195436,
+      "balance": 0.05464003147265812,
+      "compactness": 0.04269790619399396
+     },
+     "reviews": [
+      {
+       "id": "G27-1",
+       "score": 8.5,
+       "strengths": [
+        "Full daylight (exterior_fraction 1.0)",
+        "Corner suites on each floor",
+        "ADA rooms near core (core_access 0.8446)",
+        "Dead\u2011end corridors 26.4\u202fft < 50\u202fft IBC limit",
+        "Compact layout (compactness 0.888)"
+       ],
+       "issues": [
+        "Placement 54/72 rooms (0.8218) leaves 18 King rooms unplaced",
+        "Corridor ratio 0.114 could be lower for wayfinding",
+        "Core access not perfect (0.8446 < 1.0)"
+       ]
+      },
+      {
+       "id": "G27-2",
+       "score": 8.2,
+       "strengths": [
+        "Full daylight (exterior_fraction 1.0)",
+        "Corner suites on each floor",
+        "ADA rooms near core (core_access 0.8514)",
+        "Dead\u2011end corridors 27.4\u202fft < 50\u202fft IBC limit",
+        "Compact layout (compactness 0.8802)"
+       ],
+       "issues": [
+        "Placement 54/72 rooms (0.8218) leaves 18 King rooms unplaced",
+        "Lowest efficiency (0.609) \u2013 larger corridor area",
+        "Corridor ratio 0.1173 highest among candidates"
+       ]
+      },
+      {
+       "id": "G27-3",
+       "score": 8.3,
+       "strengths": [
+        "Full daylight (exterior_fraction 1.0)",
+        "Corner suites on each floor",
+        "ADA rooms near core (core_access 0.8344)",
+        "Dead\u2011end corridors 26.4\u202fft < 50\u202fft IBC limit",
+        "Compact layout (compactness 0.888)"
+       ],
+       "issues": [
+        "Placement 54/72 rooms (0.8218) leaves 18 King rooms unplaced",
+        "Core access slightly lower (0.8344)",
+        "Efficiency 0.6111 modest"
+       ]
+      },
+      {
+       "id": "G27-4",
+       "score": 8.1,
+       "strengths": [
+        "Full daylight (exterior_fraction 1.0)",
+        "Corner suites on each floor",
+        "ADA rooms near core (core_access 0.8199)",
+        "Dead\u2011end corridors 26.4\u202fft < 50\u202fft IBC limit",
+        "Compact layout (compactness 0.889)"
+       ],
+       "issues": [
+        "Placement 54/72 rooms (0.8218) leaves 18 King rooms unplaced",
+        "Core access lowest (0.8199)",
+        "Efficiency 0.6094 lower than G27-1"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 0.8218,
+      "efficiency": 0.7,
+      "core_access": 0.8446,
+      "compactness": 0.888,
+      "corner": 1.0
+     },
+     "rationale": "Placement and corridor efficiency directly affect guest experience and prefab buildability, so we weight them using the observed values (0.8218, 0.62). Core access and compactness support service logic and repeatable module stacking, so we boost them (0.8446, 0.888). Daylight and egress already perfect (1.0) and need no adjustment.",
+     "citations": [
+      "design_guidelines.md",
+      "RNGD_IBC_2021_R1_Five_Story_AI_Rules_v0_2.csv",
+      "ada_2010_standards_for_accessible_design.pdf",
+      "baap_catalog.md"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 81.7
+    },
+    {
+     "gen": 40,
+     "candidates": [
+      {
+       "id": "G40-1",
+       "fitness": 0.9182220808561554,
+       "rooms_placed": 54,
+       "llm_score": 9.2
+      },
+      {
+       "id": "G40-2",
+       "fitness": 0.9174673631398336,
+       "rooms_placed": 54,
+       "llm_score": 8.8
+      },
+      {
+       "id": "G40-3",
+       "fitness": 0.9152555703621856,
+       "rooms_placed": 54,
+       "llm_score": 8.5
+      },
+      {
+       "id": "G40-4",
+       "fitness": 0.9143227148942086,
+       "rooms_placed": 54,
+       "llm_score": 7.5
+      }
+     ],
+     "weights_before": {
+      "placement": 0.2424771604668444,
+      "daylight": 0.15299208812344275,
+      "efficiency": 0.07649604406172138,
+      "egress": 0.15736329064125537,
+      "ada": 0.09616645539187829,
+      "core_access": 0.06460855881452987,
+      "adjacency": 0.07649604406172138,
+      "corner": 0.03606242077195436,
+      "balance": 0.05464003147265812,
+      "compactness": 0.04269790619399396
+     },
+     "weights_after": {
+      "placement": 0.22609309509490702,
+      "daylight": 0.1569199347620656,
+      "efficiency": 0.07132724307366617,
+      "egress": 0.1760763943304216,
+      "ada": 0.1076022409797021,
+      "core_access": 0.06626728845002029,
+      "adjacency": 0.07132724307366617,
+      "corner": 0.03362570030615691,
+      "balance": 0.050948030766904406,
+      "compactness": 0.03981282916248978
+     },
+     "reviews": [
+      {
+       "id": "G40-1",
+       "score": 9.2,
+       "strengths": [
+        "All rooms have exterior walls \u2013 full daylight",
+        "Corner suites on every floor \u2013 premium guest experience",
+        "Shortest dead\u2011end (24.4\u202fft) and lowest corridor ratio (0.1129)",
+        "Full ADA dispersion (6 rooms) near core (core_access\u202f0.8431)",
+        "Meets all adjacency and egress checks"
+       ],
+       "issues": [
+        "Travel distance 106\u202fft approaches 200\u202fft limit but still acceptable",
+        "Only one janitor closet per floor \u2013 may limit service logic"
+       ]
+      },
+      {
+       "id": "G40-2",
+       "score": 8.8,
+       "strengths": [
+        "Full daylight and corner suites",
+        "Dead\u2011end 27.4\u202fft still well under 50\u202fft IBC limit",
+        "ADA rooms correctly placed near core (core_access\u202f0.8487)"
+       ],
+       "issues": [
+        "Higher corridor area (ratio\u202f0.1173) reduces efficiency",
+        "Slightly longer dead\u2011end than G40\u20111"
+       ]
+      },
+      {
+       "id": "G40-3",
+       "score": 8.5,
+       "strengths": [
+        "Daylight and corner suites intact",
+        "ADA dispersion satisfied"
+       ],
+       "issues": [
+        "Longest travel distance (108.5\u202fft) among candidates",
+        "Core access lower (0.8188) \u2013 ADA rooms farther from core",
+        "Corridor ratio 0.1185 \u2013 least efficient",
+        "Dead\u2011end 23.2\u202fft good but overall layout less compact"
+       ]
+      },
+      {
+       "id": "G40-4",
+       "score": 7.5,
+       "strengths": [
+        "Daylight, corner suites and egress compliance",
+        "Dead\u2011end 26.4\u202fft within code"
+       ],
+       "issues": [
+        "Placement score drops to 0.8069 (fewer rooms placed)",
+        "Missing one required ADA suite \u2013 dispersion risk",
+        "Core access 0.8404 acceptable but lower than top candidates",
+        "Compactness similar but overall program completeness lower"
+       ]
+      }
+     ],
+     "weight_multipliers": {
+      "placement": 1.0,
+      "daylight": 1.1,
+      "efficiency": 1.0,
+      "egress": 1.2,
+      "ada": 1.2,
+      "core_access": 1.1,
+      "adjacency": 1.0,
+      "corner": 1.0,
+      "balance": 1.0,
+      "compactness": 1.0
+     },
+     "rationale": "Daylight and corner suites drive guest experience, so daylight gets a modest boost. Egress and ADA are critical for code compliance and accessibility, so their weights are increased. Core access is tied to ADA dispersion, so it is also raised. Placement, efficiency, adjacency, corner, balance and compactness are already well\u2011represented across candidates, so they stay neutral.",
+     "citations": [
+      "design_guidelines.md",
+      "RNGD_IBC_2021_R1_AI_Rules_v0_2.csv",
+      "zoning_code_sample.md",
+      "ada_2010_standards_for_accessible_design.pdf"
+     ],
+     "queries": [
+      "double-loaded corridor efficiency net to gross module stacking",
+      "service rooms near elevator core housekeeping linen ice",
+      "exit access travel distance dead-end corridor maximum sprinklered R-1",
+      "hotel corridor guest room layout guidelines"
+     ],
+     "engine": "openai/gpt-oss-120b",
+     "latency_s": 74.8
+    }
+   ],
+   "seconds": 370.8,
+   "evaluations": 1228,
+   "weights": {
+    "placement": 0.22609309509490702,
+    "daylight": 0.1569199347620656,
+    "efficiency": 0.07132724307366617,
+    "egress": 0.1760763943304216,
+    "ada": 0.1076022409797021,
+    "core_access": 0.06626728845002029,
+    "adjacency": 0.07132724307366617,
+    "corner": 0.03362570030615691,
+    "balance": 0.050948030766904406,
+    "compactness": 0.03981282916248978
+   }
+  }
+ }
+]

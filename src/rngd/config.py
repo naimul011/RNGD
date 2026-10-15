@@ -7,24 +7,27 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parent.parent.parent
 load_dotenv(ROOT / ".env")
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5")
+# All LLM calls go through OpenRouter. Only non-Chinese providers are used;
+# llm.assert_allowed() rejects anything else before a request is sent.
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
-# Groq model routing: cheaper/faster model for straightforward structured
-# extraction, larger reasoning model for tasks that trade off multiple
-# constraints. This keeps the harness cost/latency-aware rather than sending
-# every call to the biggest model available.
-GROQ_MODEL_LIGHT = "openai/gpt-oss-20b"
-GROQ_MODEL_REASONING = "openai/gpt-oss-120b"
+# Light model for structured extraction, reasoning model for multi-constraint
+# judgment, and one expensive arbiter model for the final synthesis call.
+LLM_LIGHT = os.environ.get("OPENROUTER_LIGHT_MODEL", "openai/gpt-oss-20b")
+LLM_REASONING = os.environ.get("OPENROUTER_REASONING_MODEL", "openai/gpt-oss-120b")
+ARBITER_MODEL = os.environ.get("OPENROUTER_ARBITER_MODEL", "anthropic/claude-sonnet-5")
+# Writer of the final report prose (optimizer AI report). A stronger writing model than the
+# agents use: the call is one per report, so quality matters more than cost.
+REPORT_MODEL = os.environ.get("OPENROUTER_REPORT_MODEL", "anthropic/claude-sonnet-5.5")
 
 MODEL_ROUTE = {
-    "intake": GROQ_MODEL_LIGHT,
-    "zoning": GROQ_MODEL_LIGHT,
-    "baap_matching": GROQ_MODEL_REASONING,
-    "conflict": GROQ_MODEL_REASONING,
-    "design_critic": GROQ_MODEL_REASONING,
-    "ask_agent": GROQ_MODEL_LIGHT,
+    "intake": LLM_LIGHT,
+    "zoning": LLM_LIGHT,
+    "baap_matching": LLM_REASONING,
+    "conflict": LLM_REASONING,
+    "design_critic": LLM_REASONING,
+    "ask_agent": LLM_LIGHT,
 }
 
 # Set RNGD_USE_TFIDF=1 to force the lexical (scikit-learn) retriever instead of

@@ -8,7 +8,7 @@ it did, or suggest what to try next, whether or not a run has happened yet.
 """
 from __future__ import annotations
 
-from . import config, llm_groq
+from . import config, llm
 from .ifc.design import ZONING
 from .schemas import ProjectState
 from .vectorstore import VectorStore
@@ -18,29 +18,29 @@ shown as a chat panel next to the app. You help a teammate understand the system
 results, and decide what to try next. Be concise (short paragraphs or bullet points), concrete, \
 and honest about what is synthetic/sample data versus a real result of this run.
 
-## The system has two parts
+## The system has four parts
 
 **1. Multi-agent concept-to-schematic pipeline** (`src/rngd/`) — turns an unstructured customer \
 request + site conditions into a BaaP schematic:
 - Vision Input Agent (classical computer vision): reads the site sketch PNG, cross-checks it \
 against the stated site_conditions.json.
-- Intake Agent (Groq, fast model): parses the free-text customer request into a structured \
+- Intake Agent (light model): parses the free-text customer request into a structured \
 program (unit count, mix, floors, amenities, hard vs. soft requirements).
-- Zoning Agent (Groq + RAG over the knowledge base): retrieves the applicable sample zoning \
+- Zoning Agent (LLM + RAG over the knowledge base): retrieves the applicable sample zoning \
 rules and computes the buildable envelope (setbacks, easements) in plain Python arithmetic.
-- BaaP Matching Agent (Groq + RAG): converts the unit mix into exact module counts from the \
+- BaaP Matching Agent (LLM + RAG): converts the unit mix into exact module counts from the \
 BaaP catalog and proposes an adjacency plan.
-- Conflict Agent (Groq): computes feasibility numbers (FAR, lot coverage, parking demand vs. \
+- Conflict Agent (LLM): computes feasibility numbers (FAR, lot coverage, parking demand vs. \
 available land) and flags conflicts with severities.
 - Physics Simulation Engine: a 2D rigid-body relaxation (containment + separation forces) that \
 places the building footprint, driveway and parking within the buildable envelope.
 - Vision QA Agent (classical computer vision): re-measures the *rendered* site plan image \
 independently, checking setback/easement/overlap violations and counting parking stalls.
-- Design Critic Agent (Groq): decides whether another simulation pass can fix a violation or \
+- Design Critic Agent (LLM): decides whether another simulation pass can fix a violation or \
 whether it's a program/site conflict no geometry change will resolve.
 - Floor Plate Packer (rule-based, not AI): lays out unit modules along a double-loaded corridor \
 for a ground floor and a typical upper floor.
-- Arbiter Agent (Anthropic Claude — the ONE expensive call per run): synthesizes everything into \
+- Arbiter Agent (a Claude model via OpenRouter — the ONE expensive call per run): synthesizes everything into \
 a final decision (APPROVE / APPROVE_WITH_CONDITIONS / REVISE / INSUFFICIENT_INFORMATION).
 
 **2. IFC Design Studio** (`src/rngd/ifc/`) — a separate, faster, parametric generator: \
@@ -50,6 +50,8 @@ ten pass/fail checks (units placed, stories, height, FAR, lot coverage, parking 
 setbacks/easement, fire lane, accessible units, exit travel distance). It does not call any LLM \
 by default (it's deterministic), except the optional "extract requirements from text" button \
 which reuses the Intake Agent.
+
+**4. Hotel Schematic** (`src/rngd/hotel/`) - RNGD's first use case (hotels). A detailed program (default: the Project Renegade Living + Lodging cover-sheet space allocation, 28 rows, 117 keys; or an uploaded / edited CSV/XLSX) -> a deterministic double-loaded-corridor layout (Level 1 podium with lobby, BOH and retail; guest floors above; core and Stair 1 west, Stair 2 east) -> a code screen against RNGD's real IBC rule CSV and the 2010 ADA guest-room tables -> an 18x12 PDF drawing set in RNGD's L+L sheet format (overview, plans, elevations, enlarged unit plans, unit 3D views) plus appendices. When the user asks about the hotel, use the Hotel Schematic state below.
 
 **3. Open IFC File** (`src/rngd/ifc/explorer.py`) — opens a REAL, arbitrary `.ifc` file (not one \
 this app generated), triangulates its geometry for the 3D viewer, and summarizes what's in it \
@@ -161,6 +163,46 @@ def summarize_ifc_state(params, layout) -> str:
     return "\n".join(parts)
 
 
+def summarize_hotel_state(sch) -> str:
+    if sch is None:
+        return "Hotel Schematic mode not opened yet."
+    from .hotel.details import mix_by_floor
+
+    p = sch.program
+    rows = "; ".join(f"{n} x{c} ({a:,.0f} SF, {cat})" for n, c, a, cat in p.rows)
+    checks = "; ".join(f"{c['rule_id']} {c['check']}: required {c['required']}, provided {c['provided']} -> {c['status']}"
+                       + (f" ({c['note']})" if c.get("note") else "") for c in sch.checks)
+    mix = mix_by_floor(sch)
+    floors = "; ".join(f"{col}: " + ", ".join(f"{t} {int(v)}" for t, v in mix[col].items() if v and t != "Keys per floor")
+                       for col in mix.columns if col != "Total")
+    return (f"Hotel Schematic (RNGD Living + Lodging style), program source: {p.source}. {p.keys} keys, net {p.net_sf:,.0f} SF, "
+            f"source gross {p.gross_sf:,.0f} SF. Massing: Level 1 {sch.levels[0].length_ft:.0f} x {sch.levels[0].width_ft:.0f} ft, "
+            f"{len(sch.levels) - 1} guest floors {sch.levels[1].length_ft:.0f} x {sch.levels[1].width_ft:.0f} ft, double-loaded "
+            f"6 ft corridor, Stair 1 + 2 elevators at the west core, Stair 2 at the east end, height {sch.height_ft:.1f} ft. "
+            f"Envelope (synthetic) {sch.site['envelope_d']} x {sch.site['envelope_w']} ft.\nProgram rows: {rows}.\n"
+            f"Room mix by floor: {floors}.\nCode screen (RNGD IBC CSV + 2010 ADA tables): {checks}.")
+
+
+def summarize_optimizer_state(result: dict | None) -> str:
+    if not result:
+        return "Design Optimizer not run yet."
+    m = result["metrics"]
+    revs = "; ".join(f"gen {r['gen']} by {r.get('engine')}: scores {[c['llm_score'] for c in r['candidates']]}, "
+                     f"weights {r.get('weight_multipliers')}, rationale: {str(r.get('rationale'))[:200]}"
+                     for r in result.get("reviews", []))
+    ref = result.get("reference")
+    refs = (f" Reference design {ref['file']} (same evaluator): {ref['metrics']['rooms_placed']}/{ref['metrics']['rooms_total']} "
+            f"rooms, fitness {ref['metrics']['fitness']}, dead end {ref['metrics']['dead_end_ft']} ft, failed checks "
+            f"{[c['rule_id'] for c in ref['metrics']['checks'] if c['status'] == 'FAIL']}." if ref else "")
+    return (f"Design Optimizer result for site {result['site']} with program {result['program']}: memetic genetic algorithm "
+            f"(corridor genome + room-order keys, greedy packing decoder, local search) with an LLM/RAG design reviewer in "
+            f"the fitness. Best design: {m['rooms_placed']}/{m['rooms_total']} rooms, {m['keys_placed']}/{m['keys_requested']} keys, "
+            f"fitness {m['fitness']}, objectives {m['terms']}, final weights {m['weights']}, corridor ratio {m['corridor_ratio']}, "
+            f"windows {m['exterior_fraction']}, max travel {m['max_travel_ft']} ft, dead end {m['dead_end_ft']} ft, "
+            f"unplaced {m['unplaced_by_type']}, per level {[(lv['level'], lv['by_type']) for lv in m['levels']]}, "
+            f"checks {[(c['rule_id'], c['status']) for c in m['checks']]}. Reviews: {revs}.{refs}")
+
+
 def reply(
     history: list[dict[str, str]],
     vs: VectorStore,
@@ -169,6 +211,8 @@ def reply(
     ifc_layout=None,
     explorer_summary: dict | None = None,
     explorer_file_label: str | None = None,
+    hotel_schematic=None,
+    optimizer_result: dict | None = None,
 ) -> tuple[str, float]:
     last_user = next((m["content"] for m in reversed(history) if m["role"] == "user"), "")
     kb_context = vs.retrieve_as_context(last_user, k=3) if last_user else ""
@@ -177,13 +221,15 @@ def reply(
         f"{summarize_pipeline_state(pipeline_state)}\n\n"
         f"{summarize_ifc_state(ifc_params, ifc_layout) if ifc_params else 'IFC Design Studio not opened yet.'}\n\n"
         f"{summarize_explorer_state(explorer_summary, explorer_file_label)}\n\n"
+        f"{summarize_hotel_state(hotel_schematic)}\n\n"
+        f"{summarize_optimizer_state(optimizer_result)}\n\n"
         f"Retrieved knowledge-base context for the latest question:\n{kb_context}"
     )
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT + "\n\n## Current state\n" + context},
         *history,
     ]
-    return llm_groq.call_chat(config.GROQ_MODEL_REASONING, messages)
+    return llm.call_chat(config.LLM_REASONING, messages)
 
 
 def suggest_after_pipeline(state: ProjectState, vs: VectorStore) -> tuple[str, float]:

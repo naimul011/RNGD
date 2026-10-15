@@ -1,6 +1,5 @@
 python-dotenv
-groq
-anthropic
+openai
 numpy
 pandas
 scipy

@@ -22,3 +22,18 @@ RNGDTeamPreparationQuestions.pdf
 
 # real/client IFC files are large and may be confidential - keep local only
 data/ifc_samples/*.ifc
+
+# client data / meeting recordings / transcripts - keep local (NDA, and >100MB)
+docs/General/
+docs/General.zip
+docs/*.m4a
+docs/*.mp4
+docs/*.vtt
+docs/*Chat.txt
+docs/*.loop
+docs/*.xlsx
+docs/*.csv
+*.vtt
+
+# run logs
+*.log
